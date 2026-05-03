@@ -1,0 +1,203 @@
+{
+  "PublicNavbar": {
+    "services": "Services",
+    "features": "Features",
+    "products": "Products",
+    "testimonials": "Testimonials",
+    "about": "About",
+    "blog": "Blog",
+    "services_catalog": "Services",
+    "login": "Login",
+    "register": "Register IKM"
+  },
+  "PublicFooter": {
+    "description": "Innovation and empowerment center for Small and Medium Enterprises (SMEs) through smart manufacturing technology and industrial collaboration.",
+    "services_title": "Our Services",
+    "services": {
+      "advisor": "Advisor Mentoring",
+      "assessment": "Assessment & Scoring",
+      "reservation": "Facility Reservation",
+      "smart_mfg": "Smart Manufacturing"
+    },
+    "company_title": "Company",
+    "company": {
+      "about": "About Us",
+      "partners": "Partners & Collaboration",
+      "blog": "News & Articles",
+      "careers": "Careers"
+    },
+    "contact_title": "Contact Us",
+    "contact": {
+      "address": "Jl. Kanayakan No.21, Dago, Coblong District, Bandung City, West Java 40135",
+      "phone": "+62 22 2500241",
+      "email": "info@polman-bandung.ac.id"
+    },
+    "copyright": "Politeknik Manufaktur Bandung. All rights reserved.",
+    "legal": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
+    }
+  },
+  "HeroSection": {
+    "title_1": "Smart manufacturing",
+    "title_2": "made awesome",
+    "description": "We deliver smart solutions that adapt to your unique operations, boosting efficiency, traceability, and real-time insights.",
+    "explore": "Explore MANGO Platform",
+    "trusted": "Trusted by industry leaders:"
+  },
+  "ProblemSection": {
+    "badge": "Industrial Bottlenecks",
+    "title": "Why is modern tech adoption so difficult?",
+    "description": "Many SMEs lag behind due to the high costs of R&D and the risks of testing unproven technologies on live production lines. MANGO serves as a Living Lab bridge and Smart Manufacturing solution.",
+    "animation_title": "System Vulnerability Analysis",
+    "solve_problem": "Solve This",
+    "items": {
+      "tech_gap": {
+        "title": "Technological Gap",
+        "desc": "Struggling to transition from conventional machines to smart Industry 4.0 systems due to limited expertise."
+      },
+      "isolated": {
+        "title": "Fragmented Systems",
+        "desc": "Machine, warehouse, and shop floor data are disconnected, creating informational silos."
+      },
+      "no_lab": {
+        "title": "High-Risk Experimentation",
+        "desc": "SMEs lack a safe space (Living Lab) to test new technologies without disrupting their daily production."
+      },
+      "inefficiency": {
+        "title": "Limited Scale Inefficiency",
+        "desc": "Managing a limited manufacturing scope often leads to resource waste and suboptimal output."
+      }
+    }
+  },
+  "SolutionSection": {
+    "title_part1": "Manufacturing Advisor and",
+    "title_part2": "Go Up Together",
+    "description": "An integrated digital platform bridging SMEs with Smart Manufacturing technologies. Built by POLMAN Bandung to drive collaboration and minimize technological risks.",
+    "cta_button": "Download Profile"
+  },
+  "CoreFeaturesSection": {
+    "badge": "Our Solutions",
+    "title": "Empowering SMEs with MANGO",
+    "items": {
+      "advisor": {
+        "title": "Advisor Mentoring",
+        "desc": "Direct collaboration with POLMAN Bandung experts to solve manufacturing technology bottlenecks."
+      },
+      "assessment": {
+        "title": "Assessment & Scoring",
+        "desc": "Self-analysis of SME technological and operational readiness with accurate scoring metrics."
+      },
+      "reservation": {
+        "title": "Facility Reservation",
+        "desc": "Access to advanced CNC machines and high-tech manufacturing equipment."
+      },
+      "smart_mfg": {
+        "title": "Smart Manufacturing",
+        "desc": "IoT-based ERP and MES integration for real-time production monitoring and shop-floor efficiency."
+      }
+    }
+  },
+  "ProductCatalogSection": {
+    "title_part1": "We Deliver",
+    "title_part2": "Industrial Solutions",
+    "description": "Access a curated catalog of high-quality products and specialized manufacturing services, engineered directly by our certified SME network.",
+    "card_button": "Full catalog of services",
+    "view_all_button": "Explore All Products",
+    "items": {
+      "prod_1_title": "Smart Automation Systems",
+      "prod_1_desc": "IoT-integrated automatic control modules to enhance real-time industrial machine efficiency and precision.",
+      "prod_2_title": "Precision Spare Parts",
+      "prod_2_desc": "High-accuracy metal component manufacturing using 5-axis CNC machines for heavy industrial needs.",
+      "prod_3_title": "Molding & Dies",
+      "prod_3_desc": "Design and fabrication of high-quality plastic injection molds with advanced material durability."
+    }
+  },
+  "ArticleSection": {
+    "title_part1": "Strategic Industry",
+    "title_part2": "Insights",
+    "description": "Stay ahead of the curve with expert perspectives on industrial IoT, operational efficiency, and tactical scaling strategies for modern SMEs.",
+    "view_all": "Explore All Insights",
+    "read_more": "Read Full Article"
+  },
+  "CTASection": {
+    "title_part1": "Ready to Scale",
+    "title_highlight": "Your Manufacturing",
+    "title_part2": "Business?",
+    "description": "Become a part of the MANGO ecosystem. Get exclusive consultation sessions with expert engineers from POLMAN Bandung, utilize Smart Manufacturing facilities, and let's elevate your industrial competitiveness globally.",
+    "btn_primary": "Schedule Consultation"
+  },
+  "FAQSection": {
+    "title_part1": "Answers For",
+    "title_part2": "Your Business",
+    "description": "Find comprehensive information about the MANGO ecosystem's capabilities and the integrated manufacturing solutions we provide to scale your enterprise.",
+    "items": {
+      "what_is_mango": {
+        "question": "What is the MANGO platform and its primary objective?",
+        "answer": "MANGO is an integrated digital ecosystem initiated by POLMAN Bandung, specifically engineered to accelerate the digital transformation of SMEs through Smart Manufacturing, ERP systems, and Living Lab facilities."
+      },
+      "who_can_join": {
+        "question": "Who is eligible to participate in the MANGO ecosystem?",
+        "answer": "The ecosystem welcomes manufacturing SMEs, industry practitioners, academic researchers, and strategic partners dedicated to enhancing shop-floor efficiency and accelerating technology adoption."
+      },
+      "is_it_free": {
+        "question": "What is the pricing structure for MANGO services?",
+        "answer": "Account registration and initial capability assessments are entirely complimentary. Advanced solutions—such as precision machinery (CNC) reservations and custom IoT integrations—are subject to the official UPT service pricing schemes."
+      },
+      "how_to_reserve": {
+        "question": "What is the procedure for reserving manufacturing facilities?",
+        "answer": "Registered users can navigate to the 'Facility Reservation' module within the MANGO Dashboard. This feature provides real-time visibility into machine availability and enables seamless, automated booking."
+      },
+      "mentoring_support": {
+        "question": "Does MANGO offer technological consultation and mentoring?",
+        "answer": "Absolutely. MANGO offers an 'Advisor Mentoring' program where expert consultants from POLMAN Bandung provide end-to-end guidance—from requirements analysis and system design to the implementation of targeted technological solutions."
+      }
+    }
+  },
+  "RegisterPage": {
+    "title": "Create Account",
+    "subtitle": "Join the <accent>MANGO Ecosystem</accent> today.",
+    "hero_title": "Elevate Your <accent>Manufacturing</accent> Efficiency",
+    "hero_desc": "Experience a new level of industrial growth with our integrated Smart Manufacturing platform.",
+    "name_label": "Full Name",
+    "name_placeholder": "Enter your full name",
+    "email_label": "Email Address",
+    "email_placeholder": "name@company.com",
+    "password_label": "Password",
+    "password_placeholder": "Create a strong password",
+    "password_confirmation_label": "Confirm Password",
+    "password_confirmation_placeholder": "Repeat your password",
+    "profile_picture_label": "Profile Picture (Optional)",
+    "upload_label": "Upload",
+    "submit_button": "Create My Account",
+    "processing": "Creating account...",
+    "already_have_account": "Already have an account?",
+    "login": "Login",
+    "login_link": "Login here",
+    "errors": {
+      "server_error": "Server error occurred. Please try again later.",
+      "network_error": "Network error. Please check your connection.",
+      "email_taken": "This email is already registered.",
+      "nik_taken": "This NIK is already registered.",
+      "avatar_too_large": "Profile picture size must not exceed 2MB.",
+      "name_required": "Full name is required.",
+      "email_required": "Email address is required.",
+      "email_invalid": "Invalid email format.",
+      "password_min_8": "Password must be at least 8 characters.",
+      "password_uppercase": "At least one uppercase letter.",
+      "password_lowercase": "At least one lowercase letter.",
+      "password_number": "At least one number.",
+      "password_special": "At least one special character (e.g., @, $, !).",
+      "password_confirmation_required": "Password confirmation is required.",
+      "password_mismatch": "Passwords do not match.",
+      "nik_invalid_length": "NIK must be exactly 16 digits.",
+      "nik_numeric": "NIK must be numeric.",
+      "dob_required": "Date of birth is required."
+    }
+  },
+  "VerificationSuccessPage": {
+    "title": "Verification Successful!",
+    "description": "Your email has been successfully verified. Your account is now active and ready for the next step.",
+    "continue_button": "Continue to Onboarding"
+  }
+}

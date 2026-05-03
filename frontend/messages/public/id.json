@@ -1,0 +1,209 @@
+{
+  "PublicNavbar": {
+    "services": "Layanan",
+    "features": "Fitur",
+    "products": "Produk",
+    "testimonials": "Testimoni",
+    "about": "Tentang",
+    "blog": "Blog",
+    "services_catalog": "Layanan",
+    "login": "Masuk",
+    "register": "Daftar IKM"
+  },
+"PublicFooter": {
+    "description": "Pusat inovasi dan pemberdayaan Industri Kecil Menengah (IKM) melalui teknologi manufaktur cerdas dan kolaborasi industri.",
+    "services_title": "Layanan Kami",
+    "services": {
+      "advisor": "Pendampingan Advisor",
+      "assessment": "Asesmen & Skoring",
+      "reservation": "Reservasi Fasilitas",
+      "smart_mfg": "Smart Manufacturing"
+    },
+    "company_title": "Perusahaan",
+    "company": {
+      "about": "Tentang Kami",
+      "partners": "Mitra & Kolaborasi",
+      "blog": "Berita & Artikel",
+      "careers": "Karir"
+    },
+    "contact_title": "Hubungi Kami",
+    "contact": {
+      "address": "Jl. Kanayakan No.21, Dago, Kecamatan Coblong, Kota Bandung, Jawa Barat 40135",
+      "phone": "+62 22 2500241",
+      "email": "info@polman-bandung.ac.id"
+    },
+    "copyright": "Politeknik Manufaktur Bandung. All rights reserved.",
+    "legal": {
+      "privacy": "Kebijakan Privasi",
+      "terms": "Syarat Layanan"
+    }
+  },
+  "HeroSection": {
+    "title_1": "Manufaktur cerdas",
+    "title_2": "yang luar biasa",
+    "description": "Kami menghadirkan solusi cerdas yang menyesuaikan dengan operasi unik Anda, meningkatkan efisiensi, keterlacakan, dan wawasan real-time.",
+    "explore": "Eksplorasi Platform MANGO",
+    "trusted": "Dipercaya oleh pemimpin industri:"
+  },
+
+"ProblemSection": {
+    "badge": "Tantangan Industri",
+    "title": "Mengapa adopsi teknologi cerdas terasa sulit?",
+    "description": "Banyak IKM tertinggal karena biaya riset yang tinggi dan risiko uji coba di jalur produksi nyata. MANGO hadir sebagai jembatan Living Lab dan solusi Smart Manufacturing.",
+    "animation_title": "Analisis Kerentanan Sistem",
+    "solve_problem": "Pelajari Solusinya",
+    "items": {
+      "tech_gap": {
+        "title": "Kesenjangan Teknologi",
+        "desc": "Kesulitan beralih dari mesin konvensional ke sistem industri cerdas 4.0 karena keterbatasan keahlian."
+      },
+      "isolated": {
+        "title": "Sistem Terfragmentasi",
+        "desc": "Data mesin, gudang, dan lantai produksi tidak terintegrasi, menciptakan silo informasi."
+      },
+      "no_lab": {
+        "title": "Risiko Uji Coba Tinggi",
+        "desc": "IKM tidak memiliki ruang aman (Living Lab) untuk bereksperimen dengan teknologi baru tanpa mengganggu produksi."
+      },
+      "inefficiency": {
+        "title": "Inefisiensi Skala Terbatas",
+        "desc": "Manajemen ruang lingkup manufaktur yang terbatas sering memicu pemborosan sumber daya dan output tidak optimal."
+      }
+    }
+  },
+
+  "SolutionSection": {
+    "title_part1": "Manufacturing Advisor and",
+    "title_part2": "Go Up Together",
+    "description": "Platform digital terpadu yang menjembatani IKM dengan teknologi Smart Manufacturing. Dibangun oleh POLMAN Bandung untuk mendorong kolaborasi dan meminimalkan risiko adopsi teknologi.",
+    "cta_button": "Download Profil"
+  },
+
+"CoreFeaturesSection": {
+  "badge": "Solusi Kami",
+  "title": "Pemberdayaan IKM bersama MANGO",
+  "items": {
+    "advisor": {
+      "title": "Pendampingan Advisor",
+      "desc": "Kolaborasi langsung dengan tenaga ahli POLMAN Bandung untuk pemecahan masalah teknologi manufaktur."
+    },
+    "assessment": {
+      "title": "Asesmen & Skoring",
+      "desc": "Analisis mandiri kesiapan teknologi dan operasional IKM dengan metrik skor yang akurat."
+    },
+    "reservation": {
+      "title": "Reservasi Fasilitas",
+      "desc": "Akses fasilitas mesin CNC dan peralatan manufaktur canggih."
+    },
+    "smart_mfg": {
+      "title": "Smart Manufacturing",
+      "desc": "Integrasi sistem ERP dan MES berbasis IoT untuk pemantauan produksi real-time dan efisiensi lantai pabrik."
+    }
+  }
+},
+"ProductCatalogSection": {
+   "title_part1": "Kami Menghadirkan",
+    "title_part2": "Solusi Industri",
+    "description": "Akses katalog pilihan berisi produk berkualitas dan layanan manufaktur spesifik, yang direkayasa langsung oleh jaringan IKM tersertifikasi kami.",
+    "card_button": "Katalog Layanan Penuh",
+    "view_all_button": "Jelajahi Semua Produk",
+    "items": {
+      "prod_1_title": "Sistem Otomasi Cerdas",
+      "prod_1_desc": "Modul kendali otomatis terintegrasi IoT untuk meningkatkan efisiensi dan presisi mesin industri secara real-time.",
+      "prod_2_title": "Suku Cadang Presisi",
+      "prod_2_desc": "Pembuatan komponen logam berakurasi tinggi dengan mesin CNC 5-axis untuk kebutuhan manufaktur berat.",
+      "prod_3_title": "Molding & Dies",
+      "prod_3_desc": "Perancangan dan pembuatan cetakan injeksi plastik berkualitas tinggi dengan daya tahan material tingkat lanjut."
+    }
+  },
+
+"ArticleSection": {
+    "title_part1": "Wawasan Strategis",
+    "title_part2": "Industri",
+    "description": "Tetap terdepan dengan perspektif ahli seputar IoT industri, optimasi operasional, dan taktik eskalasi bisnis yang dirancang untuk IKM modern.",
+    "view_all": "Eksplorasi Semua Wawasan",
+    "read_more": "Baca Artikel Lengkap"
+  },
+
+  "CTASection": {
+    "title_part1": "Siap Eskalasi",
+    "title_highlight": "Bisnis Manufaktur",
+    "title_part2": "Anda?",
+    "description": "Jadilah bagian dari ekosistem MANGO. Dapatkan sesi konsultasi eksklusif dengan tim ahli dari POLMAN Bandung, manfaatkan fasilitas Smart Manufacturing, dan mari tingkatkan daya saing industri Anda di kancah global.",
+    "btn_primary": "Jadwalkan Konsultasi"
+  },
+
+"FAQSection": {
+    "title_part1": "Jawaban Untuk",
+    "title_part2": "Bisnis Anda",
+    "description": "Temukan informasi komprehensif mengenai kapabilitas ekosistem MANGO dan solusi manufaktur terpadu yang kami hadirkan untuk eskalasi bisnis Anda.",
+    "items": {
+      "what_is_mango": {
+        "question": "Bagaimana MANGO mendukung ekosistem manufaktur?",
+        "answer": "MANGO merupakan platform digital terintegrasi inisiasi POLMAN Bandung, yang dirancang khusus untuk mengakselerasi transformasi Industri Kecil Menengah (IKM) melalui adopsi teknologi Smart Manufacturing, sistem ERP, dan fasilitas Living Lab."
+      },
+      "who_can_join": {
+        "question": "Siapa saja yang dapat tergabung dalam ekosistem MANGO?",
+        "answer": "Ekosistem ini terbuka secara luas bagi pelaku IKM/UMKM manufaktur, praktisi industri, sivitas akademika, serta mitra strategis yang berfokus pada digitalisasi dan peningkatan efisiensi lantai produksi."
+      },
+      "is_it_free": {
+        "question": "Bagaimana struktur biaya untuk mengakses layanan MANGO?",
+        "answer": "Registrasi akun dan tahap asesmen awal dapat diakses tanpa biaya. Untuk layanan tingkat lanjut—seperti reservasi fasilitas mesin presisi (CNC) dan kustomisasi modul IoT—akan merujuk pada skema tarif resmi Unit Pelaksana Teknis (UPT)."
+      },
+      "how_to_reserve": {
+        "question": "Bagaimana prosedur reservasi fasilitas mesin UPT?",
+        "answer": "Melalui Dashboard Portal MANGO, pengguna terdaftar dapat mengakses modul 'Reservasi Fasilitas' untuk memantau ketersediaan mesin secara real-time dan mengajukan jadwal pemesanan secara terotomatisasi."
+      },
+      "mentoring_support": {
+        "question": "Apakah MANGO menyediakan layanan konsultasi dan pendampingan?",
+        "answer": "Ya, MANGO menghadirkan program 'Advisor Mentoring'. Tim pakar kami dari POLMAN Bandung siap mendampingi mitra IKM secara komprehensif—mulai dari tahap analisis kebutuhan, perancangan sistem, hingga implementasi teknologi di lapangan."
+      }
+    }
+  },
+  "RegisterPage": {
+    "title": "Buat Akun",
+    "subtitle": "Bergabunglah dengan <accent>Ekosistem MANGO</accent> sekarang.",
+    "hero_title": "Tingkatkan Efisiensi <accent>Manufaktur</accent> Anda",
+    "hero_desc": "Rasakan level baru pertumbuhan industri dengan platform Smart Manufacturing terintegrasi kami.",
+    "name_label": "Nama Lengkap",
+    "name_placeholder": "Masukkan nama lengkap Anda",
+    "email_label": "Alamat Email",
+    "email_placeholder": "nama@perusahaan.com",
+    "password_label": "Kata Sandi",
+    "password_placeholder": "Buat kata sandi yang kuat",
+    "password_confirmation_label": "Konfirmasi Kata Sandi",
+    "password_confirmation_placeholder": "Ulangi kata sandi Anda",
+    "profile_picture_label": "Foto profil (opsional)",
+    "upload_label": "Unggah",
+    "submit_button": "Daftar Sekarang",
+    "processing": "Memproses akun...",
+    "already_have_account": "Sudah punya akun?",
+    "login": "Masuk",
+    "login_link": "Masuk di sini",
+    "errors": {
+      "server_error": "Terjadi kesalahan pada server. Silakan coba lagi nanti.",
+      "network_error": "Kesalahan jaringan. Silakan periksa koneksi Anda.",
+      "email_taken": "Email ini sudah terdaftar.",
+      "nik_taken": "NIK ini sudah terdaftar.",
+      "avatar_too_large": "Ukuran foto profil maksimal 2MB.",
+      "name_required": "Nama lengkap wajib diisi.",
+      "email_required": "Alamat email wajib diisi.",
+      "email_invalid": "Format email tidak valid.",
+      "password_min_8": "Kata sandi minimal 8 karakter.",
+      "password_uppercase": "Minimal satu huruf besar.",
+      "password_lowercase": "Minimal satu huruf kecil.",
+      "password_number": "Minimal satu angka.",
+      "password_special": "Minimal satu karakter spesial (contoh: @, $, !).",
+      "password_confirmation_required": "Konfirmasi kata sandi wajib diisi.",
+      "password_mismatch": "Konfirmasi kata sandi tidak cocok.",
+      "nik_invalid_length": "NIK harus berjumlah 16 digit.",
+      "nik_numeric": "NIK harus berupa angka.",
+      "dob_required": "Tanggal lahir wajib diisi."
+    }
+  },
+  "VerificationSuccessPage": {
+    "title": "Verifikasi Berhasil!",
+    "description": "Email Anda telah berhasil diverifikasi. Akun Anda kini aktif dan siap untuk tahap selanjutnya.",
+    "continue_button": "Lanjutkan ke Onboarding"
+  }
+}
