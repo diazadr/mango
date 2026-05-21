@@ -1,0 +1,4827 @@
+[
+  {
+    "file": "features/admin-campus/views/AdminCampusTechnicalProfileView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 191,
+        "text": "Hapus data mesin ini?",
+        "type": "alert/confirm"
+      },
+      {
+        "line": 266,
+        "text": "Profil Permesinan Institusi",
+        "type": "prop: title"
+      },
+      {
+        "line": 267,
+        "text": "Pusat manajemen aset permesinan institusi dan pengaturan layanan reservasi.",
+        "type": "prop: title"
+      },
+      {
+        "line": 267,
+        "text": "Pusat manajemen aset permesinan institusi dan pengaturan layanan reservasi.",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 299,
+        "text": "Daftar Permesinan",
+        "type": "JSX text"
+      },
+      {
+        "line": 317,
+        "text": "Cari nama, kode, merk, lokasi...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 324,
+        "text": "Kondisi",
+        "type": "prop: label"
+      },
+      {
+        "line": 330,
+        "text": "Layanan",
+        "type": "prop: label"
+      },
+      {
+        "line": 349,
+        "text": "Memuat data mesin...",
+        "type": "prop: message"
+      },
+      {
+        "line": 355,
+        "text": "Mesin",
+        "type": "JSX text"
+      },
+      {
+        "line": 356,
+        "text": "Kode",
+        "type": "prop: label"
+      },
+      {
+        "line": 357,
+        "text": "Merk/Tipe",
+        "type": "prop: label"
+      },
+      {
+        "line": 358,
+        "text": "Lokasi",
+        "type": "prop: label"
+      },
+      {
+        "line": 359,
+        "text": "Qty",
+        "type": "JSX text"
+      },
+      {
+        "line": 360,
+        "text": "Kondisi",
+        "type": "prop: label"
+      },
+      {
+        "line": 361,
+        "text": "Layanan",
+        "type": "JSX text"
+      },
+      {
+        "line": 362,
+        "text": "Tarif/Jam",
+        "type": "prop: label"
+      },
+      {
+        "line": 363,
+        "text": "Ketersediaan",
+        "type": "JSX text"
+      },
+      {
+        "line": 364,
+        "text": "Aksi",
+        "type": "JSX text"
+      },
+      {
+        "line": 373,
+        "text": "Tidak ada mesin ditemukan",
+        "type": "prop: title"
+      },
+      {
+        "line": 374,
+        "text": "Tambah mesin baru atau ubah filter pencarian.",
+        "type": "prop: description"
+      },
+      {
+        "line": 473,
+        "text": "Edit",
+        "type": "prop: title"
+      },
+      {
+        "line": 476,
+        "text": "Hapus",
+        "type": "prop: title"
+      },
+      {
+        "line": 508,
+        "text": "Foto Mesin",
+        "type": "JSX text"
+      },
+      {
+        "line": 525,
+        "text": "Klik untuk unggah foto",
+        "type": "JSX text"
+      },
+      {
+        "line": 526,
+        "text": "JPG, PNG, WEBP — maks. 2MB",
+        "type": "JSX text"
+      },
+      {
+        "line": 536,
+        "text": "Nama Mesin",
+        "type": "JSX text"
+      },
+      {
+        "line": 537,
+        "text": "CNC Makino",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 540,
+        "text": "Kode / ID",
+        "type": "JSX text"
+      },
+      {
+        "line": 548,
+        "text": "Merk",
+        "type": "JSX text"
+      },
+      {
+        "line": 549,
+        "text": "DMG Mori",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 552,
+        "text": "Tipe / Model",
+        "type": "JSX text"
+      },
+      {
+        "line": 553,
+        "text": "Horizontal Milling",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 560,
+        "text": "Jumlah Unit",
+        "type": "JSX text"
+      },
+      {
+        "line": 564,
+        "text": "Kondisi",
+        "type": "JSX text"
+      },
+      {
+        "line": 568,
+        "text": "Baik / Layak Pakai",
+        "type": "JSX text"
+      },
+      {
+        "line": 569,
+        "text": "Butuh Perbaikan Ringan",
+        "type": "JSX text"
+      },
+      {
+        "line": 570,
+        "text": "Rusak / Tidak Jalan",
+        "type": "JSX text"
+      },
+      {
+        "line": 579,
+        "text": "Lokasi Workshop",
+        "type": "JSX text"
+      },
+      {
+        "line": 580,
+        "text": "Workshop A - Lantai 1",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 583,
+        "text": "Catatan Internal",
+        "type": "JSX text"
+      },
+      {
+        "line": 584,
+        "text": "Perlu kalibrasi rutin...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 594,
+        "text": "Mesin terhubung ke sensor atau platform IoT.",
+        "type": "JSX text"
+      },
+      {
+        "line": 606,
+        "text": "Status Reservasi",
+        "type": "JSX text"
+      },
+      {
+        "line": 607,
+        "text": "Aktifkan agar mesin tampil di katalog publik.",
+        "type": "JSX text"
+      },
+      {
+        "line": 614,
+        "text": "Biaya Sewa per Jam",
+        "type": "JSX text"
+      },
+      {
+        "line": 627,
+        "text": "Ketersediaan",
+        "type": "JSX text"
+      },
+      {
+        "line": 631,
+        "text": "Tersedia untuk Reservasi",
+        "type": "JSX text"
+      },
+      {
+        "line": 632,
+        "text": "Sedang Penuh / Dipakai",
+        "type": "JSX text"
+      },
+      {
+        "line": 633,
+        "text": "Maintenance / Perbaikan",
+        "type": "JSX text"
+      },
+      {
+        "line": 640,
+        "text": "Deskripsi & Spesifikasi Layanan",
+        "type": "JSX text"
+      },
+      {
+        "line": 641,
+        "text": "Jelaskan spesifikasi atau ketentuan reservasi...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 653,
+        "text": "Simpan Data Mesin",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/umkm-profile/views/TechnicalProfileView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 192,
+        "text": "Hapus data mesin ini?",
+        "type": "alert/confirm"
+      },
+      {
+        "line": 268,
+        "text": "Profil Permesinan Industri",
+        "type": "prop: title"
+      },
+      {
+        "line": 269,
+        "text": "Pusat manajemen aset permesinan dan pengaturan layanan reservasi.",
+        "type": "prop: title"
+      },
+      {
+        "line": 269,
+        "text": "Pusat manajemen aset permesinan dan pengaturan layanan reservasi.",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 309,
+        "text": "Daftar Permesinan",
+        "type": "JSX text"
+      },
+      {
+        "line": 327,
+        "text": "Cari nama, kode, merk, lokasi...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 334,
+        "text": "Kondisi",
+        "type": "prop: label"
+      },
+      {
+        "line": 340,
+        "text": "Layanan",
+        "type": "prop: label"
+      },
+      {
+        "line": 359,
+        "text": "Memuat data mesin...",
+        "type": "prop: message"
+      },
+      {
+        "line": 366,
+        "text": "Mesin",
+        "type": "JSX text"
+      },
+      {
+        "line": 367,
+        "text": "Kode",
+        "type": "prop: label"
+      },
+      {
+        "line": 368,
+        "text": "Merk / Tipe",
+        "type": "prop: label"
+      },
+      {
+        "line": 369,
+        "text": "Lokasi",
+        "type": "prop: label"
+      },
+      {
+        "line": 370,
+        "text": "Qty",
+        "type": "JSX text"
+      },
+      {
+        "line": 371,
+        "text": "Kondisi",
+        "type": "prop: label"
+      },
+      {
+        "line": 372,
+        "text": "Layanan",
+        "type": "JSX text"
+      },
+      {
+        "line": 373,
+        "text": "Tarif/Jam",
+        "type": "prop: label"
+      },
+      {
+        "line": 374,
+        "text": "Ketersediaan",
+        "type": "JSX text"
+      },
+      {
+        "line": 375,
+        "text": "Aksi",
+        "type": "JSX text"
+      },
+      {
+        "line": 384,
+        "text": "Tidak ada mesin ditemukan",
+        "type": "prop: title"
+      },
+      {
+        "line": 385,
+        "text": "Tambah mesin baru atau ubah filter pencarian.",
+        "type": "prop: description"
+      },
+      {
+        "line": 510,
+        "text": "Edit",
+        "type": "prop: title"
+      },
+      {
+        "line": 517,
+        "text": "Hapus",
+        "type": "prop: title"
+      },
+      {
+        "line": 553,
+        "text": "Foto Mesin",
+        "type": "JSX text"
+      },
+      {
+        "line": 576,
+        "text": "Klik untuk unggah foto",
+        "type": "JSX text"
+      },
+      {
+        "line": 577,
+        "text": "JPG, PNG, WEBP — maks. 2MB",
+        "type": "JSX text"
+      },
+      {
+        "line": 593,
+        "text": "Nama Mesin",
+        "type": "JSX text"
+      },
+      {
+        "line": 597,
+        "text": "CNC Makino",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 603,
+        "text": "Kode / ID",
+        "type": "JSX text"
+      },
+      {
+        "line": 616,
+        "text": "Merk",
+        "type": "JSX text"
+      },
+      {
+        "line": 620,
+        "text": "DMG Mori",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 625,
+        "text": "Tipe / Model",
+        "type": "JSX text"
+      },
+      {
+        "line": 629,
+        "text": "Horizontal Milling",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 638,
+        "text": "Jumlah Unit",
+        "type": "JSX text"
+      },
+      {
+        "line": 648,
+        "text": "Kondisi",
+        "type": "JSX text"
+      },
+      {
+        "line": 654,
+        "text": "Baik / Layak Pakai",
+        "type": "JSX text"
+      },
+      {
+        "line": 655,
+        "text": "Butuh Perbaikan Ringan",
+        "type": "JSX text"
+      },
+      {
+        "line": 656,
+        "text": "Rusak / Tidak Jalan",
+        "type": "JSX text"
+      },
+      {
+        "line": 665,
+        "text": "Lokasi Workshop",
+        "type": "JSX text"
+      },
+      {
+        "line": 669,
+        "text": "Workshop A - Lantai 1",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 674,
+        "text": "Catatan Internal",
+        "type": "JSX text"
+      },
+      {
+        "line": 678,
+        "text": "Perlu kalibrasi rutin...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 690,
+        "text": "Mesin terhubung ke sensor atau platform IoT.",
+        "type": "JSX text"
+      },
+      {
+        "line": 708,
+        "text": "Status Reservasi",
+        "type": "JSX text"
+      },
+      {
+        "line": 709,
+        "text": "Aktifkan agar mesin tampil di katalog publik.",
+        "type": "JSX text"
+      },
+      {
+        "line": 721,
+        "text": "Biaya Sewa per Jam",
+        "type": "JSX text"
+      },
+      {
+        "line": 734,
+        "text": "Ketersediaan",
+        "type": "JSX text"
+      },
+      {
+        "line": 740,
+        "text": "Tersedia untuk Reservasi",
+        "type": "JSX text"
+      },
+      {
+        "line": 741,
+        "text": "Sedang Penuh / Dipakai",
+        "type": "JSX text"
+      },
+      {
+        "line": 742,
+        "text": "Maintenance / Perbaikan",
+        "type": "JSX text"
+      },
+      {
+        "line": 749,
+        "text": "Deskripsi & Spesifikasi Layanan",
+        "type": "JSX text"
+      },
+      {
+        "line": 754,
+        "text": "Jelaskan spesifikasi atau ketentuan reservasi...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 776,
+        "text": "Simpan Data Mesin",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/mentoring/views/AdvisorMentoringDetailView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 220,
+        "text": "Selesaikan permintaan mentoring ini?",
+        "type": "alert/confirm"
+      },
+      {
+        "line": 269,
+        "text": "Data tidak ditemukan.",
+        "type": "JSX text"
+      },
+      {
+        "line": 276,
+        "text": "Sesi Mentoring",
+        "type": "prop: title"
+      },
+      {
+        "line": 320,
+        "text": "Topik",
+        "type": "prop: label"
+      },
+      {
+        "line": 321,
+        "text": "Deskripsi Masalah",
+        "type": "prop: label"
+      },
+      {
+        "line": 457,
+        "text": "Belum ada catatan untuk sesi ini.",
+        "type": "JSX text"
+      },
+      {
+        "line": 463,
+        "text": "Tambah Catatan Baru",
+        "type": "JSX text"
+      },
+      {
+        "line": 465,
+        "text": "Tuliskan catatan perkembangan, hasil diskusi, atau tindak lanjut...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 579,
+        "text": "Proyek Aktif",
+        "type": "JSX text"
+      },
+      {
+        "line": 601,
+        "text": "Belum ada proyek.",
+        "type": "JSX text"
+      },
+      {
+        "line": 619,
+        "text": "Perbandingan hasil assessment sebelum dan sesudah pendampingan",
+        "type": "JSX text"
+      },
+      {
+        "line": 636,
+        "text": "Perubahan Skor",
+        "type": "JSX text"
+      },
+      {
+        "line": 672,
+        "text": "Kategori yang mendapatkan skor tambahan dari sesi pendampingan ini:",
+        "type": "JSX text"
+      },
+      {
+        "line": 686,
+        "text": "Belum ada riwayat perbaikan kategori yang tercatat pada pendampingan ini.",
+        "type": "JSX text"
+      },
+      {
+        "line": 733,
+        "text": "Durasi (Menit)",
+        "type": "JSX text"
+      },
+      {
+        "line": 744,
+        "text": "Media",
+        "type": "JSX text"
+      },
+      {
+        "line": 753,
+        "text": "Online (Video Call)",
+        "type": "JSX text"
+      },
+      {
+        "line": 754,
+        "text": "Offline (Tatap Muka)",
+        "type": "JSX text"
+      },
+      {
+        "line": 763,
+        "text": "Link Meeting",
+        "type": "JSX text"
+      },
+      {
+        "line": 773,
+        "text": "Lokasi Pertemuan",
+        "type": "JSX text"
+      },
+      {
+        "line": 775,
+        "text": "Ruang Rapat Lantai 2...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 817,
+        "text": "Inisiasi Proyek Pendampingan",
+        "type": "JSX text"
+      },
+      {
+        "line": 828,
+        "text": "Nama Proyek",
+        "type": "JSX text"
+      },
+      {
+        "line": 829,
+        "text": "Contoh: Digitalisasi Pembukuan",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 832,
+        "text": "Tipe Proyek",
+        "type": "JSX text"
+      },
+      {
+        "line": 836,
+        "text": "Advisory (Konsultasi)",
+        "type": "JSX text"
+      },
+      {
+        "line": 837,
+        "text": "Training (Pelatihan)",
+        "type": "JSX text"
+      },
+      {
+        "line": 843,
+        "text": "Tanggal Mulai",
+        "type": "JSX text"
+      },
+      {
+        "line": 847,
+        "text": "Target Selesai",
+        "type": "JSX text"
+      },
+      {
+        "line": 853,
+        "text": "Batal",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/onboarding/components/CompanyForm.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 17,
+        "text": "Promise",
+        "type": "JSX text"
+      },
+      {
+        "line": 175,
+        "text": "Data belum lengkap",
+        "type": "JSX text"
+      },
+      {
+        "line": 184,
+        "text": "Identitas Usaha",
+        "type": "JSX text"
+      },
+      {
+        "line": 193,
+        "text": "Logo",
+        "type": "prop: alt"
+      },
+      {
+        "line": 243,
+        "text": "Dokumen Legalitas",
+        "type": "JSX text"
+      },
+      {
+        "line": 247,
+        "text": "Unggah Dokumen NIB",
+        "type": "JSX text"
+      },
+      {
+        "line": 276,
+        "text": "Lokasi & Operasional",
+        "type": "JSX text"
+      },
+      {
+        "line": 311,
+        "text": "Kecamatan",
+        "type": "JSX text"
+      },
+      {
+        "line": 323,
+        "text": "Kelurahan / Desa",
+        "type": "JSX text"
+      },
+      {
+        "line": 335,
+        "text": "Kode Pos",
+        "type": "JSX text"
+      },
+      {
+        "line": 336,
+        "text": "Contoh: 40123",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 356,
+        "text": "Industri Makanan & Minuman",
+        "type": "JSX text"
+      },
+      {
+        "line": 357,
+        "text": "Industri Tekstil & Konveksi",
+        "type": "JSX text"
+      },
+      {
+        "line": 358,
+        "text": "Industri Produk Kulit & Alas Kaki",
+        "type": "JSX text"
+      },
+      {
+        "line": 359,
+        "text": "Industri Pengolahan Kayu & Furniture",
+        "type": "JSX text"
+      },
+      {
+        "line": 360,
+        "text": "Industri Logam, Mesin & Elektronik",
+        "type": "JSX text"
+      },
+      {
+        "line": 361,
+        "text": "Industri Kimia, Farmasi & Kosmetik",
+        "type": "JSX text"
+      },
+      {
+        "line": 362,
+        "text": "Industri Kerajinan & Barang Seni",
+        "type": "JSX text"
+      },
+      {
+        "line": 363,
+        "text": "Industri Teknologi Informasi (Software/IT)",
+        "type": "JSX text"
+      },
+      {
+        "line": 364,
+        "text": "Lainnya (Sebutkan...)",
+        "type": "JSX text"
+      },
+      {
+        "line": 374,
+        "text": "Sektor Spesifik",
+        "type": "JSX text"
+      },
+      {
+        "line": 377,
+        "text": "Sebutkan sektor industri Anda secara spesifik...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 386,
+        "text": "Nomor Induk Berusaha (NIB)",
+        "type": "JSX text"
+      },
+      {
+        "line": 387,
+        "text": "Masukkan NIB",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 392,
+        "text": "Tahun Berdiri",
+        "type": "JSX text"
+      },
+      {
+        "line": 398,
+        "text": "Tahun",
+        "type": "JSX text"
+      },
+      {
+        "line": 407,
+        "text": "Jumlah Karyawan",
+        "type": "JSX text"
+      },
+      {
+        "line": 408,
+        "text": "Contoh: 5",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 413,
+        "text": "Afiliasi Organisasi (Jika Ada)",
+        "type": "JSX text"
+      },
+      {
+        "line": 420,
+        "text": "Pilih organisasi atau paguyuban jika Anda merupakan bagian dari kelompok tersebut.",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/mentoring/views/MentoringView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 68,
+        "text": "Memuat data pendampingan...",
+        "type": "prop: message"
+      },
+      {
+        "line": 75,
+        "text": "Belum ada pendampingan",
+        "type": "prop: title"
+      },
+      {
+        "line": 76,
+        "text": "Ajukan permintaan pendampingan untuk mendapatkan advisor yang membantu mengembangkan UMKM Anda.",
+        "type": "prop: description"
+      },
+      {
+        "line": 107,
+        "text": "Topik Pendampingan",
+        "type": "JSX text"
+      },
+      {
+        "line": 116,
+        "text": "Pendamping (Advisor)",
+        "type": "JSX text"
+      },
+      {
+        "line": 137,
+        "text": "Menunggu penugasan advisor oleh admin",
+        "type": "JSX text"
+      },
+      {
+        "line": 146,
+        "text": "Departemen:",
+        "type": "JSX text"
+      },
+      {
+        "line": 152,
+        "text": "Sesi Pendampingan",
+        "type": "JSX text"
+      },
+      {
+        "line": 176,
+        "text": "Belum ada sesi terjadwal.",
+        "type": "JSX text"
+      },
+      {
+        "line": 198,
+        "text": "Riwayat Pendampingan",
+        "type": "JSX text"
+      },
+      {
+        "line": 313,
+        "text": "Pendampingan Saya",
+        "type": "prop: title"
+      },
+      {
+        "line": 314,
+        "text": "Pantau perkembangan pendampingan dan advisor yang ditugaskan untuk UMKM Anda.",
+        "type": "prop: title"
+      },
+      {
+        "line": 314,
+        "text": "Pantau perkembangan pendampingan dan advisor yang ditugaskan untuk UMKM Anda.",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 349,
+        "text": "Delegasi Mentoring",
+        "type": "prop: title"
+      },
+      {
+        "line": 350,
+        "text": "Pusat pengelolaan bantuan dan penugasan advisor.",
+        "type": "prop: title"
+      },
+      {
+        "line": 350,
+        "text": "Pusat pengelolaan bantuan dan penugasan advisor.",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 360,
+        "text": "Cari mentoring...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 370,
+        "text": "Filter Departemen",
+        "type": "prop: label"
+      },
+      {
+        "line": 394,
+        "text": "Memuat data...",
+        "type": "prop: message"
+      },
+      {
+        "line": 398,
+        "text": "Tidak ada data mentoring",
+        "type": "prop: title"
+      },
+      {
+        "line": 399,
+        "text": "Belum ada data mentoring tersedia.",
+        "type": "prop: description"
+      },
+      {
+        "line": 407,
+        "text": "Topik",
+        "type": "prop: label"
+      },
+      {
+        "line": 408,
+        "text": "Departemen",
+        "type": "JSX text"
+      },
+      {
+        "line": 409,
+        "text": "Mentor",
+        "type": "JSX text"
+      },
+      {
+        "line": 410,
+        "text": "Progres",
+        "type": "JSX text"
+      },
+      {
+        "line": 411,
+        "text": "Status",
+        "type": "JSX text"
+      },
+      {
+        "line": 412,
+        "text": "Aksi",
+        "type": "JSX text"
+      },
+      {
+        "line": 472,
+        "text": "Lihat Progres",
+        "type": "prop: title"
+      },
+      {
+        "line": 485,
+        "text": "Kelola",
+        "type": "prop: title"
+      }
+    ]
+  },
+  {
+    "file": "features/manufacturing/views/ReservationApprovalDetailView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 183,
+        "text": "Memuat Transaksi...",
+        "type": "JSX text"
+      },
+      {
+        "line": 195,
+        "text": "Kembali",
+        "type": "JSX text"
+      },
+      {
+        "line": 198,
+        "text": "Penyedia",
+        "type": "JSX text"
+      },
+      {
+        "line": 198,
+        "text": "Penyewa",
+        "type": "JSX text"
+      },
+      {
+        "line": 216,
+        "text": "Negosiasi & Persetujuan",
+        "type": "JSX text"
+      },
+      {
+        "line": 217,
+        "text": "Komunikasi harga antara penyewa dan penyedia.",
+        "type": "JSX text"
+      },
+      {
+        "line": 231,
+        "text": "Harga Awal (Sistem)",
+        "type": "JSX text"
+      },
+      {
+        "line": 285,
+        "text": "Titik Kesepakatan",
+        "type": "JSX text"
+      },
+      {
+        "line": 286,
+        "text": "Harga akhir telah disetujui oleh kedua belah pihak.",
+        "type": "JSX text"
+      },
+      {
+        "line": 301,
+        "text": "Harga Aktif Saat Ini",
+        "type": "JSX text"
+      },
+      {
+        "line": 314,
+        "text": "Menunggu respon dari pihak lawan atas penawaran Anda.",
+        "type": "JSX text"
+      },
+      {
+        "line": 318,
+        "text": "Terima Harga",
+        "type": "JSX text"
+      },
+      {
+        "line": 319,
+        "text": "Tolak",
+        "type": "JSX text"
+      },
+      {
+        "line": 323,
+        "text": "Balas Penawaran",
+        "type": "JSX text"
+      },
+      {
+        "line": 331,
+        "text": "Setujui Reservasi",
+        "type": "JSX text"
+      },
+      {
+        "line": 335,
+        "text": "Ajukan Negosiasi",
+        "type": "JSX text"
+      },
+      {
+        "line": 336,
+        "text": "Tolak Reservasi",
+        "type": "JSX text"
+      },
+      {
+        "line": 352,
+        "text": "Detail Pelaksanaan",
+        "type": "JSX text"
+      },
+      {
+        "line": 359,
+        "text": "Waktu Mulai",
+        "type": "JSX text"
+      },
+      {
+        "line": 366,
+        "text": "Waktu Selesai",
+        "type": "JSX text"
+      },
+      {
+        "line": 372,
+        "text": "Keperluan Produksi",
+        "type": "JSX text"
+      },
+      {
+        "line": 427,
+        "text": "UMKM PENYEWA",
+        "type": "JSX text"
+      },
+      {
+        "line": 454,
+        "text": "Ajukan Penawaran Harga",
+        "type": "JSX text"
+      },
+      {
+        "line": 455,
+        "text": "Beri tahu pihak lawan harga yang Anda inginkan.",
+        "type": "JSX text"
+      },
+      {
+        "line": 459,
+        "text": "Harga Penawaran Baru",
+        "type": "JSX text"
+      },
+      {
+        "line": 475,
+        "text": "Catatan Tambahan",
+        "type": "JSX text"
+      },
+      {
+        "line": 477,
+        "text": "Jelaskan alasan atau penawaran Anda...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 485,
+        "text": "Batal",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/manufacturing/views/InventoryView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 92,
+        "text": "Inventaris Material",
+        "type": "JSX text"
+      },
+      {
+        "line": 93,
+        "text": "Kelola stok bahan baku dan pergerakan material",
+        "type": "JSX text"
+      },
+      {
+        "line": 95,
+        "text": "Tambah Material",
+        "type": "JSX text"
+      },
+      {
+        "line": 104,
+        "text": "Stok di bawah batas minimum. Segera lakukan pengadaan.",
+        "type": "JSX text"
+      },
+      {
+        "line": 118,
+        "text": "Total Material",
+        "type": "JSX text"
+      },
+      {
+        "line": 124,
+        "text": "Stok Kritis",
+        "type": "JSX text"
+      },
+      {
+        "line": 130,
+        "text": "Stok Aman",
+        "type": "JSX text"
+      },
+      {
+        "line": 136,
+        "text": "Filter Aktif",
+        "type": "JSX text"
+      },
+      {
+        "line": 155,
+        "text": "Memuat...",
+        "type": "JSX text"
+      },
+      {
+        "line": 160,
+        "text": "Belum ada material. Tambahkan material pertama.",
+        "type": "JSX text"
+      },
+      {
+        "line": 223,
+        "text": "Tambah Material",
+        "type": "JSX text"
+      },
+      {
+        "line": 226,
+        "text": "Nama Material *",
+        "type": "JSX text"
+      },
+      {
+        "line": 227,
+        "text": "cth: Besi Plat 2mm",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 233,
+        "text": "Satuan",
+        "type": "JSX text"
+      },
+      {
+        "line": 238,
+        "text": "Stok Awal",
+        "type": "JSX text"
+      },
+      {
+        "line": 241,
+        "text": "Min. Stok (Alert)",
+        "type": "JSX text"
+      },
+      {
+        "line": 245,
+        "text": "Lokasi Penyimpanan",
+        "type": "JSX text"
+      },
+      {
+        "line": 246,
+        "text": "cth: Rak A-3",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 249,
+        "text": "Foto Material",
+        "type": "JSX text"
+      },
+      {
+        "line": 259,
+        "text": "Batal",
+        "type": "JSX text"
+      },
+      {
+        "line": 274,
+        "text": "Stok saat ini:",
+        "type": "JSX text"
+      },
+      {
+        "line": 277,
+        "text": "Jenis Pergerakan *",
+        "type": "JSX text"
+      },
+      {
+        "line": 291,
+        "text": "Jumlah *",
+        "type": "JSX text"
+      },
+      {
+        "line": 295,
+        "text": "Referensi (No. PO / WO)",
+        "type": "JSX text"
+      },
+      {
+        "line": 296,
+        "text": "cth: WO-2024-001",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 298,
+        "text": "Catatan",
+        "type": "JSX text"
+      },
+      {
+        "line": 302,
+        "text": "Batal",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/manufacturing/views/MachinesView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 115,
+        "text": "Apakah Anda yakin ingin menghapus mesin ini?",
+        "type": "alert/confirm"
+      },
+      {
+        "line": 191,
+        "text": "Menyiapkan katalog mesin...",
+        "type": "JSX text"
+      },
+      {
+        "line": 197,
+        "text": "Katalog Mesin Reservasi",
+        "type": "prop: title"
+      },
+      {
+        "line": 198,
+        "text": "Kelola aset mesin produksi yang dapat direservasi oleh mitra industri.",
+        "type": "prop: title"
+      },
+      {
+        "line": 198,
+        "text": "Kelola aset mesin produksi yang dapat direservasi oleh mitra industri.",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 225,
+        "text": "Belum ada mesin reservasi di katalog Anda.",
+        "type": "JSX text"
+      },
+      {
+        "line": 226,
+        "text": "Mulai tambah mesin",
+        "type": "JSX text"
+      },
+      {
+        "line": 308,
+        "text": "Foto Mesin",
+        "type": "JSX text"
+      },
+      {
+        "line": 327,
+        "text": "Klik untuk unggah foto",
+        "type": "JSX text"
+      },
+      {
+        "line": 342,
+        "text": "Nama Mesin",
+        "type": "JSX text"
+      },
+      {
+        "line": 346,
+        "text": "Contoh: CNC Milling Haas 3-Axis",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 353,
+        "text": "Kode Mesin",
+        "type": "JSX text"
+      },
+      {
+        "line": 364,
+        "text": "Status",
+        "type": "JSX text"
+      },
+      {
+        "line": 370,
+        "text": "Tersedia",
+        "type": "JSX text"
+      },
+      {
+        "line": 371,
+        "text": "Sedang Dipakai",
+        "type": "JSX text"
+      },
+      {
+        "line": 372,
+        "text": "Maintenance",
+        "type": "JSX text"
+      },
+      {
+        "line": 378,
+        "text": "Brand / Merk",
+        "type": "JSX text"
+      },
+      {
+        "line": 382,
+        "text": "Haas",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 388,
+        "text": "Tipe Alat",
+        "type": "JSX text"
+      },
+      {
+        "line": 395,
+        "text": "Laser Cutting",
+        "type": "JSX text"
+      },
+      {
+        "line": 397,
+        "text": "Bubut",
+        "type": "JSX text"
+      },
+      {
+        "line": 398,
+        "text": "Lainnya",
+        "type": "JSX text"
+      },
+      {
+        "line": 404,
+        "text": "Sewa / Jam (Rp)",
+        "type": "JSX text"
+      },
+      {
+        "line": 416,
+        "text": "Lokasi",
+        "type": "JSX text"
+      },
+      {
+        "line": 420,
+        "text": "Lab Produksi",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 426,
+        "text": "Deskripsi Spesifikasi",
+        "type": "JSX text"
+      },
+      {
+        "line": 430,
+        "text": "Contoh: Akurasi 0.01mm, Travel X: 500mm...",
+        "type": "prop: placeholder"
+      }
+    ]
+  },
+  {
+    "file": "features/mentoring/views/ProjectDetailView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 162,
+        "text": "Hapus tahapan ini beserta semua tugasnya?",
+        "type": "alert/confirm"
+      },
+      {
+        "line": 233,
+        "text": "Memuat detail proyek...",
+        "type": "prop: message"
+      },
+      {
+        "line": 240,
+        "text": "Proyek Tidak Ditemukan",
+        "type": "prop: title"
+      },
+      {
+        "line": 240,
+        "text": "Error 404",
+        "type": "prop: title"
+      },
+      {
+        "line": 240,
+        "text": "Error 404",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 243,
+        "text": "Proyek tidak ditemukan",
+        "type": "prop: title"
+      },
+      {
+        "line": 244,
+        "text": "Proyek tidak ditemukan atau Anda tidak memiliki izin akses.",
+        "type": "prop: description"
+      },
+      {
+        "line": 356,
+        "text": "Belum ada tahapan",
+        "type": "prop: title"
+      },
+      {
+        "line": 357,
+        "text": "Belum ada tahapan aksi dalam proyek ini.",
+        "type": "prop: description"
+      },
+      {
+        "line": 392,
+        "text": "Tambah tugas",
+        "type": "prop: title"
+      },
+      {
+        "line": 404,
+        "text": "Edit tahapan",
+        "type": "prop: title"
+      },
+      {
+        "line": 417,
+        "text": "Hapus tahapan",
+        "type": "prop: title"
+      },
+      {
+        "line": 629,
+        "text": "Nama Tahapan",
+        "type": "JSX text"
+      },
+      {
+        "line": 633,
+        "text": "Contoh: Analisis Kebutuhan",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 661,
+        "text": "Tambah Tugas Baru",
+        "type": "JSX text"
+      },
+      {
+        "line": 671,
+        "text": "Judul Tugas",
+        "type": "JSX text"
+      },
+      {
+        "line": 675,
+        "text": "Apa yang perlu dilakukan?",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 681,
+        "text": "Deskripsi (Opsional)",
+        "type": "JSX text"
+      },
+      {
+        "line": 689,
+        "text": "Tenggat Waktu",
+        "type": "JSX text"
+      },
+      {
+        "line": 720,
+        "text": "Kirim Laporan Tugas",
+        "type": "JSX text"
+      },
+      {
+        "line": 730,
+        "text": "Judul Laporan",
+        "type": "JSX text"
+      },
+      {
+        "line": 734,
+        "text": "Contoh: Laporan Survey Pasar",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 740,
+        "text": "Deskripsi Singkat",
+        "type": "JSX text"
+      },
+      {
+        "line": 748,
+        "text": "Unggah File (PDF/Gambar)",
+        "type": "JSX text"
+      },
+      {
+        "line": 756,
+        "text": "Atau Link Eksternal",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/documents/views/DocumentUmkmView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 47,
+        "text": "Dokumen tidak ditemukan.",
+        "type": "JSX text"
+      },
+      {
+        "line": 66,
+        "text": "Resume Bisnis",
+        "type": "JSX text"
+      },
+      {
+        "line": 67,
+        "text": "Sistem Informasi MANGO",
+        "type": "JSX text"
+      },
+      {
+        "line": 94,
+        "text": "Logo",
+        "type": "prop: alt"
+      },
+      {
+        "line": 108,
+        "text": "Dokumen Resmi",
+        "type": "JSX text"
+      },
+      {
+        "line": 109,
+        "text": "MANGO ECOSYSTEM",
+        "type": "JSX text"
+      },
+      {
+        "line": 112,
+        "text": "QR Code",
+        "type": "prop: alt"
+      },
+      {
+        "line": 124,
+        "text": "Informasi Umum",
+        "type": "JSX text"
+      },
+      {
+        "line": 136,
+        "text": "Sektor Usaha",
+        "type": "JSX text"
+      },
+      {
+        "line": 140,
+        "text": "Tahun Berdiri",
+        "type": "JSX text"
+      },
+      {
+        "line": 144,
+        "text": "Jml Karyawan",
+        "type": "JSX text"
+      },
+      {
+        "line": 152,
+        "text": "Asal Organisasi / Pembina",
+        "type": "JSX text"
+      },
+      {
+        "line": 159,
+        "text": "Profil Strategis",
+        "type": "JSX text"
+      },
+      {
+        "line": 162,
+        "text": "Produk Unggulan",
+        "type": "JSX text"
+      },
+      {
+        "line": 166,
+        "text": "Target Pasar",
+        "type": "JSX text"
+      },
+      {
+        "line": 170,
+        "text": "Deskripsi Usaha",
+        "type": "JSX text"
+      },
+      {
+        "line": 179,
+        "text": "Visi Bisnis",
+        "type": "JSX text"
+      },
+      {
+        "line": 183,
+        "text": "Misi Bisnis",
+        "type": "JSX text"
+      },
+      {
+        "line": 190,
+        "text": "Informasi Operasional",
+        "type": "JSX text"
+      },
+      {
+        "line": 192,
+        "text": "Alur Produksi (Workflow)",
+        "type": "JSX text"
+      },
+      {
+        "line": 202,
+        "text": "ID Dokumen:",
+        "type": "JSX text"
+      },
+      {
+        "line": 203,
+        "text": "Generated by",
+        "type": "JSX text"
+      },
+      {
+        "line": 203,
+        "text": "MANGO Industrial Platform",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/manufacturing/views/DowntimeView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 97,
+        "text": "Downtime Tracker",
+        "type": "JSX text"
+      },
+      {
+        "line": 98,
+        "text": "Pantau waktu berhenti mesin — Six Big Losses",
+        "type": "JSX text"
+      },
+      {
+        "line": 100,
+        "text": "Laporkan Downtime",
+        "type": "JSX text"
+      },
+      {
+        "line": 134,
+        "text": "Diurutkan dari durasi terlama",
+        "type": "JSX text"
+      },
+      {
+        "line": 197,
+        "text": "Semua Mesin",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 199,
+        "text": "Semua Mesin",
+        "type": "JSX text"
+      },
+      {
+        "line": 204,
+        "text": "Sumber",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 206,
+        "text": "Semua",
+        "type": "JSX text"
+      },
+      {
+        "line": 207,
+        "text": "IoT Edge",
+        "type": "JSX text"
+      },
+      {
+        "line": 208,
+        "text": "Manual",
+        "type": "JSX text"
+      },
+      {
+        "line": 225,
+        "text": "Memuat...",
+        "type": "JSX text"
+      },
+      {
+        "line": 227,
+        "text": "Belum ada data downtime",
+        "type": "JSX text"
+      },
+      {
+        "line": 240,
+        "text": "Berlangsung",
+        "type": "JSX text"
+      },
+      {
+        "line": 271,
+        "text": "Halaman",
+        "type": "JSX text"
+      },
+      {
+        "line": 273,
+        "text": "Sebelumnya",
+        "type": "JSX text"
+      },
+      {
+        "line": 274,
+        "text": "Berikutnya",
+        "type": "JSX text"
+      },
+      {
+        "line": 285,
+        "text": "Laporkan Downtime",
+        "type": "JSX text"
+      },
+      {
+        "line": 289,
+        "text": "Mesin *",
+        "type": "JSX text"
+      },
+      {
+        "line": 291,
+        "text": "Pilih mesin...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 296,
+        "text": "Penyebab *",
+        "type": "JSX text"
+      },
+      {
+        "line": 309,
+        "text": "Keterangan",
+        "type": "JSX text"
+      },
+      {
+        "line": 314,
+        "text": "Downtime Terencana (Maintenance)",
+        "type": "JSX text"
+      },
+      {
+        "line": 317,
+        "text": "Batal",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/manufacturing/views/ProductsView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 110,
+        "text": "Produk & Bill of Materials",
+        "type": "JSX text"
+      },
+      {
+        "line": 111,
+        "text": "Kelola produk jadi dan komponen bahan baku",
+        "type": "JSX text"
+      },
+      {
+        "line": 113,
+        "text": "Tambah Produk",
+        "type": "JSX text"
+      },
+      {
+        "line": 117,
+        "text": "Memuat produk...",
+        "type": "JSX text"
+      },
+      {
+        "line": 122,
+        "text": "Belum ada produk. Tambahkan produk pertama Anda.",
+        "type": "JSX text"
+      },
+      {
+        "line": 123,
+        "text": "Tambah Produk",
+        "type": "JSX text"
+      },
+      {
+        "line": 144,
+        "text": "Dijual",
+        "type": "JSX text"
+      },
+      {
+        "line": 174,
+        "text": "Belum ada BOM",
+        "type": "JSX text"
+      },
+      {
+        "line": 202,
+        "text": "Nama Produk *",
+        "type": "JSX text"
+      },
+      {
+        "line": 203,
+        "text": "cth: Bracket CNC A-1",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 209,
+        "text": "Satuan",
+        "type": "JSX text"
+      },
+      {
+        "line": 220,
+        "text": "Produk Dijual?",
+        "type": "JSX text"
+      },
+      {
+        "line": 221,
+        "text": "Aktifkan agar muncul di katalog publik.",
+        "type": "JSX text"
+      },
+      {
+        "line": 228,
+        "text": "Tautkan ke Katalog UMKM",
+        "type": "JSX text"
+      },
+      {
+        "line": 240,
+        "text": "Deskripsi",
+        "type": "JSX text"
+      },
+      {
+        "line": 244,
+        "text": "Foto Produk",
+        "type": "JSX text"
+      },
+      {
+        "line": 254,
+        "text": "Batal",
+        "type": "JSX text"
+      },
+      {
+        "line": 271,
+        "text": "Daftar komponen / bahan baku yang dibutuhkan:",
+        "type": "JSX text"
+      },
+      {
+        "line": 276,
+        "text": "Nama material *",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 278,
+        "text": "Qty",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 280,
+        "text": "Satuan",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 293,
+        "text": "Batal",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/invoice/views/InvoiceDetailView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 68,
+        "text": "Memuat bukti reservasi...",
+        "type": "JSX text"
+      },
+      {
+        "line": 208,
+        "text": "Informasi Mesin",
+        "type": "JSX text"
+      },
+      {
+        "line": 210,
+        "text": "Nama Mesin",
+        "type": "prop: label"
+      },
+      {
+        "line": 211,
+        "text": "Lokasi",
+        "type": "prop: label"
+      },
+      {
+        "line": 215,
+        "text": "Periode Penggunaan",
+        "type": "JSX text"
+      },
+      {
+        "line": 218,
+        "text": "Waktu Mulai",
+        "type": "prop: label"
+      },
+      {
+        "line": 223,
+        "text": "Waktu Selesai",
+        "type": "prop: label"
+      },
+      {
+        "line": 230,
+        "text": "Rincian Biaya & Penawaran",
+        "type": "JSX text"
+      },
+      {
+        "line": 281,
+        "text": "Riwayat Tawar Menawar (Negosiasi)",
+        "type": "JSX text"
+      },
+      {
+        "line": 314,
+        "text": "Pihak Terkait",
+        "type": "JSX text"
+      },
+      {
+        "line": 316,
+        "text": "Penyewa (Tenant)",
+        "type": "prop: label"
+      },
+      {
+        "line": 317,
+        "text": "Penyedia (Owner)",
+        "type": "prop: label"
+      },
+      {
+        "line": 323,
+        "text": "Tujuan Penggunaan (Pengajuan)",
+        "type": "JSX text"
+      },
+      {
+        "line": 331,
+        "text": "Catatan Penawaran",
+        "type": "JSX text"
+      },
+      {
+        "line": 339,
+        "text": "Alasan Penolakan",
+        "type": "JSX text"
+      },
+      {
+        "line": 354,
+        "text": "Dokumen ini diterbitkan secara elektronik.",
+        "type": "JSX text"
+      },
+      {
+        "line": 354,
+        "text": "Sah tanpa tanda tangan basah.",
+        "type": "JSX text"
+      },
+      {
+        "line": 367,
+        "text": "Tanda Tangan",
+        "type": "JSX text"
+      },
+      {
+        "line": 369,
+        "text": "Pejabat Berwenang",
+        "type": "JSX text"
+      },
+      {
+        "line": 381,
+        "text": "Cetak / Simpan PDF",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/manufacturing/views/EdgeLogsView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 45,
+        "text": "Belum ada log produksi edge.",
+        "type": "JSX text"
+      },
+      {
+        "line": 53,
+        "text": "Site",
+        "type": "JSX text"
+      },
+      {
+        "line": 54,
+        "text": "Mesin",
+        "type": "JSX text"
+      },
+      {
+        "line": 55,
+        "text": "WO / Part",
+        "type": "JSX text"
+      },
+      {
+        "line": 56,
+        "text": "Shift",
+        "type": "JSX text"
+      },
+      {
+        "line": 60,
+        "text": "DT (min)",
+        "type": "JSX text"
+      },
+      {
+        "line": 61,
+        "text": "Waktu Catat",
+        "type": "JSX text"
+      },
+      {
+        "line": 110,
+        "text": "Belum ada log alarm edge.",
+        "type": "JSX text"
+      },
+      {
+        "line": 118,
+        "text": "Site",
+        "type": "JSX text"
+      },
+      {
+        "line": 119,
+        "text": "Mesin",
+        "type": "JSX text"
+      },
+      {
+        "line": 120,
+        "text": "Kode Alarm",
+        "type": "JSX text"
+      },
+      {
+        "line": 121,
+        "text": "Pesan",
+        "type": "JSX text"
+      },
+      {
+        "line": 122,
+        "text": "Tingkat",
+        "type": "JSX text"
+      },
+      {
+        "line": 123,
+        "text": "Terjadi",
+        "type": "JSX text"
+      },
+      {
+        "line": 124,
+        "text": "Diselesaikan",
+        "type": "JSX text"
+      },
+      {
+        "line": 155,
+        "text": "Aktif",
+        "type": "JSX text"
+      },
+      {
+        "line": 226,
+        "text": "Edge Logs",
+        "type": "prop: title"
+      },
+      {
+        "line": 227,
+        "text": "Log raw produksi dan alarm yang dikirim langsung dari CNC edge system.",
+        "type": "prop: title"
+      },
+      {
+        "line": 227,
+        "text": "Log raw produksi dan alarm yang dikirim langsung dari CNC edge system.",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 238,
+        "text": "Semua Sites",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/mentoring/views/AdvisorMentoringListView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 79,
+        "text": "Topik",
+        "type": "JSX text"
+      },
+      {
+        "line": 88,
+        "text": "Deskripsi",
+        "type": "JSX text"
+      },
+      {
+        "line": 100,
+        "text": "Pemilik",
+        "type": "JSX text"
+      },
+      {
+        "line": 111,
+        "text": "Dibuat",
+        "type": "JSX text"
+      },
+      {
+        "line": 213,
+        "text": "Tugas Mentoring",
+        "type": "prop: title"
+      },
+      {
+        "line": 214,
+        "text": "Kelola bimbingan dan konsultasi aktif dengan mitra UMKM.",
+        "type": "prop: title"
+      },
+      {
+        "line": 214,
+        "text": "Kelola bimbingan dan konsultasi aktif dengan mitra UMKM.",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 222,
+        "text": "Cari UMKM, topik, deskripsi...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 229,
+        "text": "Status",
+        "type": "prop: label"
+      },
+      {
+        "line": 248,
+        "text": "Memuat tugas mentoring...",
+        "type": "prop: message"
+      },
+      {
+        "line": 252,
+        "text": "Belum ada tugas mentoring",
+        "type": "prop: title"
+      },
+      {
+        "line": 253,
+        "text": "Belum ada tugas mentoring yang ditugaskan kepada Anda.",
+        "type": "prop: description"
+      },
+      {
+        "line": 260,
+        "text": "Mitra UMKM",
+        "type": "prop: label"
+      },
+      {
+        "line": 261,
+        "text": "Topik",
+        "type": "prop: label"
+      },
+      {
+        "line": 262,
+        "text": "Deskripsi",
+        "type": "JSX text"
+      },
+      {
+        "line": 263,
+        "text": "Status",
+        "type": "prop: label"
+      },
+      {
+        "line": 264,
+        "text": "Aksi",
+        "type": "JSX text"
+      },
+      {
+        "line": 314,
+        "text": "Lihat Detail",
+        "type": "prop: title"
+      },
+      {
+        "line": 321,
+        "text": "Buka Sesi",
+        "type": "prop: title"
+      }
+    ]
+  },
+  {
+    "file": "features/mentoring/views/MentoringDetailView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 93,
+        "text": "Detail Proses Pendampingan",
+        "type": "prop: title"
+      },
+      {
+        "line": 94,
+        "text": "Tracing status dan progres penyelesaian masalah bisnis.",
+        "type": "prop: title"
+      },
+      {
+        "line": 94,
+        "text": "Tracing status dan progres penyelesaian masalah bisnis.",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 96,
+        "text": "Memuat data pendampingan...",
+        "type": "prop: message"
+      },
+      {
+        "line": 158,
+        "text": "Detail Proses Pendampingan",
+        "type": "prop: title"
+      },
+      {
+        "line": 159,
+        "text": "Tracing status dan progres penyelesaian masalah bisnis.",
+        "type": "prop: title"
+      },
+      {
+        "line": 159,
+        "text": "Tracing status dan progres penyelesaian masalah bisnis.",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 234,
+        "text": "Topik Permasalahan",
+        "type": "JSX text"
+      },
+      {
+        "line": 244,
+        "text": "Deskripsi Kendala",
+        "type": "JSX text"
+      },
+      {
+        "line": 254,
+        "text": "Advisor Penanggung Jawab",
+        "type": "JSX text"
+      },
+      {
+        "line": 263,
+        "text": "Dosen / Staf Ahli",
+        "type": "JSX text"
+      },
+      {
+        "line": 270,
+        "text": "UMKM Pengaju",
+        "type": "JSX text"
+      },
+      {
+        "line": 288,
+        "text": "Jadwal Sesi",
+        "type": "JSX text"
+      },
+      {
+        "line": 295,
+        "text": "Sesi Terdekat",
+        "type": "JSX text"
+      },
+      {
+        "line": 310,
+        "text": "Belum ada jadwal",
+        "type": "JSX text"
+      },
+      {
+        "line": 393,
+        "text": "Menunggu Advisor",
+        "type": "prop: title"
+      },
+      {
+        "line": 394,
+        "text": "Proyek baru hanya bisa dibuat setelah advisor ditetapkan oleh admin kampus.",
+        "type": "prop: description"
+      },
+      {
+        "line": 437,
+        "text": "Belum Ada Proyek",
+        "type": "prop: title"
+      },
+      {
+        "line": 438,
+        "text": "Belum ada proyek untuk pendampingan ini.",
+        "type": "prop: description"
+      }
+    ]
+  },
+  {
+    "file": "features/mentoring/views/ProjectsView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 270,
+        "text": "Proyek Pendampingan",
+        "type": "prop: title"
+      },
+      {
+        "line": 271,
+        "text": "Kelola rencana aksi dan implementasi solusi bisnis.",
+        "type": "prop: title"
+      },
+      {
+        "line": 271,
+        "text": "Kelola rencana aksi dan implementasi solusi bisnis.",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 288,
+        "text": "Cari nama proyek atau UMKM...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 295,
+        "text": "Filter Status",
+        "type": "prop: label"
+      },
+      {
+        "line": 301,
+        "text": "Filter Tipe",
+        "type": "prop: label"
+      },
+      {
+        "line": 320,
+        "text": "Memuat daftar proyek...",
+        "type": "prop: message"
+      },
+      {
+        "line": 324,
+        "text": "Tidak ada proyek",
+        "type": "prop: title"
+      },
+      {
+        "line": 336,
+        "text": "Nama Proyek",
+        "type": "prop: label"
+      },
+      {
+        "line": 342,
+        "text": "Mitra UMKM",
+        "type": "JSX text"
+      },
+      {
+        "line": 344,
+        "text": "Tipe",
+        "type": "prop: label"
+      },
+      {
+        "line": 351,
+        "text": "Mulai",
+        "type": "prop: label"
+      },
+      {
+        "line": 358,
+        "text": "Selesai",
+        "type": "prop: label"
+      },
+      {
+        "line": 364,
+        "text": "Status",
+        "type": "JSX text"
+      },
+      {
+        "line": 365,
+        "text": "Aksi",
+        "type": "JSX text"
+      },
+      {
+        "line": 480,
+        "text": "Contoh: Digitalisasi Operasional UMKM",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 498,
+        "text": "Pilih UMKM",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 525,
+        "text": "Advisory",
+        "type": "JSX text"
+      },
+      {
+        "line": 526,
+        "text": "Training",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/umkm-profile/views/WorkspaceUmkmProfileView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 103,
+        "text": "Memuat data profil strategis...",
+        "type": "JSX text"
+      },
+      {
+        "line": 108,
+        "text": "Profil Strategis",
+        "type": "prop: title"
+      },
+      {
+        "line": 108,
+        "text": "Pengaturan Visi & Misi Bisnis",
+        "type": "prop: title"
+      },
+      {
+        "line": 108,
+        "text": "Pengaturan Visi & Misi Bisnis",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 111,
+        "text": "UMKM Belum Terdaftar",
+        "type": "JSX text"
+      },
+      {
+        "line": 121,
+        "text": "Profil Strategis",
+        "type": "prop: title"
+      },
+      {
+        "line": 122,
+        "text": "Definisikan arah dan tujuan jangka panjang bisnis Anda.",
+        "type": "prop: title"
+      },
+      {
+        "line": 122,
+        "text": "Definisikan arah dan tujuan jangka panjang bisnis Anda.",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 143,
+        "text": "Unit Bisnis Aktif",
+        "type": "JSX text"
+      },
+      {
+        "line": 169,
+        "text": "Kinerja Operasional",
+        "type": "JSX text"
+      },
+      {
+        "line": 170,
+        "text": "Rincian data produk dan target pasar.",
+        "type": "JSX text"
+      },
+      {
+        "line": 174,
+        "text": "Produk Unggulan",
+        "type": "JSX text"
+      },
+      {
+        "line": 178,
+        "text": "Target Pasar",
+        "type": "JSX text"
+      },
+      {
+        "line": 188,
+        "text": "Strategic Overview",
+        "type": "JSX text"
+      },
+      {
+        "line": 210,
+        "text": "Sesuaikan arah tujuan jangka panjang unit bisnis Anda.",
+        "type": "JSX text"
+      },
+      {
+        "line": 217,
+        "text": "Produk Utama",
+        "type": "JSX text"
+      },
+      {
+        "line": 221,
+        "text": "Contoh: Kain Batik Tulis",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 226,
+        "text": "Target Pasar",
+        "type": "JSX text"
+      },
+      {
+        "line": 230,
+        "text": "Contoh: Lokal & Ekspor Eropa",
+        "type": "prop: placeholder"
+      }
+    ]
+  },
+  {
+    "file": "features/manufacturing/views/EdgeSiteManagementView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 66,
+        "text": "Masukkan ke edge config.yaml:",
+        "type": "JSX text"
+      },
+      {
+        "line": 133,
+        "text": "Nama Site",
+        "type": "JSX text"
+      },
+      {
+        "line": 135,
+        "text": "Contoh: Pabrik Bandung",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 141,
+        "text": "Site ID",
+        "type": "JSX text"
+      },
+      {
+        "line": 148,
+        "text": "Hanya huruf kapital, angka, dan underscore. Harus cocok dengan",
+        "type": "JSX text"
+      },
+      {
+        "line": 151,
+        "text": "Deskripsi",
+        "type": "JSX text"
+      },
+      {
+        "line": 153,
+        "text": "Keterangan singkat tentang site ini...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 162,
+        "text": "Jl. Industri No.1, Bandung",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 250,
+        "text": "Belum pernah sync",
+        "type": "JSX text"
+      },
+      {
+        "line": 268,
+        "text": "Nonaktifkan",
+        "type": "JSX text"
+      },
+      {
+        "line": 269,
+        "text": "Aktifkan",
+        "type": "JSX text"
+      },
+      {
+        "line": 356,
+        "text": "Manajemen Edge Sites",
+        "type": "prop: title"
+      },
+      {
+        "line": 357,
+        "text": "Kelola koneksi dari edge CNC system ke MANGO. Setiap site memiliki API key unik.",
+        "type": "prop: title"
+      },
+      {
+        "line": 357,
+        "text": "Kelola koneksi dari edge CNC system ke MANGO. Setiap site memiliki API key unik.",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 392,
+        "text": "Daftar Edge Sites",
+        "type": "prop: title"
+      },
+      {
+        "line": 400,
+        "text": "Belum ada edge site terdaftar.",
+        "type": "JSX text"
+      },
+      {
+        "line": 441,
+        "text": "Hapus Edge Site?",
+        "type": "JSX text"
+      },
+      {
+        "line": 449,
+        "text": "Hapus",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/profile/views/ProfileView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 174,
+        "text": "Detail informasi akun",
+        "type": "prop: title"
+      },
+      {
+        "line": 176,
+        "text": "Nama lengkap",
+        "type": "prop: label"
+      },
+      {
+        "line": 177,
+        "text": "Nomor Induk (NIK)",
+        "type": "prop: label"
+      },
+      {
+        "line": 178,
+        "text": "Tanggal lahir",
+        "type": "prop: label"
+      },
+      {
+        "line": 179,
+        "text": "Peran utama",
+        "type": "prop: label"
+      },
+      {
+        "line": 196,
+        "text": "Ringkasan keamanan & akses",
+        "type": "prop: title"
+      },
+      {
+        "line": 201,
+        "text": "Status Verifikasi Email",
+        "type": "JSX text"
+      },
+      {
+        "line": 258,
+        "text": "Sesi Aktif",
+        "type": "JSX text"
+      },
+      {
+        "line": 266,
+        "text": "Status 2FA",
+        "type": "JSX text"
+      },
+      {
+        "line": 285,
+        "text": "Autentikasi dua faktor (2FA)",
+        "type": "prop: title"
+      },
+      {
+        "line": 301,
+        "text": "Hapus akun permanen",
+        "type": "prop: title"
+      },
+      {
+        "line": 320,
+        "text": "Sesi perangkat aktif",
+        "type": "prop: title"
+      },
+      {
+        "line": 325,
+        "text": "Tidak ada data sesi aktif.",
+        "type": "JSX text"
+      },
+      {
+        "line": 337,
+        "text": "Perangkat ini",
+        "type": "JSX text"
+      },
+      {
+        "line": 366,
+        "text": "Log aktivitas terbaru",
+        "type": "prop: title"
+      },
+      {
+        "line": 371,
+        "text": "Belum ada aktivitas tercatat.",
+        "type": "JSX text"
+      },
+      {
+        "line": 399,
+        "text": "Ubah profil akun",
+        "type": "prop: title"
+      },
+      {
+        "line": 411,
+        "text": "Keamanan password",
+        "type": "prop: title"
+      }
+    ]
+  },
+  {
+    "file": "features/manufacturing/views/ReservationApprovalsView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 546,
+        "text": "Pusat Transaksi",
+        "type": "prop: title"
+      },
+      {
+        "line": 547,
+        "text": "Kelola dan pantau seluruh transaksi reservasi mesin industri Anda.",
+        "type": "prop: title"
+      },
+      {
+        "line": 547,
+        "text": "Kelola dan pantau seluruh transaksi reservasi mesin industri Anda.",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 602,
+        "text": "Cari mesin atau UMKM...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 621,
+        "text": "Status",
+        "type": "prop: label"
+      },
+      {
+        "line": 657,
+        "text": "Urutkan",
+        "type": "prop: label"
+      },
+      {
+        "line": 719,
+        "text": "Transaksi tidak ditemukan",
+        "type": "prop: title"
+      },
+      {
+        "line": 720,
+        "text": "Coba gunakan kata kunci lain atau ubah filter status.",
+        "type": "prop: description"
+      },
+      {
+        "line": 727,
+        "text": "No. Transaksi",
+        "type": "JSX text"
+      },
+      {
+        "line": 728,
+        "text": "Mesin",
+        "type": "JSX text"
+      },
+      {
+        "line": 729,
+        "text": "Pihak Terkait",
+        "type": "JSX text"
+      },
+      {
+        "line": 730,
+        "text": "Jadwal",
+        "type": "JSX text"
+      },
+      {
+        "line": 731,
+        "text": "Status",
+        "type": "JSX text"
+      },
+      {
+        "line": 732,
+        "text": "Total Biaya",
+        "type": "JSX text"
+      },
+      {
+        "line": 733,
+        "text": "Aksi",
+        "type": "JSX text"
+      },
+      {
+        "line": 771,
+        "text": "Penyedia",
+        "type": "JSX text"
+      },
+      {
+        "line": 776,
+        "text": "Penyewa",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/admin-campus/components/DeptDialogForm.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 15,
+        "text": "Promise",
+        "type": "JSX text"
+      },
+      {
+        "line": 51,
+        "text": "Institusi induk",
+        "type": "JSX text"
+      },
+      {
+        "line": 57,
+        "text": "Nama unit / departemen",
+        "type": "JSX text"
+      },
+      {
+        "line": 58,
+        "text": "Misal: Teknik Tekstil",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 63,
+        "text": "Deskripsi spesialisasi",
+        "type": "JSX text"
+      },
+      {
+        "line": 64,
+        "text": "Fokus bidang keahlian unit ini",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 69,
+        "text": "Kepala Departemen",
+        "type": "JSX text"
+      },
+      {
+        "line": 70,
+        "text": "Nama kepala departemen",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 73,
+        "text": "Lokasi Gedung / Ruangan",
+        "type": "JSX text"
+      },
+      {
+        "line": 74,
+        "text": "Misal: Gedung A Lt. 2",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 80,
+        "text": "Email Unit",
+        "type": "JSX text"
+      },
+      {
+        "line": 84,
+        "text": "No. Telepon Unit",
+        "type": "JSX text"
+      },
+      {
+        "line": 85,
+        "text": "Nomor kontak departemen",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 90,
+        "text": "Status operasional",
+        "type": "JSX text"
+      },
+      {
+        "line": 96,
+        "text": "Aktif",
+        "type": "JSX text"
+      },
+      {
+        "line": 97,
+        "text": "Nonaktif",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/admin-org/views/UptInfoView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 145,
+        "text": "Sinkronisasi data Unit Pengelola...",
+        "type": "prop: message"
+      },
+      {
+        "line": 153,
+        "text": "Data tidak ditemukan",
+        "type": "prop: title"
+      },
+      {
+        "line": 154,
+        "text": "Data Unit Pengelola belum tersedia atau akun Anda belum terhubung ke organisasi manapun. Hubungi administrator sistem.",
+        "type": "prop: description"
+      },
+      {
+        "line": 182,
+        "text": "Profil Identitas",
+        "type": "prop: title"
+      },
+      {
+        "line": 187,
+        "text": "Logo",
+        "type": "prop: alt"
+      },
+      {
+        "line": 220,
+        "text": "Ringkasan & Keterangan",
+        "type": "prop: title"
+      },
+      {
+        "line": 223,
+        "text": "Tentang Unit Pengelola",
+        "type": "JSX text"
+      },
+      {
+        "line": 230,
+        "text": "Nama PIC / Koordinator",
+        "type": "prop: label"
+      },
+      {
+        "line": 231,
+        "text": "Kontak PIC",
+        "type": "prop: label"
+      },
+      {
+        "line": 232,
+        "text": "Status Akun",
+        "type": "prop: label"
+      },
+      {
+        "line": 233,
+        "text": "Tipe Entitas",
+        "type": "prop: label"
+      },
+      {
+        "line": 234,
+        "text": "Alamat Lengkap",
+        "type": "prop: label"
+      },
+      {
+        "line": 235,
+        "text": "Provinsi",
+        "type": "prop: label"
+      },
+      {
+        "line": 236,
+        "text": "Kabupaten / Kota",
+        "type": "prop: label"
+      },
+      {
+        "line": 237,
+        "text": "Kecamatan",
+        "type": "prop: label"
+      },
+      {
+        "line": 238,
+        "text": "Kelurahan / Desa",
+        "type": "prop: label"
+      }
+    ]
+  },
+  {
+    "file": "features/umkm-profile/components/UmkmProfileForm.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 16,
+        "text": "Promise",
+        "type": "JSX text"
+      },
+      {
+        "line": 142,
+        "text": "Terjadi kesalahan validasi",
+        "type": "JSX text"
+      },
+      {
+        "line": 150,
+        "text": "Identitas & Branding",
+        "type": "prop: title"
+      },
+      {
+        "line": 159,
+        "text": "Logo preview",
+        "type": "prop: alt"
+      },
+      {
+        "line": 177,
+        "text": "Nama UMKM",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 180,
+        "text": "Sektor bisnis",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 184,
+        "text": "Tahun berdiri",
+        "type": "JSX text"
+      },
+      {
+        "line": 191,
+        "text": "Telepon",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 194,
+        "text": "Email bisnis",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 217,
+        "text": "Legalitas & Lokasi",
+        "type": "prop: title"
+      },
+      {
+        "line": 223,
+        "text": "Perseorangan",
+        "type": "JSX text"
+      },
+      {
+        "line": 226,
+        "text": "PT Perorangan",
+        "type": "JSX text"
+      },
+      {
+        "line": 231,
+        "text": "Tanpa Organisasi",
+        "type": "JSX text"
+      },
+      {
+        "line": 247,
+        "text": "Alamat lengkap...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 313,
+        "text": "Gunakan Lokasi Saat Ini",
+        "type": "prop: title"
+      },
+      {
+        "line": 386,
+        "text": "Ada perubahan yang belum disimpan.",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/documents/views/DocumentInvoiceView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 44,
+        "text": "Memuat dokumen...",
+        "type": "JSX text"
+      },
+      {
+        "line": 154,
+        "text": "Dipesan Oleh",
+        "type": "JSX text"
+      },
+      {
+        "line": 162,
+        "text": "Detail Reservasi",
+        "type": "JSX text"
+      },
+      {
+        "line": 165,
+        "text": "Tgl Mulai:",
+        "type": "JSX text"
+      },
+      {
+        "line": 166,
+        "text": "Tgl Selesai:",
+        "type": "JSX text"
+      },
+      {
+        "line": 167,
+        "text": "Status:",
+        "type": "JSX text"
+      },
+      {
+        "line": 174,
+        "text": "Rincian Layanan",
+        "type": "JSX text"
+      },
+      {
+        "line": 179,
+        "text": "Deskripsi Layanan",
+        "type": "JSX text"
+      },
+      {
+        "line": 180,
+        "text": "Durasi (Hari)",
+        "type": "JSX text"
+      },
+      {
+        "line": 181,
+        "text": "Total Biaya",
+        "type": "JSX text"
+      },
+      {
+        "line": 191,
+        "text": "Rp 0",
+        "type": "JSX text"
+      },
+      {
+        "line": 218,
+        "text": "Dokumen ini diterbitkan secara elektronik.",
+        "type": "JSX text"
+      },
+      {
+        "line": 218,
+        "text": "Sah tanpa tanda tangan basah.",
+        "type": "JSX text"
+      },
+      {
+        "line": 221,
+        "text": "QR Code",
+        "type": "prop: alt"
+      },
+      {
+        "line": 230,
+        "text": "Cetak / Simpan PDF",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/mentoring/views/AdvisorScheduleView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 188,
+        "text": "Jadwal Sesi",
+        "type": "prop: title"
+      },
+      {
+        "line": 189,
+        "text": "Ringkasan semua sesi mentoring yang dijadwalkan untuk Anda.",
+        "type": "prop: title"
+      },
+      {
+        "line": 189,
+        "text": "Ringkasan semua sesi mentoring yang dijadwalkan untuk Anda.",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 228,
+        "text": "Cari UMKM, topik, lokasi...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 235,
+        "text": "Status Sesi",
+        "type": "prop: label"
+      },
+      {
+        "line": 254,
+        "text": "Memuat jadwal sesi...",
+        "type": "prop: message"
+      },
+      {
+        "line": 258,
+        "text": "Belum ada jadwal sesi",
+        "type": "prop: title"
+      },
+      {
+        "line": 270,
+        "text": "Waktu",
+        "type": "prop: label"
+      },
+      {
+        "line": 271,
+        "text": "Mitra UMKM",
+        "type": "prop: label"
+      },
+      {
+        "line": 272,
+        "text": "Topik",
+        "type": "JSX text"
+      },
+      {
+        "line": 273,
+        "text": "Media",
+        "type": "JSX text"
+      },
+      {
+        "line": 274,
+        "text": "Status",
+        "type": "prop: label"
+      },
+      {
+        "line": 275,
+        "text": "Aksi",
+        "type": "JSX text"
+      },
+      {
+        "line": 333,
+        "text": "Online",
+        "type": "JSX text"
+      },
+      {
+        "line": 348,
+        "text": "Offline",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/documents/views/DocumentAssessmentView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 44,
+        "text": "Memuat dokumen...",
+        "type": "JSX text"
+      },
+      {
+        "line": 142,
+        "text": "Total Skor",
+        "type": "JSX text"
+      },
+      {
+        "line": 148,
+        "text": "Kesimpulan Assessment",
+        "type": "JSX text"
+      },
+      {
+        "line": 158,
+        "text": "Rincian Dimensi",
+        "type": "JSX text"
+      },
+      {
+        "line": 163,
+        "text": "Dimensi",
+        "type": "JSX text"
+      },
+      {
+        "line": 164,
+        "text": "Skor Maks",
+        "type": "JSX text"
+      },
+      {
+        "line": 165,
+        "text": "Skor Diperoleh",
+        "type": "JSX text"
+      },
+      {
+        "line": 166,
+        "text": "Capaian",
+        "type": "JSX text"
+      },
+      {
+        "line": 185,
+        "text": "Rekomendasi Intervensi",
+        "type": "JSX text"
+      },
+      {
+        "line": 197,
+        "text": "Tidak ada rekomendasi spesifik (skor sudah maksimal).",
+        "type": "JSX text"
+      },
+      {
+        "line": 208,
+        "text": "Dokumen ini diterbitkan secara elektronik.",
+        "type": "JSX text"
+      },
+      {
+        "line": 208,
+        "text": "Sah tanpa tanda tangan basah.",
+        "type": "JSX text"
+      },
+      {
+        "line": 211,
+        "text": "QR Code",
+        "type": "prop: alt"
+      },
+      {
+        "line": 220,
+        "text": "Cetak / Simpan PDF",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/auth/views/RegisterView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 142,
+        "text": "Preview",
+        "type": "prop: alt"
+      },
+      {
+        "line": 174,
+        "text": "NIK (16 Digit)",
+        "type": "JSX text"
+      },
+      {
+        "line": 179,
+        "text": "NIK sesuai KTP",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 185,
+        "text": "Tanggal Lahir",
+        "type": "JSX text"
+      },
+      {
+        "line": 249,
+        "text": "Syarat & Ketentuan",
+        "type": "JSX text"
+      },
+      {
+        "line": 249,
+        "text": "Kebijakan Privasi",
+        "type": "JSX text"
+      },
+      {
+        "line": 288,
+        "text": "Harap baca dengan teliti syarat dan ketentuan penggunaan platform MANGO.",
+        "type": "JSX text"
+      },
+      {
+        "line": 291,
+        "text": "MANGO adalah platform digital POLMAN Bandung untuk transformasi IKM manufaktur.",
+        "type": "JSX text"
+      },
+      {
+        "line": 292,
+        "text": "Pengguna wajib memberikan data akurat untuk profil pribadi dan UMKM.",
+        "type": "JSX text"
+      },
+      {
+        "line": 294,
+        "text": "Saya Mengerti",
+        "type": "JSX text"
+      },
+      {
+        "line": 304,
+        "text": "Komitmen kami dalam melindungi data pribadi dan bisnis Anda.",
+        "type": "JSX text"
+      },
+      {
+        "line": 307,
+        "text": "Kami mengumpulkan NIK dan Nama untuk verifikasi identitas resmi platform.",
+        "type": "JSX text"
+      },
+      {
+        "line": 309,
+        "text": "Saya Mengerti",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/manufacturing/views/ReservationHistoryDetailView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 442,
+        "text": "Harga Awal Sistem",
+        "type": "JSX text"
+      },
+      {
+        "line": 449,
+        "text": "Harga Akhir Disepakati",
+        "type": "JSX text"
+      },
+      {
+        "line": 460,
+        "text": "Riwayat Tawar Menawar",
+        "type": "JSX text"
+      },
+      {
+        "line": 481,
+        "text": "Tidak ada riwayat tawar menawar.",
+        "type": "JSX text"
+      },
+      {
+        "line": 547,
+        "text": "Tidak ada negosiasi",
+        "type": "JSX text"
+      },
+      {
+        "line": 555,
+        "text": "Menunggu negosiasi",
+        "type": "JSX text"
+      },
+      {
+        "line": 565,
+        "text": "Menunggu persetujuan penyedia",
+        "type": "JSX text"
+      },
+      {
+        "line": 573,
+        "text": "Menunggu konfirmasi penyedia",
+        "type": "JSX text"
+      },
+      {
+        "line": 576,
+        "text": "Menunggu pembayaran penyewa",
+        "type": "JSX text"
+      },
+      {
+        "line": 584,
+        "text": "Menunggu penyelesaian",
+        "type": "JSX text"
+      },
+      {
+        "line": 753,
+        "text": "Status Bayar",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/admin-org/components/UmkmOrgPreviewDialog.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 26,
+        "text": "Detail Organisasi",
+        "type": "JSX text"
+      },
+      {
+        "line": 27,
+        "text": "Informasi profil dan kontak",
+        "type": "JSX text"
+      },
+      {
+        "line": 62,
+        "text": "Kontak Utama",
+        "type": "JSX text"
+      },
+      {
+        "line": 67,
+        "text": "Email",
+        "type": "JSX text"
+      },
+      {
+        "line": 74,
+        "text": "Telepon",
+        "type": "JSX text"
+      },
+      {
+        "line": 82,
+        "text": "Penanggung Jawab",
+        "type": "JSX text"
+      },
+      {
+        "line": 85,
+        "text": "Nama PIC",
+        "type": "JSX text"
+      },
+      {
+        "line": 89,
+        "text": "WhatsApp PIC",
+        "type": "JSX text"
+      },
+      {
+        "line": 98,
+        "text": "Lokasi & Alamat",
+        "type": "JSX text"
+      },
+      {
+        "line": 124,
+        "text": "Deskripsi",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/landing/views/PublicServiceCatalogView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 75,
+        "text": "Layanan",
+        "type": "JSX text"
+      },
+      {
+        "line": 134,
+        "text": "Ekosistem",
+        "type": "JSX text"
+      },
+      {
+        "line": 143,
+        "text": "IKM Terdaftar",
+        "type": "JSX text"
+      },
+      {
+        "line": 147,
+        "text": "Ahli Industri",
+        "type": "JSX text"
+      },
+      {
+        "line": 151,
+        "text": "Fasilitas Mesin",
+        "type": "JSX text"
+      },
+      {
+        "line": 155,
+        "text": "Kawasan Industri",
+        "type": "JSX text"
+      },
+      {
+        "line": 161,
+        "text": "Fasilitas Produksi",
+        "type": "prop: title"
+      },
+      {
+        "line": 162,
+        "text": "Akses Pasar",
+        "type": "prop: title"
+      },
+      {
+        "line": 163,
+        "text": "Efisiensi Biaya",
+        "type": "prop: title"
+      },
+      {
+        "line": 164,
+        "text": "Jejaring Bisnis",
+        "type": "prop: title"
+      }
+    ]
+  },
+  {
+    "file": "features/umkm-assessment/components/AssessmentHistory.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 321,
+        "text": "Memuat riwayat assessment...",
+        "type": "prop: message"
+      },
+      {
+        "line": 327,
+        "text": "Belum Ada Assessment",
+        "type": "prop: title"
+      },
+      {
+        "line": 328,
+        "text": "UMKM ini belum pernah melakukan assessment kematangan industri.",
+        "type": "prop: description"
+      },
+      {
+        "line": 338,
+        "text": "Cari level atau skor assessment...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 351,
+        "text": "Level",
+        "type": "prop: label"
+      },
+      {
+        "line": 358,
+        "text": "Urutkan",
+        "type": "prop: label"
+      },
+      {
+        "line": 442,
+        "text": "Data Tidak Ditemukan",
+        "type": "prop: title"
+      },
+      {
+        "line": 443,
+        "text": "Tidak ada data assessment yang sesuai dengan filter atau pencarian.",
+        "type": "prop: description"
+      },
+      {
+        "line": 455,
+        "text": "Tanggal",
+        "type": "prop: label"
+      },
+      {
+        "line": 467,
+        "text": "Total Skor",
+        "type": "prop: label"
+      }
+    ]
+  },
+  {
+    "file": "features/umkm-assessment/views/AssessmentResultView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 90,
+        "text": "Hasil Analisis Kematangan",
+        "type": "prop: title"
+      },
+      {
+        "line": 91,
+        "text": "Berdasarkan jawaban Anda, berikut adalah profil kematangan dan rekomendasi pendampingan.",
+        "type": "prop: title"
+      },
+      {
+        "line": 91,
+        "text": "Berdasarkan jawaban Anda, berikut adalah profil kematangan dan rekomendasi pendampingan.",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 121,
+        "text": "Skor Keseluruhan",
+        "type": "JSX text"
+      },
+      {
+        "line": 127,
+        "text": "Maturity Level berdasarkan Standar Mango",
+        "type": "JSX text"
+      },
+      {
+        "line": 184,
+        "text": "Perubahan per Dimensi",
+        "type": "JSX text"
+      },
+      {
+        "line": 208,
+        "text": "Total Skor",
+        "type": "JSX text"
+      },
+      {
+        "line": 263,
+        "text": "Tidak ada rekomendasi spesifik — skor sudah optimal.",
+        "type": "JSX text"
+      },
+      {
+        "line": 358,
+        "text": "Butuh Pendampingan Lebih Lanjut?",
+        "type": "JSX text"
+      },
+      {
+        "line": 359,
+        "text": "Ajukan permohonan konsultasi dengan Advisor ahli kami sesuai rekomendasi di atas.",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/manufacturing/views/ReservationHistoryView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 603,
+        "text": "Riwayat Reservasi",
+        "type": "prop: title"
+      },
+      {
+        "line": 604,
+        "text": "Daftar transaksi dan aktivitas reservasi mesin.",
+        "type": "prop: title"
+      },
+      {
+        "line": 604,
+        "text": "Daftar transaksi dan aktivitas reservasi mesin.",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 656,
+        "text": "Cari Mesin atau ID Reservasi...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 674,
+        "text": "Status",
+        "type": "prop: label"
+      },
+      {
+        "line": 710,
+        "text": "Pembayaran",
+        "type": "prop: label"
+      },
+      {
+        "line": 740,
+        "text": "Urutkan",
+        "type": "prop: label"
+      },
+      {
+        "line": 833,
+        "text": "Data Tidak Ditemukan",
+        "type": "prop: title"
+      },
+      {
+        "line": 834,
+        "text": "Tidak ada data reservasi.",
+        "type": "prop: description"
+      }
+    ]
+  },
+  {
+    "file": "features/umkm-assessment/components/UmkmAssessmentDetail.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 39,
+        "text": "Riwayat & Analisis Kematangan",
+        "type": "JSX text"
+      },
+      {
+        "line": 40,
+        "text": "Detail hasil self-assessment untuk unit bisnis ini.",
+        "type": "JSX text"
+      },
+      {
+        "line": 51,
+        "text": "Memuat data analisis...",
+        "type": "JSX text"
+      },
+      {
+        "line": 55,
+        "text": "UMKM ini belum pernah melakukan assessment.",
+        "type": "JSX text"
+      },
+      {
+        "line": 62,
+        "text": "Daftar Sesi",
+        "type": "JSX text"
+      },
+      {
+        "line": 101,
+        "text": "Skor Total",
+        "type": "JSX text"
+      },
+      {
+        "line": 118,
+        "text": "Grafik Radar Dimensi",
+        "type": "JSX text"
+      },
+      {
+        "line": 128,
+        "text": "Rekomendasi Utama",
+        "type": "JSX text"
+      },
+      {
+        "line": 152,
+        "text": "Tutup",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/manufacturing/views/ReservationsView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 541,
+        "text": "Reservasi Permesinan",
+        "type": "prop: title"
+      },
+      {
+        "line": 542,
+        "text": "Kelola peminjaman fasilitas produksi.",
+        "type": "prop: title"
+      },
+      {
+        "line": 542,
+        "text": "Kelola peminjaman fasilitas produksi.",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 601,
+        "text": "Cari mesin...",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 617,
+        "text": "Tipe",
+        "type": "prop: label"
+      },
+      {
+        "line": 640,
+        "text": "Urutkan",
+        "type": "prop: label"
+      },
+      {
+        "line": 737,
+        "text": "Sewa / Jam",
+        "type": "JSX text"
+      },
+      {
+        "line": 747,
+        "text": "Owner",
+        "type": "prop: alt"
+      }
+    ]
+  },
+  {
+    "file": "features/umkm-progress/views/UmkmProgressHistoryView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 84,
+        "text": "Belum Ada Riwayat",
+        "type": "JSX text"
+      },
+      {
+        "line": 85,
+        "text": "Lakukan asesmen mandiri atau ajukan mentoring untuk memulai pencatatan perkembangan.",
+        "type": "JSX text"
+      },
+      {
+        "line": 149,
+        "text": "Skor Total",
+        "type": "JSX text"
+      },
+      {
+        "line": 153,
+        "text": "Pilar Utama",
+        "type": "JSX text"
+      },
+      {
+        "line": 170,
+        "text": "Level Up Achievement!",
+        "type": "JSX text"
+      },
+      {
+        "line": 172,
+        "text": "Berdasarkan peningkatan skor pada kategori yang didampingi.",
+        "type": "JSX text"
+      },
+      {
+        "line": 183,
+        "text": "Selesai didampingi oleh Advisor",
+        "type": "JSX text"
+      },
+      {
+        "line": 221,
+        "text": "Knowledge Shared",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/admin-campus/views/DepartmentView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 118,
+        "text": "Filter Status",
+        "type": "prop: label"
+      },
+      {
+        "line": 137,
+        "text": "Memuat data...",
+        "type": "prop: message"
+      },
+      {
+        "line": 150,
+        "text": "Kepala Unit",
+        "type": "prop: label"
+      },
+      {
+        "line": 151,
+        "text": "Email",
+        "type": "JSX text"
+      },
+      {
+        "line": 152,
+        "text": "Telepon",
+        "type": "JSX text"
+      },
+      {
+        "line": 153,
+        "text": "Lokasi",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/admin-org/views/UmkmOrganizationView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 158,
+        "text": "Memuat data organisasi...",
+        "type": "prop: message"
+      },
+      {
+        "line": 170,
+        "text": "Organisasi",
+        "type": "prop: label"
+      },
+      {
+        "line": 171,
+        "text": "Penanggung Jawab",
+        "type": "prop: label"
+      },
+      {
+        "line": 172,
+        "text": "Kontak",
+        "type": "JSX text"
+      },
+      {
+        "line": 173,
+        "text": "Status",
+        "type": "prop: label"
+      },
+      {
+        "line": 174,
+        "text": "Aksi",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/dashboard/views/AdvisorDashboardView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 18,
+        "text": "Advisor dashboard",
+        "type": "prop: title"
+      },
+      {
+        "line": 39,
+        "text": "Upcoming consultations",
+        "type": "prop: title"
+      },
+      {
+        "line": 40,
+        "text": "Scheduled mentoring sessions.",
+        "type": "prop: description"
+      },
+      {
+        "line": 46,
+        "text": "No sessions scheduled",
+        "type": "prop: title"
+      },
+      {
+        "line": 47,
+        "text": "No mentoring sessions scheduled for this cycle.",
+        "type": "prop: description"
+      },
+      {
+        "line": 54,
+        "text": "High-growth UMKM",
+        "type": "prop: title"
+      }
+    ]
+  },
+  {
+    "file": "features/manufacturing/views/ManufacturingSummaryView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 153,
+        "text": "Kapasitas Produksi Terdaftar",
+        "type": "prop: title"
+      },
+      {
+        "line": 160,
+        "text": "Target Harian (Avg)",
+        "type": "JSX text"
+      },
+      {
+        "line": 162,
+        "text": "Sesuai Kapasitas Terpasang",
+        "type": "JSX text"
+      },
+      {
+        "line": 165,
+        "text": "Utilisasi Mesin",
+        "type": "JSX text"
+      },
+      {
+        "line": 172,
+        "text": "Produk Aktif",
+        "type": "JSX text"
+      },
+      {
+        "line": 173,
+        "text": "SKU Berjalan",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/manufacturing/views/WorkOrdersView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 335,
+        "text": "Edit",
+        "type": "prop: title"
+      },
+      {
+        "line": 393,
+        "text": "Nomor part",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 404,
+        "text": "Judul work order",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 476,
+        "text": "Shift 1",
+        "type": "JSX text"
+      },
+      {
+        "line": 477,
+        "text": "Shift 2",
+        "type": "JSX text"
+      },
+      {
+        "line": 478,
+        "text": "Shift 3",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/umkm-assessment/views/AssessmentView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 49,
+        "text": "Self-Assessment",
+        "type": "prop: title"
+      },
+      {
+        "line": 50,
+        "text": "Evaluasi mandiri kesiapan digital dan operasional unit usaha.",
+        "type": "prop: title"
+      },
+      {
+        "line": 50,
+        "text": "Evaluasi mandiri kesiapan digital dan operasional unit usaha.",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 65,
+        "text": "Mulai Penilaian Baru",
+        "type": "JSX text"
+      },
+      {
+        "line": 66,
+        "text": "Lakukan evaluasi berkala untuk memantau kemajuan bisnis Anda berdasarkan standar kematangan industri.",
+        "type": "JSX text"
+      },
+      {
+        "line": 157,
+        "text": "Data UMKM Belum Lengkap",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/umkm-profile/components/CertificationManager.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 14,
+        "text": "Promise",
+        "type": "JSX text"
+      },
+      {
+        "line": 56,
+        "text": "Hapus sertifikat ini?",
+        "type": "alert/confirm"
+      },
+      {
+        "line": 81,
+        "text": "Batal",
+        "type": "JSX text"
+      },
+      {
+        "line": 91,
+        "text": "Contoh: Sertifikat Halal",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 100,
+        "text": "No. REG/XXX/2024",
+        "type": "prop: placeholder"
+      }
+    ]
+  },
+  {
+    "file": "features/admin-campus/views/CampusInfoView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 203,
+        "text": "Sinkronisasi data institusi...",
+        "type": "prop: message"
+      },
+      {
+        "line": 236,
+        "text": "Profil Identitas",
+        "type": "prop: title"
+      },
+      {
+        "line": 240,
+        "text": "Logo",
+        "type": "prop: alt"
+      },
+      {
+        "line": 269,
+        "text": "Ringkasan & Keterangan",
+        "type": "prop: title"
+      }
+    ]
+  },
+  {
+    "file": "features/articles/views/PublicArticleDetailView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 171,
+        "text": "Share on WhatsApp",
+        "type": "prop: title"
+      },
+      {
+        "line": 178,
+        "text": "Share on Facebook",
+        "type": "prop: title"
+      },
+      {
+        "line": 185,
+        "text": "Share on Twitter",
+        "type": "prop: title"
+      },
+      {
+        "line": 192,
+        "text": "Share link",
+        "type": "prop: title"
+      }
+    ]
+  },
+  {
+    "file": "features/dashboard/views/AdminDashboardView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 172,
+        "text": "Statistik Platform",
+        "type": "prop: title"
+      },
+      {
+        "line": 177,
+        "text": "Artikel",
+        "type": "JSX text"
+      },
+      {
+        "line": 184,
+        "text": "Reservasi Mesin",
+        "type": "JSX text"
+      },
+      {
+        "line": 191,
+        "text": "Edge Sites Aktif",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/mentoring/components/MentoringImpactSummary.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 108,
+        "text": "Perkembangan Skor",
+        "type": "JSX text"
+      },
+      {
+        "line": 145,
+        "text": "Awal",
+        "type": "JSX text"
+      },
+      {
+        "line": 150,
+        "text": "Sekarang",
+        "type": "JSX text"
+      },
+      {
+        "line": 156,
+        "text": "Level UP!",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/onboarding/views/OnboardingView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 58,
+        "text": "Data Bisnis UMKM",
+        "type": "JSX text"
+      },
+      {
+        "line": 59,
+        "text": "Langkah terakhir untuk mengaktifkan seluruh fitur operasional Anda.",
+        "type": "JSX text"
+      },
+      {
+        "line": 94,
+        "text": "Registrasi Identitas Bisnis",
+        "type": "JSX text"
+      },
+      {
+        "line": 95,
+        "text": "Lengkapi data dasar mengenai badan usaha dan lokasi operasional Anda.",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/settings/views/SettingsView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 16,
+        "text": "Pengaturan Sistem",
+        "type": "prop: title"
+      },
+      {
+        "line": 17,
+        "text": "Kelola preferensi bahasa untuk akun Anda.",
+        "type": "prop: title"
+      },
+      {
+        "line": 17,
+        "text": "Kelola preferensi bahasa untuk akun Anda.",
+        "type": "prop: subtitle"
+      },
+      {
+        "line": 30,
+        "text": "Tampilan & Tema",
+        "type": "prop: title"
+      }
+    ]
+  },
+  {
+    "file": "features/admin-campus/components/AdvisorDialogForm.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 15,
+        "text": "Promise",
+        "type": "JSX text"
+      },
+      {
+        "line": 100,
+        "text": "Departemen / Unit Kerja",
+        "type": "JSX text"
+      },
+      {
+        "line": 112,
+        "text": "Institusi ini belum memiliki departemen.",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/articles/views/ArticleView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 118,
+        "text": "Memuat artikel...",
+        "type": "prop: message"
+      },
+      {
+        "line": 212,
+        "text": "Hapus permanen",
+        "type": "prop: confirmLabel"
+      },
+      {
+        "line": 213,
+        "text": "Batal",
+        "type": "prop: cancelLabel"
+      }
+    ]
+  },
+  {
+    "file": "features/auth/views/ResetPasswordView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 29,
+        "text": "Manufaktur Industri",
+        "type": "prop: alt"
+      },
+      {
+        "line": 40,
+        "text": "Aman",
+        "type": "JSX text"
+      },
+      {
+        "line": 163,
+        "text": "Sedang memperbarui...",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/manufacturing/components/InteractiveGanttChart.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 180,
+        "text": "Mulai:",
+        "type": "JSX text"
+      },
+      {
+        "line": 182,
+        "text": "Selesai:",
+        "type": "JSX text"
+      },
+      {
+        "line": 184,
+        "text": "Target Qty:",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/manufacturing/views/OEEDashboardView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 242,
+        "text": "Dashboard OEE",
+        "type": "prop: title"
+      },
+      {
+        "line": 243,
+        "text": "Overall Equipment Effectiveness — data real-time dari CNC edge system.",
+        "type": "prop: title"
+      },
+      {
+        "line": 243,
+        "text": "Overall Equipment Effectiveness — data real-time dari CNC edge system.",
+        "type": "prop: subtitle"
+      }
+    ]
+  },
+  {
+    "file": "features/manufacturing/views/ProductionRecordsView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 257,
+        "text": "Shift 1",
+        "type": "JSX text"
+      },
+      {
+        "line": 258,
+        "text": "Shift 2",
+        "type": "JSX text"
+      },
+      {
+        "line": 259,
+        "text": "Shift 3",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/manufacturing/views/ReservationDetailView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 1116,
+        "text": "Logo",
+        "type": "prop: alt"
+      },
+      {
+        "line": 1375,
+        "text": "Opsional",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 1421,
+        "text": "Jelaskan kebutuhan produksi...",
+        "type": "prop: placeholder"
+      }
+    ]
+  },
+  {
+    "file": "features/mentoring/components/MentoringAssignmentDialog.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 31,
+        "text": "Promise",
+        "type": "JSX text"
+      },
+      {
+        "line": 95,
+        "text": "Delegasi Mentoring",
+        "type": "JSX text"
+      },
+      {
+        "line": 111,
+        "text": "Pilih Departemen",
+        "type": "prop: placeholder"
+      }
+    ]
+  },
+  {
+    "file": "features/profile/components/ProfileForms.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 14,
+        "text": "Promise",
+        "type": "JSX text"
+      },
+      {
+        "line": 105,
+        "text": "16 digit NIK",
+        "type": "prop: placeholder"
+      },
+      {
+        "line": 133,
+        "text": "Promise",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/umkm-profile/views/UmkmProfileView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 134,
+        "text": "Identitas Bisnis",
+        "type": "prop: title"
+      },
+      {
+        "line": 138,
+        "text": "Logo",
+        "type": "prop: alt"
+      },
+      {
+        "line": 190,
+        "text": "Ringkasan & Keterangan",
+        "type": "prop: title"
+      }
+    ]
+  },
+  {
+    "file": "components/providers/AuthProvider.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 28,
+        "text": "Promise",
+        "type": "JSX text"
+      },
+      {
+        "line": 29,
+        "text": "Promise",
+        "type": "JSX text"
+      },
+      {
+        "line": 30,
+        "text": "Promise",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "components/ui/dashboard/AdminDataView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 230,
+        "text": "Previous page",
+        "type": "prop: label"
+      },
+      {
+        "line": 252,
+        "text": "Next page",
+        "type": "prop: label"
+      },
+      {
+        "line": 344,
+        "text": "This action cannot be undone.",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/admin-campus/components/CampusInfoForm.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 21,
+        "text": "Promise",
+        "type": "JSX text"
+      },
+      {
+        "line": 141,
+        "text": "Logo preview",
+        "type": "prop: alt"
+      }
+    ]
+  },
+  {
+    "file": "features/admin-campus/views/AdvisorView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 118,
+        "text": "Filter Departemen",
+        "type": "prop: label"
+      },
+      {
+        "line": 137,
+        "text": "Memuat data...",
+        "type": "prop: message"
+      }
+    ]
+  },
+  {
+    "file": "features/admin-umkm/views/UmkmAdminView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 95,
+        "text": "Status",
+        "type": "prop: label"
+      },
+      {
+        "line": 114,
+        "text": "Memuat data UMKM...",
+        "type": "prop: message"
+      }
+    ]
+  },
+  {
+    "file": "features/articles/components/ArticleDialogForm.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 32,
+        "text": "Promise",
+        "type": "JSX text"
+      },
+      {
+        "line": 105,
+        "text": "Cover Preview",
+        "type": "prop: alt"
+      }
+    ]
+  },
+  {
+    "file": "features/auth/views/ForgotPasswordView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 23,
+        "text": "Manufaktur Industri",
+        "type": "prop: alt"
+      },
+      {
+        "line": 130,
+        "text": "Sedang memproses...",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/auth/views/VerificationSuccessView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 21,
+        "text": "Verification Success",
+        "type": "prop: alt"
+      },
+      {
+        "line": 32,
+        "text": "Terverifikasi",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/mentoring/components/MentoringRequestForm.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 146,
+        "text": "Rekomendasi Berdasarkan Asesmen",
+        "type": "JSX text"
+      },
+      {
+        "line": 159,
+        "text": "Penting",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/umkm-assessment/components/AssessmentForm.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 440,
+        "text": "Loading Assessment",
+        "type": "JSX text"
+      },
+      {
+        "line": 441,
+        "text": "Please wait while we load the assessment questions.",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/umkm-assessment/components/MaturityTrendChart.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 76,
+        "text": "Skor Total:",
+        "type": "JSX text"
+      },
+      {
+        "line": 89,
+        "text": "Rincian Per Kategori:",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "components/layouts/public/PublicNavbar.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 131,
+        "text": "MANGO Logo",
+        "type": "prop: alt"
+      },
+      {
+        "line": 232,
+        "text": "Toggle menu",
+        "type": "prop: label"
+      }
+    ]
+  },
+  {
+    "file": "features/admin-approvals/views/OrganizationApprovalsView.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 74,
+        "text": "Memuat permohonan UMKM...",
+        "type": "prop: message"
+      }
+    ]
+  },
+  {
+    "file": "features/admin-users/components/UserDialogForm.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 14,
+        "text": "Promise",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/auth/views/LoginView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 51,
+        "text": "Manufaktur Industri",
+        "type": "prop: alt"
+      }
+    ]
+  },
+  {
+    "file": "features/dashboard/views/MainDashboardView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 18,
+        "text": "Memuat data workspace...",
+        "type": "prop: message"
+      }
+    ]
+  },
+  {
+    "file": "features/landing/components/HeroSection.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 136,
+        "text": "Client Logo",
+        "type": "prop: alt"
+      }
+    ]
+  },
+  {
+    "file": "features/landing/components/SolutionSection.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 101,
+        "text": "MANGO Dashboard Interface",
+        "type": "prop: alt"
+      }
+    ]
+  },
+  {
+    "file": "features/umkm-products/components/ProductDialogForm.tsx",
+    "usesTranslations": true,
+    "issues": [
+      {
+        "line": 26,
+        "text": "Promise",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "features/umkm-profile/views/PublicUmkmProfileView.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 25,
+        "text": "Kembali ke Beranda",
+        "type": "JSX text"
+      }
+    ]
+  },
+  {
+    "file": "components/common/TiptapEditor.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 77,
+        "text": "Gagal mengunggah gambar. Pastikan ukuran file < 5MB.",
+        "type": "alert/confirm"
+      }
+    ]
+  },
+  {
+    "file": "components/layouts/dashboard/DashboardLayoutWrapper.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 111,
+        "text": "MANGO Logo",
+        "type": "prop: alt"
+      }
+    ]
+  },
+  {
+    "file": "components/layouts/dashboard/ThemeToggle.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 30,
+        "text": "Toggle theme",
+        "type": "prop: label"
+      }
+    ]
+  },
+  {
+    "file": "components/ui/dashboard/StatusAlert.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 42,
+        "text": "Dismiss",
+        "type": "prop: label"
+      }
+    ]
+  },
+  {
+    "file": "components/ui/dialog.tsx",
+    "usesTranslations": false,
+    "issues": [
+      {
+        "line": 51,
+        "text": "Close",
+        "type": "JSX text"
+      }
+    ]
+  }
+]

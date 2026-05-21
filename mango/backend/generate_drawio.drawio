@@ -1,0 +1,128 @@
+<?php
+$tables = [
+    'users' => [
+        'id (PK)', 'name', 'email', 'role'
+    ],
+    'institutions' => [
+        'id (PK)', 'name', 'pic_name'
+    ],
+    'umkms' => [
+        'id (PK)', 'user_id (FK)', 'institution_id (FK)', 'name', 'sector', 'status'
+    ],
+    'assessment_results' => [
+        'id (PK)', 'umkm_id (FK)', 'user_id (FK)', 'total_score', 'level'
+    ],
+    'recommendations' => [
+        'id (PK)', 'assessment_result_id (FK)', 'priority', 'gap_score'
+    ],
+    'consultation_requests' => [
+        'id (PK)', 'umkm_id (FK)', 'institution_id (FK)', 'topic', 'status'
+    ],
+    'consultation_sessions' => [
+        'id (PK)', 'consultation_request_id (FK)', 'scheduled_at', 'status'
+    ],
+    'projects' => [
+        'id (PK)', 'umkm_id (FK)', 'assessment_result_id (FK)', 'consultation_request_id (FK)', 'name', 'status'
+    ],
+    'iterations' => [
+        'id (PK)', 'project_id (FK)', 'name', 'status'
+    ],
+    'action_plans' => [
+        'id (PK)', 'iteration_id (FK)', 'pic_user_id (FK)', 'title', 'status'
+    ],
+    'machines' => [
+        'id (PK)', 'name', 'type', 'is_reservable', 'institution_id (FK)', 'umkm_id (FK)'
+    ],
+    'machine_reservations' => [
+        'id (PK)', 'machine_id (FK)', 'requester_umkm_id (FK)', 'requested_by_user_id (FK)', 'status'
+    ]
+];
+
+$links = [
+    ['umkms', 'users'],
+    ['umkms', 'institutions'],
+    ['assessment_results', 'umkms'],
+    ['assessment_results', 'users'],
+    ['recommendations', 'assessment_results'],
+    ['consultation_requests', 'umkms'],
+    ['consultation_requests', 'institutions'],
+    ['consultation_sessions', 'consultation_requests'],
+    ['projects', 'umkms'],
+    ['projects', 'assessment_results'],
+    ['projects', 'consultation_requests'],
+    ['iterations', 'projects'],
+    ['action_plans', 'iterations'],
+    ['action_plans', 'users'],
+    ['machines', 'institutions'],
+    ['machines', 'umkms'],
+    ['machine_reservations', 'machines'],
+    ['machine_reservations', 'umkms'],
+    ['machine_reservations', 'users']
+];
+
+$xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+$xml .= '<mxfile host="app.diagrams.net" modified="' . date('c') . '" agent="Mozilla/5.0" version="21.6.8" type="device">' . "\n";
+$xml .= '  <diagram id="mango_erd" name="MANGO ERD">' . "\n";
+$xml .= '    <mxGraphModel dx="1422" dy="798" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">' . "\n";
+$xml .= '      <root>' . "\n";
+$xml .= '        <mxCell id="0" />' . "\n";
+$xml .= '        <mxCell id="1" parent="0" />' . "\n";
+
+$x = 40;
+$y = 40;
+$col = 0;
+
+$tableIds = [];
+
+foreach ($tables as $tableName => $columns) {
+    $tableId = "table_" . $tableName;
+    $tableIds[$tableName] = $tableId;
+    
+    // Draw table header
+    $xml .= '        <mxCell id="'.$tableId.'" value="'.$tableName.'" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">' . "\n";
+    $xml .= '          <mxGeometry x="'.$x.'" y="'.$y.'" width="200" height="'.(30 + (count($columns)*30)).'" as="geometry" />' . "\n";
+    $xml .= '        </mxCell>' . "\n";
+    
+    $rowY = 30;
+    foreach ($columns as $idx => $colName) {
+        $rowId = $tableId . "_row_" . $idx;
+        $xml .= '        <mxCell id="'.$rowId.'" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="'.$tableId.'">' . "\n";
+        $xml .= '          <mxGeometry y="'.$rowY.'" width="200" height="30" as="geometry" />' . "\n";
+        $xml .= '        </mxCell>' . "\n";
+        
+        $cellId = $tableId . "_cell_" . $idx;
+        $icon = strpos($colName, 'PK') !== false ? '🔑 ' : (strpos($colName, 'FK') !== false ? '🔗 ' : '📄 ');
+        $xml .= '        <mxCell id="'.$cellId.'" value="'.$icon.$colName.'" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;align=left;verticalAlign=middle;spacingLeft=5;" vertex="1" parent="'.$rowId.'">' . "\n";
+        $xml .= '          <mxGeometry width="200" height="30" as="geometry" />' . "\n";
+        $xml .= '        </mxCell>' . "\n";
+        $rowY += 30;
+    }
+    
+    $x += 250;
+    $col++;
+    if ($col >= 4) {
+        $col = 0;
+        $x = 40;
+        $y += 300;
+    }
+}
+
+// Draw links
+$linkId = 1000;
+foreach ($links as $link) {
+    $source = $tableIds[$link[0]];
+    $target = $tableIds[$link[1]];
+    
+    $xml .= '        <mxCell id="edge_'.$linkId.'" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=crow;endFill=0;" edge="1" parent="1" source="'.$source.'" target="'.$target.'">' . "\n";
+    $xml .= '          <mxGeometry relative="1" as="geometry" />' . "\n";
+    $xml .= '        </mxCell>' . "\n";
+    $linkId++;
+}
+
+$xml .= '      </root>' . "\n";
+$xml .= '    </mxGraphModel>' . "\n";
+$xml .= '  </diagram>' . "\n";
+$xml .= '</mxfile>' . "\n";
+
+file_put_contents('C:\Users\AIO-16\.gemini\antigravity\brain\0f602df5-d9db-4641-9ff1-6c72ba9d6522\mango_erd.drawio', $xml);
+echo "Draw.io file created at mango_erd.drawio";

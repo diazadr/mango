@@ -1,0 +1,1 @@
+<?php require 'vendor/autoload.php'; try { \ = new \BaconQrCode\Renderer\ImageRenderer(new \BaconQrCode\Renderer\RendererStyle\RendererStyle(80, 0), new \BaconQrCode\Renderer\Image\ImagickImageBackEnd()); \ = new \BaconQrCode\Writer(\); echo 'PNG OK'; } catch (\Throwable \) { echo \->getMessage(); }

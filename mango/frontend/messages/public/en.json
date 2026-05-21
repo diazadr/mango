@@ -1,0 +1,363 @@
+{
+    "PublicNavbar": {
+        "services": "Services",
+        "features": "Features",
+        "products": "Products",
+        "testimonials": "Testimonials",
+        "about": "About",
+        "blog": "Blog",
+        "services_catalog": "Services",
+        "login": "Login",
+        "register": "Register IKM",
+        "alt_mango_logo": "MANGO Logo",
+        "label_toggle_menu": "Toggle menu"
+    },
+    "PublicFooter": {
+        "description": "An innovation, collaboration, and operational transformation hub for SMEs, campuses, and support organizations through the Mango ERP/MES ecosystem.",
+        "services_title": "Our Services",
+        "services": {
+            "advisor": "Advisor Mentoring",
+            "assessment": "Assessment & Scoring",
+            "reservation": "Facility Reservation",
+            "smart_mfg": "ERP + MES"
+        },
+        "company_title": "Company",
+        "company": {
+            "about": "About Us",
+            "partners": "Partners & Collaboration",
+            "blog": "News & Articles",
+            "careers": "Careers"
+        },
+        "contact_title": "Contact Us",
+        "contact": {
+            "address": "Jl. Kanayakan No.21, Dago, Coblong District, Bandung City, West Java 40135",
+            "phone": "+62 22 2500241",
+            "email": "info@polman-bandung.ac.id"
+        },
+        "copyright": "Politeknik Manufaktur Bandung. All rights reserved.",
+        "legal": {
+            "privacy": "Privacy Policy",
+            "terms": "Terms of Service"
+        }
+    },
+    "HeroSection": {
+        "title_1": "Smart manufacturing",
+        "title_2": "made awesome",
+        "description": "We deliver smart solutions that adapt to your unique operations, boosting efficiency, traceability, and real-time insights.",
+        "explore": "Explore MANGO Platform",
+        "trusted": "Trusted by industry leaders:"
+    },
+    "ProblemSection": {
+        "badge": "Industrial Bottlenecks",
+        "title": "Why is modern tech adoption so difficult?",
+        "description": "Many SMEs lag behind due to the high costs of R&D and the risks of testing unproven technologies on live production lines. MANGO serves as a Living Lab bridge and Smart Manufacturing solution.",
+        "animation_title": "System Vulnerability Analysis",
+        "solve_problem": "Solve This",
+        "items": {
+            "tech_gap": {
+                "title": "Technological Gap",
+                "desc": "Struggling to transition from conventional machines to smart Industry 4.0 systems due to limited expertise."
+            },
+            "isolated": {
+                "title": "Fragmented Systems",
+                "desc": "Machine, warehouse, and shop floor data are disconnected, creating informational silos."
+            },
+            "no_lab": {
+                "title": "High-Risk Experimentation",
+                "desc": "SMEs lack a safe space (Living Lab) to test new technologies without disrupting their daily production."
+            },
+            "inefficiency": {
+                "title": "Limited Scale Inefficiency",
+                "desc": "Managing a limited manufacturing scope often leads to resource waste and suboptimal output."
+            }
+        }
+    },
+    "SolutionSection": {
+        "title_part1": "Manufacturing Advisor and",
+        "title_part2": "Go Up Together",
+        "description": "An integrated digital platform bridging SMEs with Smart Manufacturing technologies. Built by POLMAN Bandung to drive collaboration and minimize technological risks.",
+        "cta_button": "Download Profile"
+    },
+    "CoreFeaturesSection": {
+        "badge": "Our Solutions",
+        "title": "Empowering SMEs with MANGO",
+        "items": {
+            "advisor": {
+                "title": "Advisor Mentoring",
+                "desc": "Direct collaboration with POLMAN Bandung experts to solve manufacturing technology bottlenecks."
+            },
+            "assessment": {
+                "title": "Assessment & Scoring",
+                "desc": "Self-analysis of SME technological and operational readiness with accurate scoring metrics."
+            },
+            "reservation": {
+                "title": "Facility Reservation",
+                "desc": "Access to advanced CNC machines and high-tech manufacturing equipment."
+            },
+            "smart_mfg": {
+                "title": "Smart Manufacturing",
+                "desc": "IoT-based ERP and MES integration for real-time production monitoring and shop-floor efficiency."
+            }
+        }
+    },
+    "ProductCatalogSection": {
+        "title_part1": "We Deliver",
+        "title_part2": "Industrial Solutions",
+        "description": "Access a curated catalog of high-quality products and specialized manufacturing services, engineered directly by our certified SME network.",
+        "card_button": "Full catalog of services",
+        "view_all_button": "Explore All Products",
+        "items": {
+            "prod_1_title": "Smart Automation Systems",
+            "prod_1_desc": "IoT-integrated automatic control modules to enhance real-time industrial machine efficiency and precision.",
+            "prod_2_title": "Precision Spare Parts",
+            "prod_2_desc": "High-accuracy metal component manufacturing using 5-axis CNC machines for heavy industrial needs.",
+            "prod_3_title": "Molding & Dies",
+            "prod_3_desc": "Design and fabrication of high-quality plastic injection molds with advanced material durability."
+        },
+        "no_products": "No products are currently available to the public.",
+        "no_description": "No product description available."
+    },
+    "ArticleSection": {
+        "title_part1": "Strategic Industry",
+        "title_part2": "Insights",
+        "description": "Stay ahead of the curve with expert perspectives on industrial IoT, operational efficiency, and tactical scaling strategies for modern SMEs.",
+        "view_all": "Explore All Insights",
+        "read_more": "Read Full Article",
+        "no_articles": "No articles available yet."
+    },
+    "CTASection": {
+        "title_part1": "Ready to Scale",
+        "title_highlight": "Your Manufacturing",
+        "title_part2": "Business?",
+        "description": "Become a part of the MANGO ecosystem. Get exclusive consultation sessions with expert engineers from POLMAN Bandung, utilize Smart Manufacturing facilities, and let's elevate your industrial competitiveness globally.",
+        "btn_primary": "Schedule Consultation"
+    },
+    "FAQSection": {
+        "title_part1": "Answers For",
+        "title_part2": "Your Business",
+        "description": "Find comprehensive information about the MANGO ecosystem's capabilities and the integrated manufacturing solutions we provide to scale your enterprise.",
+        "items": {
+            "what_is_mango": {
+                "question": "What is the MANGO platform and its primary objective?",
+                "answer": "MANGO is an integrated digital ecosystem initiated by POLMAN Bandung, specifically engineered to accelerate the digital transformation of SMEs through Smart Manufacturing, ERP systems, and Living Lab facilities."
+            },
+            "who_can_join": {
+                "question": "Who is eligible to participate in the MANGO ecosystem?",
+                "answer": "The ecosystem welcomes manufacturing SMEs, industry practitioners, academic researchers, and strategic partners dedicated to enhancing shop-floor efficiency and accelerating technology adoption."
+            },
+            "is_it_free": {
+                "question": "What is the pricing structure for MANGO services?",
+                "answer": "Account registration and initial capability assessments are entirely complimentary. Advanced solutions—such as precision machinery (CNC) reservations and custom IoT integrations—are subject to the official UPT service pricing schemes."
+            },
+            "how_to_reserve": {
+                "question": "What is the procedure for reserving manufacturing facilities?",
+                "answer": "Registered users can navigate to the 'Facility Reservation' module within the MANGO Dashboard. This feature provides real-time visibility into machine availability and enables seamless, automated booking."
+            },
+            "mentoring_support": {
+                "question": "Does MANGO offer technological consultation and mentoring?",
+                "answer": "Absolutely. MANGO offers an 'Advisor Mentoring' program where expert consultants from POLMAN Bandung provide end-to-end guidance—from requirements analysis and system design to the implementation of targeted technological solutions."
+            }
+        }
+    },
+    "RegisterPage": {
+        "title": "Create Account",
+        "subtitle": "Join the <accent>MANGO Ecosystem</accent> today.",
+        "hero_title": "Improve Your <accent>Operations</accent> Efficiency",
+        "hero_desc": "Experience connected ERP and MES workflows for manufacturing, services, and cross-entity collaboration.",
+        "name_label": "Full Name",
+        "name_placeholder": "Enter your full name",
+        "email_label": "Email Address",
+        "email_placeholder": "name@company.com",
+        "password_label": "Password",
+        "password_placeholder": "Create a strong password",
+        "password_confirmation_label": "Confirm Password",
+        "password_confirmation_placeholder": "Repeat your password",
+        "profile_picture_label": "Profile Picture (Optional)",
+        "upload_label": "Upload",
+        "submit_button": "Create My Account",
+        "processing": "Creating account...",
+        "already_have_account": "Already have an account?",
+        "login": "Login",
+        "login_link": "Login here",
+        "errors": {
+            "server_error": "Server error occurred. Please try again later.",
+            "network_error": "Network error. Please check your connection.",
+            "email_taken": "This email is already registered.",
+            "nik_taken": "This NIK is already registered.",
+            "avatar_too_large": "Profile picture size must not exceed 2MB.",
+            "name_required": "Full name is required.",
+            "email_required": "Email address is required.",
+            "email_invalid": "Invalid email format.",
+            "password_min_8": "Password must be at least 8 characters.",
+            "password_uppercase": "At least one uppercase letter.",
+            "password_lowercase": "At least one lowercase letter.",
+            "password_number": "At least one number.",
+            "password_special": "At least one special character (e.g., @, $, !).",
+            "password_confirmation_required": "Password confirmation is required.",
+            "password_mismatch": "Passwords do not match.",
+            "nik_invalid_length": "NIK must be exactly 16 digits.",
+            "nik_numeric": "NIK must be numeric.",
+            "dob_required": "Date of birth is required."
+        }
+    },
+    "VerificationSuccessPage": {
+        "title": "Verification Successful!",
+        "description": "Your email has been successfully verified. Your account is now active and ready for the next step.",
+        "continue_button": "Continue to Onboarding"
+    },
+    "ArticleDetail": {
+        "page_title": "Article Detail",
+        "page_description": "Read the full article on MANGO Platform.",
+        "back_to_blog": "Back to Blog",
+        "by_team": "MANGO Team",
+        "by_author": "By {name}",
+        "share_article": "Share article:",
+        "read_more": "Read More Articles",
+        "not_found": "Article not found.",
+        "link_copied": "Article link copied to clipboard!",
+        "link_copy_failed": "Failed to copy link."
+    },
+    "UmkmDetail": {
+        "not_found": "UMKM Not Found",
+        "not_found_desc": "The UMKM you are looking for might not be registered or the URL is invalid.",
+        "verified": "MANGO Verified",
+        "about_business": "About Business",
+        "description": "Business Description",
+        "vision": "Vision",
+        "mission": "Mission",
+        "production_workflow": "Production Workflow",
+        "product_catalog": "Product Catalog",
+        "need_consultation": "Need Consultation?",
+        "consultation_desc": "Contact our management unit for partnership information with this UMKM.",
+        "contact_admin": "Contact Admin",
+        "business_info": "Business Info",
+        "established": "Established",
+        "legal_entity": "Legal Entity",
+        "location": "Location",
+        "operating_hours": "Operating Hours",
+        "closed": "Closed",
+        "contact_business": "Contact Business",
+        "whatsapp_us": "Chat on WhatsApp",
+        "share_profile": "Share Profile",
+        "visit_website": "Visit Website"
+    },
+    "ProductDetail": {
+        "page_title": "Product Detail",
+        "page_description": "View verified SME product details on MANGO Platform.",
+        "product_not_found": "Product Not Found",
+        "product_not_found_desc": "The product you are looking for might have been removed or the URL is invalid.",
+        "back_to_catalog": "Back to Catalog",
+        "price_estimate": "Price Estimate",
+        "status_available": "Available",
+        "product_description": "Product Description",
+        "no_description": "No detailed description available for this product.",
+        "produced_by": "Produced By",
+        "view_profile": "View Profile",
+        "full_address": "Full Address",
+        "phone_not_set": "No phone number",
+        "chat_whatsapp": "Chat via WhatsApp",
+        "share_product": "Share Product",
+        "share_text": "Check out {product} from {company} on MANGO Platform!",
+        "link_copied": "Product link copied to clipboard!"
+    },
+    "PublicProductsPage": {
+        "page_title": "Product Catalog",
+        "page_description": "Browse verified SME products in the MANGO ecosystem."
+    },
+    "PublicBlogPage": {
+        "page_title": "Blog & Articles",
+        "page_description": "Read the latest news, education, and updates from the MANGO ecosystem."
+    },
+    "PublicProductCatalogView": {
+        "title": "Industrial <accent>Product</accent> & Solutions",
+        "search_placeholder": "Search product name, description, or company...",
+        "filter_sector": "Filter Sector",
+        "all_sectors": "All Sectors",
+        "sort_by": "Sort By",
+        "sort_newest": "Newest",
+        "sort_price_low": "Lowest Price",
+        "sort_price_high": "Highest Price",
+        "sort_name_az": "Name (A-Z)",
+        "no_products": "Products not found",
+        "no_products_desc": "Try using other keywords or explore our main categories.",
+        "no_description": "No product description available.",
+        "price_estimate": "Price Estimate",
+        "location_not_set": "Location not set",
+        "prev_page": "Previous",
+        "next_page": "Next",
+        "page_info": "Page {page} of {totalPages}",
+        "sectors": {
+            "manufacturing": "Manufacturing",
+            "textile": "Textile",
+            "food_beverage": "Food & Beverage",
+            "creative": "Creative",
+            "technology": "Technology"
+        }
+    },
+    "PublicBlogListView": {
+        "title": "Insights & <accent>Education</accent>",
+        "search_placeholder": "Search articles...",
+        "filter_category": "Filter Category",
+        "all_categories": "All Categories",
+        "categories": {
+            "education": "Education",
+            "news": "News",
+            "event": "Event",
+            "technology": "Technology",
+            "general": "General"
+        },
+        "sort_by": "Sort By",
+        "sort_newest": "Newest",
+        "sort_oldest": "Oldest",
+        "sort_title_az": "Title (A-Z)",
+        "sort_title_za": "Title (Z-A)",
+        "no_articles": "No articles found",
+        "no_articles_desc": "Try using other keywords or categories.",
+        "read_more": "Read More",
+        "prev_page": "Previous",
+        "next_page": "Next",
+        "page_info": "Page {page} of {totalPages}"
+    },
+    "DocumentAssessmentPage": {
+        "title": "Document assessment"
+    },
+    "DocumentInvoicePage": {
+        "title": "Document invoice"
+    },
+    "DocumentUmkmPage": {
+        "title": "Document umkm"
+    },
+    "ForbiddenPage": {
+        "title": "Forbidden"
+    },
+    "InvoicePage": {
+        "title": "Invoice"
+    },
+    "HomePage": {
+        "title": "Home"
+    },
+    "ServicesPage": {
+        "title": "Services"
+    },
+    "PublicServiceCatalogView": {
+        "layanan": "Service",
+        "ekosistem": "Ekosistem",
+        "ikm_terdaftar": "IKM Registered",
+        "ahli_industri": "Ahli Industry",
+        "fasilitas_mesin": "Fasilitas Machine",
+        "kawasan_industri": "Kawasan Industry",
+        "title_fasilitas_produksi": "Fasilitas Production",
+        "title_akses_pasar": "Akses Pasar",
+        "title_efisiensi_biaya": "Efisiensi Cost",
+        "title_jejaring_bisnis": "Jejaring Business"
+    },
+    "PublicArticleDetailView": {
+        "title_share_on_whatsapp": "Share on WhatsApp",
+        "title_share_on_facebook": "Share on Facebook",
+        "title_share_on_twitter": "Share on Twitter",
+        "title_share_link": "Share link"
+    },
+    "PublicUmkmProfileView": {
+        "kembali_ke_beranda": "Back to Home"
+    }
+}
