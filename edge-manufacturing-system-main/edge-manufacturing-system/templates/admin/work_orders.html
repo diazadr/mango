@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>MANGO Edge — Work Orders</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:#0a0a0f; --surface:#12121a; --surface2:#1a1a26; --border:rgba(255,255,255,0.07);
+      --primary:#7c3aed; --primary-l:#8b5cf6; --accent:#06b6d4;
+      --success:#10b981; --warning:#f59e0b; --danger:#ef4444;
+      --text:#e8e8f0; --muted:#6b7280; --radius:12px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    a { color: var(--primary-l); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { font-family: ui-monospace, monospace; font-size: 0.82em; background: rgba(124,58,237,0.12); padding: 0.15em 0.45em; border-radius: 4px; }
+    .topbar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; gap: 1rem; padding: 0 1.5rem; height: 56px; background: rgba(18,18,26,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .topbar-brand { display: flex; align-items: center; gap: 0.6rem; font-weight: 900; font-size: 1rem; letter-spacing: -0.02em; }
+    .topbar-brand .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary-l); box-shadow: 0 0 8px var(--primary-l); }
+    .topbar nav { display: flex; align-items: center; gap: 0.25rem; margin-left: auto; }
+    .topbar nav a { padding: 0.4rem 0.85rem; border-radius: 8px; font-size: 0.8rem; font-weight: 600; color: var(--muted); transition: all 0.15s; display: flex; align-items: center; gap: 0.4rem; }
+    .topbar nav a:hover { color: var(--text); background: rgba(255,255,255,0.05); text-decoration: none; }
+    .topbar nav a.active { color: var(--primary-l); background: rgba(124,58,237,0.12); }
+    .page { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; }
+    .page-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .page-title { display: flex; align-items: center; gap: 0.75rem; }
+    .page-title .icon-wrap { width: 40px; height: 40px; border-radius: 10px; background: rgba(124,58,237,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .page-title h1 { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.02em; }
+    .page-title p { font-size: 0.78rem; color: var(--muted); font-weight: 500; margin-top: 0.2rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .card-header { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02); display: flex; align-items: center; justify-content: space-between; }
+    .card-header h2 { font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+    table { width: 100%; border-collapse: collapse; }
+    thead th { padding: 0.65rem 1rem; text-align: left; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); background: rgba(255,255,255,0.025); border-bottom: 1px solid var(--border); }
+    tbody td { padding: 0.85rem 1rem; border-bottom: 1px solid var(--border); font-size: 0.85rem; vertical-align: middle; }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: rgba(255,255,255,0.02); }
+    .badge { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.2rem 0.65rem; border-radius: 6px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+    .badge-success { background: rgba(16,185,129,0.12); color: var(--success); border: 1px solid rgba(16,185,129,0.2); }
+    .badge-warning { background: rgba(245,158,11,0.12); color: var(--warning); border: 1px solid rgba(245,158,11,0.2); }
+    .badge-muted   { background: rgba(107,114,128,0.12); color: var(--muted); border: 1px solid rgba(107,114,128,0.2); }
+    .badge-accent  { background: rgba(6,182,212,0.12); color: var(--accent); border: 1px solid rgba(6,182,212,0.2); }
+    .badge .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+    .btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.55rem 1.1rem; border-radius: 10px; font-size: 0.82rem; font-weight: 700; border: none; cursor: pointer; transition: all 0.15s; text-decoration: none; }
+    .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 0 20px rgba(124,58,237,0.25); }
+    .btn-primary:hover { background: var(--primary-l); box-shadow: 0 0 28px rgba(139,92,246,0.4); text-decoration: none; }
+    .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+    .btn-ghost:hover { color: var(--text); background: rgba(255,255,255,0.05); text-decoration: none; }
+    .empty { padding: 3rem; text-align: center; color: var(--muted); }
+    .empty .icon { font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.3; }
+    .empty p { font-size: 0.85rem; font-weight: 500; }
+    .sync-info { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: var(--muted); padding: 0.6rem 1.25rem; background: rgba(255,255,255,0.02); border-bottom: 1px solid var(--border); }
+    .sync-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .sync-dot.ok { background: var(--success); box-shadow: 0 0 6px var(--success); animation: pulse 2s infinite; }
+    .sync-dot.none { background: var(--muted); }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    @media (max-width: 768px) { .page { padding: 1.25rem 1rem; } .page-header { flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-brand">
+      <div class="dot"></div>
+      MANGO <span style="color:var(--muted);font-weight:500">Edge</span>
+    </div>
+    <nav>
+      <a href="/machines">⚙️ Mesin</a>
+      <a href="/work-orders" class="active">📋 Work Order</a>
+      <a href="/connection-logs">🔌 Log Koneksi</a>
+    </nav>
+  </div>
+
+  <div class="page">
+    <div class="page-header">
+      <div class="page-title">
+        <div class="icon-wrap">📋</div>
+        <div>
+          <h1>Work Orders dari MANGO ERP</h1>
+          <p>Cache sinkronisasi terakhir dari ERP pusat. Data diperbarui otomatis setiap beberapa menit.</p>
+        </div>
+      </div>
+      <form method="post" action="/work-orders/sync">
+        <button type="submit" class="btn btn-primary">🔄 Tarik Data Sekarang</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2>Daftar Work Order</h2>
+        <div class="sync-info">
+          <div class="sync-dot {{ if .HasData }}ok{{ else }}none{{ end }}"></div>
+          {{ if .HasData }}Data tersedia dari cache terakhir{{ else }}Belum ada data — klik "Tarik Data"{{ end }}
+        </div>
+      </div>
+
+      {{ if .HasData }}
+        {{ if .WorkOrders }}
+        <table>
+          <thead>
+            <tr>
+              <th>Work Order</th>
+              <th>Part Number</th>
+              <th>Mesin Target</th>
+              <th>Qty Target</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{ range .WorkOrders }}
+            <tr>
+              <td><strong>{{ .work_order }}</strong></td>
+              <td><code>{{ .part_number }}</code></td>
+              <td>
+                <span style="display:inline-flex;align-items:center;gap:0.4rem;color:var(--primary-l);font-weight:700;font-size:0.82rem">
+                  ⚙️ {{ .resource_code }}
+                </span>
+              </td>
+              <td style="font-weight:700">{{ .planned_quantity }} <span style="color:var(--muted);font-weight:500">pcs</span></td>
+              <td>
+                {{ $s := .status }}
+                {{ if eq $s "released" }}<span class="badge badge-success"><span class="dot"></span>Released</span>
+                {{ else if eq $s "in_progress" }}<span class="badge badge-accent"><span class="dot"></span>In Progress</span>
+                {{ else if eq $s "pending" }}<span class="badge badge-warning"><span class="dot"></span>Pending</span>
+                {{ else }}<span class="badge badge-muted"><span class="dot"></span>{{ $s }}</span>
+                {{ end }}
+              </td>
+            </tr>
+            {{ else }}
+            <tr><td colspan="5"><div class="empty"><p>Data berhasil ditarik namun tidak ada Work Order aktif saat ini.</p></div></td></tr>
+            {{ end }}
+          </tbody>
+        </table>
+        {{ else }}
+        <div class="empty">
+          <div class="icon">📋</div>
+          <p>Tidak ada Work Order aktif di ERP MANGO saat ini.</p>
+        </div>
+        {{ end }}
+      {{ else }}
+      <div class="empty">
+        <div class="icon">🔄</div>
+        <p>Belum ada data Work Order yang ditarik dari MANGO ERP.</p>
+        <p style="margin-top:0.5rem;font-size:0.78rem">Sistem mencoba menarik data otomatis jika koneksi tersedia.</p>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</body>
+</html>

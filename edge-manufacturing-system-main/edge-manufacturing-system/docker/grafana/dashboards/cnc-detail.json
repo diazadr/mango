@@ -1,0 +1,55 @@
+{
+  "title": "CNC Edge — Detail mesin",
+  "uid": "cnc-detail",
+  "version": 1,
+  "schemaVersion": 39,
+  "refresh": "5s",
+  "time": { "from": "now-6h", "to": "now" },
+  "templating": {
+    "list": [
+      {
+        "name": "machine_id",
+        "type": "custom",
+        "query": "ntx1000,makino_01,simulator_dmg",
+        "current": { "value": "ntx1000", "text": "ntx1000" },
+        "hide": 0,
+        "includeAll": false,
+        "multi": false
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Run status ($machine_id)",
+      "type": "stat",
+      "gridPos": { "x": 0, "y": 0, "w": 8, "h": 4 },
+      "datasource": { "type": "influxdb", "uid": "InfluxDB-CNC" },
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "colorMode": "background",
+        "graphMode": "none"
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"cnc_data\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._measurement == \"machine_status\")\n  |> filter(fn: (r) => r.machine_id == \"${machine_id}\")\n  |> filter(fn: (r) => r._field == \"run_status\")\n  |> last()",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Alarm aktif (PostgreSQL)",
+      "type": "table",
+      "gridPos": { "x": 8, "y": 0, "w": 16, "h": 8 },
+      "datasource": { "type": "postgres", "uid": "PostgreSQL-Alarms" },
+      "targets": [
+        {
+          "format": "table",
+          "rawSql": "SELECT timestamp, machine_id, code, message, severity FROM alarm_events WHERE resolved_at IS NULL ORDER BY timestamp DESC LIMIT 50",
+          "refId": "A"
+        }
+      ]
+    }
+  ]
+}

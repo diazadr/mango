@@ -1,0 +1,52 @@
+{
+  "title": "CNC Edge — Operator & produksi",
+  "uid": "operator-production",
+  "version": 1,
+  "schemaVersion": 39,
+  "refresh": "30s",
+  "time": { "from": "now-24h", "to": "now" },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Production logs (hari ini)",
+      "type": "table",
+      "gridPos": { "x": 0, "y": 0, "w": 24, "h": 10 },
+      "datasource": { "type": "postgres", "uid": "PostgreSQL-Alarms" },
+      "targets": [
+        {
+          "format": "table",
+          "rawSql": "SELECT timestamp, machine_id, work_order, operator_id, qty_ok, qty_ng, shift FROM production_logs WHERE DATE(timestamp AT TIME ZONE 'Asia/Jakarta') = CURRENT_DATE ORDER BY timestamp DESC LIMIT 200",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Check-in aktif",
+      "type": "table",
+      "gridPos": { "x": 0, "y": 10, "w": 12, "h": 8 },
+      "datasource": { "type": "postgres", "uid": "PostgreSQL-Alarms" },
+      "targets": [
+        {
+          "format": "table",
+          "rawSql": "SELECT machine_id, operator_id, shift, work_order, part_number, checked_in_at FROM operator_checkins WHERE checked_out_at IS NULL ORDER BY checked_in_at DESC LIMIT 100",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Downtime (open)",
+      "type": "table",
+      "gridPos": { "x": 12, "y": 10, "w": 12, "h": 8 },
+      "datasource": { "type": "postgres", "uid": "PostgreSQL-Alarms" },
+      "targets": [
+        {
+          "format": "table",
+          "rawSql": "SELECT machine_id, category, reason, started_at FROM downtime_logs WHERE resolved_at IS NULL ORDER BY started_at DESC LIMIT 100",
+          "refId": "A"
+        }
+      ]
+    }
+  ]
+}

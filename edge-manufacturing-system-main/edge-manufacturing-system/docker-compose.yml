@@ -1,0 +1,122 @@
+# ── Edge Manufacturing System — Docker Compose ────────────────────────────────
+# Dijalankan dengan: docker compose up -d --build
+# Port MANGO Backend harus berjalan di host:8000
+
+services:
+  # ── DATABASE: INFLUXDB (Time-series) ──────────────────────────────────────
+  influxdb:
+    image: influxdb:2.7
+    container_name: influxdb
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=password123
+      - DOCKER_INFLUXDB_INIT_ORG=mango
+      - DOCKER_INFLUXDB_INIT_BUCKET=edge_data
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=my-super-secret-auth-token
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+
+  # ── DATABASE: POSTGRESQL (Metadata & Alarms) ──────────────────────────────
+  postgres:
+    image: postgres:15-alpine
+    container_name: edge_postgres
+    restart: unless-stopped
+    ports:
+      - "5433:5432"  # Host 5433 agar tidak bentrok dengan MANGO di 5432
+    environment:
+      - POSTGRES_USER=edge_user
+      - POSTGRES_PASSWORD=edge_pass
+      - POSTGRES_DB=edge_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # ── VISUALIZATION: GRAFANA ────────────────────────────────────────────────
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3005:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+      - GF_AUTH_ANONYMOUS_HIDE_VERSION=true
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/edge.json
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./docker/grafana:/etc/grafana/provisioning
+
+  # ── BROKER: EMQX (MQTT) ───────────────────────────────────────────────────
+  emqx:
+    image: emqx/emqx:5.3.0
+    container_name: emqx
+    restart: unless-stopped
+    ports:
+      - "1883:1883"   # MQTT TCP
+      - "8883:8883"   # MQTT TLS
+      - "18083:18083" # EMQX Dashboard
+    environment:
+      # Izinkan semua koneksi tanpa auth (dev mode)
+      - EMQX_MQTT__MAX_CLIENTID_LEN=65535
+      - EMQX_DASHBOARD__DEFAULT_USERNAME=admin
+      - EMQX_DASHBOARD__DEFAULT_PASSWORD=admin123
+      # Anonymous auth — allow all connections
+      - EMQX_AUTHENTICATION=[{mechanism=password_based,backend=built_in_database,enable=false}]
+    volumes:
+      - emqx_data:/opt/emqx/data
+
+  # ── EDGE CORE (Collector & REST API) ──────────────────────────────────────
+  edge_core:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    image: edge_core:local
+    container_name: edge_core
+    restart: unless-stopped
+    depends_on:
+      - influxdb
+      - postgres
+      - emqx
+    ports:
+      - "8080:8080"
+    environment:
+      - CNC_CONFIG=/app/config/config.docker.yaml
+    volumes:
+      - ./config:/app/config
+      - ./templates:/app/templates
+    # Docker Desktop Windows: host.docker.internal sudah tersedia secara otomatis.
+    # Tambahkan juga host.containers.internal untuk kompatibilitas Podman.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "host.containers.internal:host-gateway"
+
+  # ── SIMULATOR (Mesin CNC Virtual) ─────────────────────────────────────────
+  simulator:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.simulator
+    image: edge_simulator:local
+    container_name: edge_simulator
+    restart: unless-stopped
+    depends_on:
+      - emqx
+    environment:
+      - MQTT_BROKER=emqx
+      - MQTT_PORT=1883
+      - MQTT_USERNAME=edge_service
+      - MQTT_PASSWORD=edge_secret_2026
+      - SITE_ID=POLMAN_BANDUNG_EDGE
+      - MACHINE_ID=dmg_mori_ntx1000
+      - PUBLISH_INTERVAL=2
+
+volumes:
+  influxdb_data:
+  postgres_data:
+  grafana_data:
+  emqx_data:

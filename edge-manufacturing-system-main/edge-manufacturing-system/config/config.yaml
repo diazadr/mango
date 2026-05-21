@@ -1,0 +1,90 @@
+mqtt:
+  broker: "tls://j1618cec.ala.asia-southeast1.emqxsl.com:8883"
+  client_id: "edge_core_subscriber"
+  username: ""
+  password: ""
+  clean_session: false
+  auto_reconnect: true
+  qos_status: 1
+  qos_axis: 0
+  qos_alarm: 2
+  qos_tool: 1
+
+# EMQX Cloud — broker untuk sinkronisasi data ke MANGO platform (opsional)
+cloud_mqtt:
+  enabled: false
+  broker: "tls://j1618cec.ala.asia-southeast1.emqxsl.com:8883"
+  client_id: ""
+  username: ""
+  password: ""
+  tls: true
+  qos: 1
+
+influxdb:
+  url: "http://localhost:8086"
+  token: "my-super-secret-auth-token"
+  org: "mango"
+  bucket: "edge_data"
+  batch_size: 100
+  flush_interval: 5
+
+postgres:
+  host: "localhost"
+  port: 5433
+  user: "edge_user"
+  password: "edge_pass"
+  dbname: "edge_db"
+  sslmode: "disable"
+
+api:
+  port: 8080
+  gin_mode: "debug"
+  templates_dir: "./templates"
+
+mango:
+  enabled: true
+  base_url: "http://localhost:8000/api/v1/integrations/edge"
+  api_key: "cnc-edge-secret-key-2024"
+  site_id: "POLMAN_BANDUNG_EDGE"
+  push_production_interval: 30
+  push_oee_on_shift_end: true
+  push_alarms_realtime: true
+  pull_work_order_interval: 120
+  pull_master_data_interval: 600
+  max_retries: 3
+  retry_delay_seconds: 15
+  # Field mapping: nama field yg dikirim ke Mango API
+  field_mapping:
+    machine_id: "resource_code"
+    qty_ok: "good_quantity"
+    qty_ng: "defect_quantity"
+    cycle_time: "actual_cycle_time"
+    oee: "oee_percentage"
+
+machines:
+  - id: "dmg_mori_ntx1000"
+    name: "DMG Mori NTX 1000"
+    type: "dmg_mori"
+    enabled: true
+  - id: "makino_01"
+    name: "CNC Makino"
+    type: "makino"
+    enabled: true
+
+topics:
+  base: "polman/edge"
+  simulator: "fanuc/cnc/data"
+  status_suffix: "status"
+  axis_suffix: "axis"
+  alarm_suffix: "alarm"
+  tool_suffix: "tool"
+  timer_suffix: "timer"
+  spindle_suffix: "spindle"
+
+oee:
+  calc_interval: 60
+  shift_hours: 8
+
+log:
+  level: "debug"
+  output: "stdout"

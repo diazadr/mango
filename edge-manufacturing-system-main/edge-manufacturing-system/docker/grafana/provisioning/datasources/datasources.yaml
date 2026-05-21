@@ -1,0 +1,32 @@
+apiVersion: 1
+
+datasources:
+  - name: InfluxDB-CNC
+    uid: InfluxDB-CNC
+    type: influxdb
+    access: proxy
+    url: http://influxdb:8086
+    jsonData:
+      version: Flux
+      organization: cnc-factory
+      defaultBucket: cnc_data
+      tlsSkipVerify: true
+    secureJsonData:
+      token: cnc-edge-super-secret-token
+    isDefault: true
+    editable: true
+
+  - name: PostgreSQL-Alarms
+    uid: PostgreSQL-Alarms
+    type: postgres
+    url: postgres:5432
+    user: cnc_edge
+    secureJsonData:
+      password: cnc_pg_secret
+    jsonData:
+      database: cnc_alarms
+      sslmode: disable
+      maxOpenConns: 5
+      maxIdleConns: 2
+      connMaxLifetime: 14400
+    editable: true

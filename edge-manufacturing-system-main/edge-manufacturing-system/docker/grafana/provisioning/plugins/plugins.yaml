@@ -1,0 +1,5 @@
+apiVersion: 1
+
+apps: []
+
+# Plugin versions are resolved at Grafana startup (online). For air-gapped installs, pre-bake images.

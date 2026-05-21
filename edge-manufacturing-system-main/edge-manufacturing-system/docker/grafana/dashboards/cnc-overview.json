@@ -1,0 +1,441 @@
+{
+  "title": "CNC Edge \u00e2\u20ac\u201d Overview",
+  "uid": "cnc-overview",
+  "version": 1,
+  "schemaVersion": 39,
+  "refresh": "5s",
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "id": 101,
+      "title": "Aktual Produksi Hari Ini (pcs)",
+      "type": "stat",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 4,
+        "h": 4
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "InfluxDB-CNC"
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"edge_data\")\n  |> range(start: today())\n  |> filter(fn: (r) => r._measurement == \"production\")\n  |> filter(fn: (r) => r._field == \"qty_ok\")\n  |> last()",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "title": "Target Produksi (pcs)",
+      "type": "stat",
+      "gridPos": {
+        "x": 4,
+        "y": 0,
+        "w": 4,
+        "h": 4
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "InfluxDB-CNC"
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"edge_data\")\n  |> range(start: today())\n  |> filter(fn: (r) => r._measurement == \"production\")\n  |> filter(fn: (r) => r._field == \"target_qty\")\n  |> last()",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 103,
+      "title": "Cycle Time Rata-rata (detik)",
+      "type": "stat",
+      "gridPos": {
+        "x": 8,
+        "y": 0,
+        "w": 4,
+        "h": 4
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "InfluxDB-CNC"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        }
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"edge_data\")\n  |> range(start: today())\n  |> filter(fn: (r) => r._measurement == \"production\")\n  |> filter(fn: (r) => r._field == \"cycle_time\")\n  |> aggregateWindow(every: 1h, fn: mean)\n  |> last()",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 104,
+      "title": "MACHINE INFORMATION ROW",
+      "type": "text",
+      "gridPos": {
+        "x": 0,
+        "y": 4,
+        "w": 24,
+        "h": 6
+      },
+      "options": {
+        "mode": "markdown",
+        "content": "# Unit ID: ntx1000\n## Petugas: Sistem Edge (Shift Berjalan)\n**Program:** Monitoring Aktif | **Alat:** Terdeteksi | **Feedrate:** Dinamis | **Spindle:** Aktif\n**Status:** Menghubungkan ke sensor mesin untuk data real-time."
+      }
+    },
+    {
+      "id": 1,
+      "title": "Status Mesin \u00e2\u20ac\u201d DMG Mori NTX 1000",
+      "type": "stat",
+      "gridPos": {
+        "x": 0,
+        "y": 10,
+        "w": 4,
+        "h": 4
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "InfluxDB-CNC"
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "auto"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "STOP",
+                  "color": "red"
+                },
+                "1": {
+                  "text": "HOLD",
+                  "color": "orange"
+                },
+                "2": {
+                  "text": "RUNNING",
+                  "color": "green"
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 2
+              }
+            ]
+          }
+        }
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"edge_data\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._measurement == \"machine_status\")\n  |> filter(fn: (r) => r.machine_id == \"ntx1000\")\n  |> filter(fn: (r) => r._field == \"run_status\")\n  |> last()",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Posisi Axis X (Absolut) \u00e2\u20ac\u201d mm",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 4,
+        "y": 10,
+        "w": 10,
+        "h": 8
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "InfluxDB-CNC"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "mm",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 10
+          }
+        }
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"edge_data\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._measurement == \"axis_position\")\n  |> filter(fn: (r) => r._field == \"abs_x\" or r._field == \"abs_y\" or r._field == \"abs_z\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "OEE \u00e2\u20ac\u201d Shift Saat Ini (%)",
+      "type": "gauge",
+      "gridPos": {
+        "x": 14,
+        "y": 10,
+        "w": 5,
+        "h": 8
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "InfluxDB-CNC"
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "minVizWidth": 75,
+        "minVizHeight": 75,
+        "orientation": "auto"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 60
+              },
+              {
+                "color": "green",
+                "value": 85
+              }
+            ]
+          }
+        }
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"edge_data\")\n  |> range(start: -8h)\n  |> filter(fn: (r) => r._measurement == \"oee_metrics\")\n  |> filter(fn: (r) => r._field == \"oee\")\n  |> last()",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Production Progress \u00e2\u20ac\u201d Laenge (%)",
+      "type": "bargauge",
+      "gridPos": {
+        "x": 19,
+        "y": 10,
+        "w": 5,
+        "h": 8
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "InfluxDB-CNC"
+      },
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 100
+              }
+            ]
+          }
+        }
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"edge_data\")\n  |> range(start: -1h)\n  |> filter(fn: (r) => r._measurement == \"production_progress\")\n  |> filter(fn: (r) => r._field == \"laenge_prozent\")\n  |> last()",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Active Alarms",
+      "type": "table",
+      "gridPos": {
+        "x": 0,
+        "y": 18,
+        "w": 24,
+        "h": 6
+      },
+      "datasource": {
+        "type": "postgres",
+        "uid": "PostgreSQL-Alarms"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "severity"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "critical": {
+                        "color": "red"
+                      },
+                      "warning": {
+                        "color": "orange"
+                      },
+                      "emergency": {
+                        "color": "dark-red"
+                      },
+                      "info": {
+                        "color": "blue"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT machine_id, machine_name, timestamp, message, severity, type FROM alarm_events WHERE resolved_at IS NULL ORDER BY timestamp DESC LIMIT 20",
+          "refId": "A",
+          "format": "table"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Spindle Speed (RPM)",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 24,
+        "w": 12,
+        "h": 7
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "InfluxDB-CNC"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "rpm",
+          "custom": {
+            "lineWidth": 2
+          }
+        }
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"edge_data\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._measurement == \"spindle\")\n  |> filter(fn: (r) => r._field == \"speed_actual\" or r._field == \"speed_command\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Leitwert (Simulator)",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 12,
+        "y": 24,
+        "w": 12,
+        "h": 7
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "InfluxDB-CNC"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 15
+          }
+        }
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"edge_data\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._measurement == \"production_progress\")\n  |> filter(fn: (r) => r._field == \"leitwert\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)",
+          "refId": "A"
+        }
+      ]
+    }
+  ]
+}

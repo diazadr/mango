@@ -1,0 +1,30 @@
+# ─────────────────────────────────────────────────────────────
+#  ACL — Access Control List Mosquitto
+# ─────────────────────────────────────────────────────────────
+
+# Edge Golang service — akses penuh ke semua topic CNC
+user edge_service
+topic readwrite cnc/#
+topic readwrite fanuc/#
+topic readwrite oee/#
+
+# Simulator Python — hanya boleh publish
+user cnc_simulator
+topic write fanuc/cnc/data
+topic write cnc/dmg/sim/#
+
+# Grafana — hanya baca (untuk live panel)
+user grafana_reader
+topic read cnc/#
+topic read fanuc/#
+topic read oee/#
+
+# DMG Mori machine client
+user dmg_mori
+topic write cnc/dmg/#
+topic read  cnc/dmg/#
+
+# Makino machine client
+user makino
+topic write cnc/makino/#
+topic read  cnc/makino/#
