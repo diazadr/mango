@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>{{.Title}}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f8fafc; /* Slate 50 */
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header-bar {
+            background: linear-gradient(90deg, #1e3a8a, #2563eb);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        .card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .stat-box {
+            background: #eff6ff;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid #bfdbfe;
+        }
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #1e40af;
+        }
+        .stat-label {
+            color: #60a5fa;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+        }
+        .btn {
+            width: 100%;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        .btn-start { background-color: #2563eb; }
+        .btn-start:hover { background-color: #1d4ed8; transform: translateY(-2px); }
+        .btn-stop { background-color: #dc2626; }
+        .btn-stop:hover { background-color: #b91c1c; transform: translateY(-2px); }
+        .btn-downtime { background-color: #f59e0b; color: #fff; }
+        .btn-downtime:hover { background-color: #d97706; transform: translateY(-2px); }
+        .btn-scrap { background-color: #64748b; }
+        .btn-scrap:hover { background-color: #475569; transform: translateY(-2px); }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            width: 500px;
+            max-width: 90%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        .form-select, .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+        .form-select:focus, .form-input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header-bar">
+        <div>
+            <h1 class="text-2xl font-bold">MANGO Edge Terminal</h1>
+            <p class="text-blue-200">Stasiun: {{.Machine.Name}} ({{.MachineID}})</p>
+        </div>
+        <div class="text-right">
+            <p class="text-sm text-blue-200">Status Sinkronisasi</p>
+            <div class="flex items-center gap-2">
+                <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                <span class="font-semibold">Terhubung ke Cloud</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Panel Kiri: Informasi Produksi -->
+        <div class="card flex flex-col justify-between">
+            <div>
+                <h2 class="text-xl font-bold text-slate-800 mb-6">Status Produksi Saat Ini</h2>
+                
+                {{if .Checkin}}
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
+                        <div class="flex justify-between items-center mb-4">
+                            <div>
+                                <p class="text-sm font-semibold text-blue-600 uppercase">Work Order Aktif</p>
+                                <p class="text-3xl font-bold text-slate-800">{{.Checkin.WorkOrder}}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-semibold text-blue-600 uppercase">Part Number</p>
+                                <p class="text-xl font-bold text-slate-700">{{.Checkin.PartNumber}}</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-sm text-slate-500">Target Produksi</p>
+                                <p class="text-2xl font-semibold text-slate-800">{{.Checkin.TargetQty}} pcs</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm text-slate-500">Shift</p>
+                                <p class="text-2xl font-semibold text-slate-800">{{.Checkin.Shift}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Indikator Angka (Akan diupdate via JS polling / MQTT) -->
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div class="stat-box">
+                            <p class="stat-label">Produk Lolos (OK)</p>
+                            <p class="stat-value text-green-600" id="live-qty-ok">--</p>
+                        </div>
+                        <div class="stat-box" style="background: #fef2f2; border-color: #fca5a5;">
+                            <p class="stat-label" style="color: #ef4444;">Produk Cacat (NG)</p>
+                            <p class="stat-value text-red-600" id="live-qty-ng">--</p>
+                        </div>
+                    </div>
+
+                    <!-- Speedometer OEE (Phase 5) -->
+                    <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                        <h3 class="text-lg font-bold text-slate-800 mb-4 border-b pb-2">Performa Mesin (OEE)</h3>
+                        <div class="grid grid-cols-4 gap-4 text-center">
+                            <!-- OEE Total -->
+                            <div>
+                                <div class="text-3xl font-black text-blue-600 mb-1" id="live-oee">--%</div>
+                                <div class="text-xs font-semibold text-slate-500 uppercase">OEE Total</div>
+                                <div class="w-full bg-slate-200 rounded-full h-2 mt-2">
+                                    <div class="bg-blue-600 h-2 rounded-full transition-all duration-500" id="bar-oee" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <!-- Availability -->
+                            <div>
+                                <div class="text-2xl font-bold text-slate-700 mb-1" id="live-avail">--%</div>
+                                <div class="text-xs font-semibold text-slate-500 uppercase">Availability</div>
+                                <div class="w-full bg-slate-200 rounded-full h-2 mt-2">
+                                    <div class="bg-purple-500 h-2 rounded-full transition-all duration-500" id="bar-avail" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <!-- Performance -->
+                            <div>
+                                <div class="text-2xl font-bold text-slate-700 mb-1" id="live-perf">--%</div>
+                                <div class="text-xs font-semibold text-slate-500 uppercase">Performance</div>
+                                <div class="w-full bg-slate-200 rounded-full h-2 mt-2">
+                                    <div class="bg-amber-500 h-2 rounded-full transition-all duration-500" id="bar-perf" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <!-- Quality -->
+                            <div>
+                                <div class="text-2xl font-bold text-slate-700 mb-1" id="live-qual">--%</div>
+                                <div class="text-xs font-semibold text-slate-500 uppercase">Quality</div>
+                                <div class="w-full bg-slate-200 rounded-full h-2 mt-2">
+                                    <div class="bg-green-500 h-2 rounded-full transition-all duration-500" id="bar-qual" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{else}}
+                    <div class="flex flex-col items-center justify-center h-64 border-2 border-dashed border-slate-300 rounded-xl bg-slate-50">
+                        <svg class="w-16 h-16 text-slate-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                        <p class="text-xl font-bold text-slate-500">Mesin Berstatus Idle</p>
+                        <p class="text-slate-400">Silakan tekan "Mulai Work Order" untuk memulai produksi.</p>
+                    </div>
+                {{end}}
+            </div>
+            
+            <!-- Peringatan Simulator Interlock -->
+            <div class="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg flex items-start gap-3">
+                <svg class="w-6 h-6 text-yellow-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <p class="text-sm text-yellow-800">
+                    <strong>Catatan Sistem:</strong> Berdasarkan standar MES, OEE dan penghitung produk (Qty OK) hanya akan berjalan jika ada Work Order yang berstatus Aktif. Jika tidak ada WO, mesin terhitung Idle mutlak.
+                </p>
+            </div>
+        </div>
+
+        <!-- Panel Kanan: Aksi Operator -->
+        <div class="card bg-slate-50">
+            <h2 class="text-xl font-bold text-slate-800 mb-6 border-b pb-2">Kendali HMI</h2>
+            
+            {{if .Checkin}}
+                <button class="btn btn-stop" onclick="selesaiWO()">
+                    Selesai Work Order
+                </button>
+                <div class="h-4"></div>
+                <button class="btn btn-downtime" onclick="openModal('modal-downtime')">
+                    Lapor Downtime
+                </button>
+                <button class="btn btn-scrap" onclick="openModal('modal-scrap')">
+                    Lapor Produk Cacat (Reject)
+                </button>
+            {{else}}
+                <button class="btn btn-start py-8 text-2xl shadow-lg shadow-blue-500/30 animate-bounce" onclick="openModal('modal-start')">
+                    Mulai Work Order
+                </button>
+            {{end}}
+        </div>
+    </div>
+
+    <!-- MODAL: Mulai WO -->
+    <div id="modal-start" class="modal">
+        <div class="modal-content">
+            <h2 class="text-2xl font-bold mb-6 text-slate-800">Mulai Work Order</h2>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Pilih Work Order dari Pusat</label>
+            <select id="wo-select" class="form-select">
+                <option value="">Memuat data dari cloud...</option>
+            </select>
+            
+            <div class="flex gap-4 mt-8">
+                <button class="btn bg-slate-200 text-slate-700 hover:bg-slate-300 !mb-0" onclick="closeModal('modal-start')">Batal</button>
+                <button class="btn btn-start !mb-0" onclick="submitStartWO()">Mulai</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Lapor Downtime -->
+    <div id="modal-downtime" class="modal">
+        <div class="modal-content">
+            <h2 class="text-2xl font-bold mb-6 text-slate-800">Lapor Mesin Berhenti (Downtime)</h2>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Kategori</label>
+            <select id="dt-category" class="form-select">
+                <option value="">Memuat data...</option>
+            </select>
+
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Alasan Spesifik</label>
+            <input type="text" id="dt-reason" class="form-input" placeholder="Contoh: Pisau potong patah">
+
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Durasi (Menit)</label>
+            <input type="number" id="dt-duration" class="form-input" value="15">
+            
+            <div class="flex gap-4 mt-8">
+                <button class="btn bg-slate-200 text-slate-700 hover:bg-slate-300 !mb-0" onclick="closeModal('modal-downtime')">Batal</button>
+                <button class="btn btn-downtime !mb-0" onclick="submitDowntime()">Simpan Laporan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Lapor Reject -->
+    <div id="modal-scrap" class="modal">
+        <div class="modal-content">
+            <h2 class="text-2xl font-bold mb-6 text-slate-800">Lapor Produk Cacat (Reject)</h2>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Alasan Cacat</label>
+            <select id="scrap-reason" class="form-select">
+                <option value="">Memuat data...</option>
+            </select>
+
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Jumlah (Qty)</label>
+            <input type="number" id="scrap-qty" class="form-input" value="1">
+            
+            <div class="flex gap-4 mt-8">
+                <button class="btn bg-slate-200 text-slate-700 hover:bg-slate-300 !mb-0" onclick="closeModal('modal-scrap')">Batal</button>
+                <button class="btn btn-scrap !mb-0 text-white" onclick="submitScrap()">Simpan Laporan</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const machineID = "{{.MachineID}}";
+        let woList = [];
+
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+            if(id === 'modal-start') {
+                fetchWO();
+            } else if(id === 'modal-downtime') {
+                fetchMasterReasons('downtime', 'dt-category');
+            } else if(id === 'modal-scrap') {
+                fetchMasterReasons('scrap', 'scrap-reason');
+            }
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        async function fetchMasterReasons(type, elementId) {
+            try {
+                const sel = document.getElementById(elementId);
+                sel.innerHTML = '<option value="">Memuat data dari cloud...</option>';
+                const res = await fetch('/api/v1/operator/master-reasons?type=' + type);
+                const data = await res.json();
+                
+                if (data && data.data && data.data.length > 0) {
+                    sel.innerHTML = '';
+                    data.data.forEach(r => {
+                        sel.innerHTML += `<option value="${r.category}">${r.description} (${r.code})</option>`;
+                    });
+                } else {
+                    sel.innerHTML = '<option value="Lainnya">Lainnya (Default)</option>';
+                }
+            } catch (e) {
+                console.error(e);
+                document.getElementById(elementId).innerHTML = '<option value="Error">Gagal memuat</option>';
+            }
+        }
+
+        async function fetchWO() {
+            try {
+                const sel = document.getElementById('wo-select');
+                sel.innerHTML = '<option value="">Memuat data dari cloud...</option>';
+                const res = await fetch('/api/v1/operator/work-orders');
+                const data = await res.json();
+                
+                woList = data || [];
+                if (woList.length === 0) {
+                    sel.innerHTML = '<option value="">(Draft) WO-MOCK-2026 - SHAFT-M-01 (Dummy)</option>';
+                    woList = [{ work_order: "WO-MOCK-2026", part_number: "SHAFT-M-01", target_qty: 500, ideal_cycle_time_sec: 30.0 }];
+                } else {
+                    sel.innerHTML = '';
+                    woList.forEach(w => {
+                        sel.innerHTML += `<option value="${w.work_order}">${w.work_order} - ${w.part_number} (Tgt: ${w.target_qty})</option>`;
+                    });
+                }
+            } catch (e) {
+                console.error(e);
+                document.getElementById('wo-select').innerHTML = '<option value="">Gagal memuat WO</option>';
+            }
+        }
+
+        async function submitStartWO() {
+            const woID = document.getElementById('wo-select').value;
+            const woData = woList.find(w => w.work_order === woID) || { work_order: woID, part_number: "SHAFT-M-01", target_qty: 500, ideal_cycle_time_sec: 30.0 };
+
+            // Recipe Interlock Simulation
+            if (!confirm(`Sistem Validasi Program CNC (Recipe Interlock):\n\nApakah Anda memastikan bahwa Program [ O5555 ] sudah di-load di mesin untuk part [ ${woData.part_number} ]?\n\nTekan OK untuk melanjutkan.`)) {
+                return;
+            }
+
+            const req = {
+                machine_id: machineID,
+                work_order: woData.work_order,
+                part_number: woData.part_number,
+                target_qty: woData.target_qty,
+                ideal_cycle_time_sec: woData.ideal_cycle_time_sec || 30.0
+            };
+
+            const res = await fetch('/api/v1/operator/checkin', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(req)
+            });
+
+            if (res.ok) {
+                window.location.reload();
+            } else {
+                alert("Gagal memulai WO");
+            }
+        }
+
+        async function selesaiWO() {
+            if(!confirm("Yakin ingin menyelesaikan Work Order ini?")) return;
+            const res = await fetch('/api/v1/operator/checkout', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({machine_id: machineID})
+            });
+            if(res.ok) window.location.reload();
+        }
+
+        async function submitDowntime() {
+            const req = {
+                machine_id: machineID,
+                category: document.getElementById('dt-category').value,
+                reason: document.getElementById('dt-reason').value,
+                duration_min: parseFloat(document.getElementById('dt-duration').value)
+            };
+            const res = await fetch('/api/v1/operator/downtime', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(req)
+            });
+            if(res.ok) {
+                closeModal('modal-downtime');
+                alert("Downtime tercatat");
+            }
+        }
+
+        async function submitScrap() {
+            const req = {
+                machine_id: machineID,
+                reason: document.getElementById('scrap-reason').value,
+                qty: parseInt(document.getElementById('scrap-qty').value)
+            };
+            const res = await fetch('/api/v1/operator/scrap', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(req)
+            });
+            if(res.ok) {
+                closeModal('modal-scrap');
+                alert("Reject tercatat");
+            }
+        }
+
+        // Live update numbers
+        {{if .Checkin}}
+        let targetReached = false;
+        let downtimeLocked = false;
+        setInterval(async () => {
+            if(targetReached) return;
+            try {
+                // Check open downtime
+                if (!downtimeLocked) {
+                    const dtRes = await fetch('/api/v1/operator/downtime/open?machine_id=' + machineID);
+                    const dtData = await dtRes.json();
+                    if (dtData && dtData.data && dtData.data.id) {
+                        downtimeLocked = true;
+                        
+                        const dtModalHtml = `
+                        <div class="modal active" style="z-index: 999; background: rgba(0,0,0,0.9);">
+                            <div class="modal-content text-center" style="background: #fef08a; border: 4px solid #eab308; max-width: 600px;">
+                                <h1 class="text-4xl font-black text-yellow-800 mb-4">⚠️ MESIN BERHENTI LAMA ⚠️</h1>
+                                <p class="text-xl text-yellow-900 font-semibold mb-6">Sistem mendeteksi mesin berhenti beroperasi lebih dari 5 menit.</p>
+                                <p class="text-md text-yellow-800 mb-8">Pilih alasan downtime untuk melanjutkan:</p>
+                                
+                                <select id="auto-downtime-category" class="input mb-6 text-xl p-3 w-full border-2 border-yellow-600">
+                                    <option value="Breakdown">Mesin Rusak (Breakdown)</option>
+                                    <option value="Setup">Setup / Changeover</option>
+                                    <option value="No Material">Tunggu Material</option>
+                                    <option value="Tool Change">Ganti Tooling</option>
+                                </select>
+
+                                <button class="btn btn-start w-full text-2xl py-4" onclick="resolveAutoDowntime(${dtData.data.id})">Simpan & Lanjutkan Produktion</button>
+                            </div>
+                        </div>`;
+                        document.body.insertAdjacentHTML('beforeend', dtModalHtml);
+                    }
+                }
+
+                if (downtimeLocked) return;
+
+                // Fetch OEE history atau summary hari ini untuk mengisi live numbers
+                const res = await fetch('/api/v1/production/summary?machine_id=' + machineID);
+                const data = await res.json();
+                if(data.data) {
+                    const qtyOk = data.data.qty_ok || 0;
+                    document.getElementById('live-qty-ok').innerText = qtyOk;
+                    document.getElementById('live-qty-ng').innerText = data.data.qty_ng || 0;
+
+                    // Update Speedometer OEE
+                    document.getElementById('live-oee').innerText = (data.data.oee || 0) + '%';
+                    document.getElementById('bar-oee').style.width = (data.data.oee || 0) + '%';
+                    
+                    document.getElementById('live-avail').innerText = (data.data.availability || 0) + '%';
+                    document.getElementById('bar-avail').style.width = (data.data.availability || 0) + '%';
+                    
+                    document.getElementById('live-perf').innerText = (data.data.performance || 0) + '%';
+                    document.getElementById('bar-perf').style.width = (data.data.performance || 0) + '%';
+                    
+                    document.getElementById('live-qual').innerText = (data.data.quality || 0) + '%';
+                    document.getElementById('bar-qual').style.width = (data.data.quality || 0) + '%';
+
+                    // Auto-stop Overproduction
+                    const targetQty = {{.Checkin.TargetQty}};
+                    if (qtyOk >= targetQty && targetQty > 0) {
+                        targetReached = true;
+                        
+                        // Bunyikan alert / pop-up
+                        const modalHtml = `
+                        <div class="modal active" style="z-index: 999; background: rgba(0,0,0,0.85);">
+                            <div class="modal-content text-center" style="background: #fee2e2; border: 4px solid #ef4444;">
+                                <h1 class="text-5xl font-black text-red-600 mb-4">⚠️ TARGET TERCAPAI ⚠️</h1>
+                                <p class="text-xl text-red-800 font-semibold mb-6">Mesin dihentikan otomatis (Auto-stop) untuk mencegah Overproduction.</p>
+                                <p class="text-md text-red-700 mb-8">Target: ${targetQty} pcs | Tercapai: ${qtyOk} pcs</p>
+                                <button class="btn btn-stop w-full text-2xl py-4" onclick="window.location.reload()">Selesaikan Transaksi</button>
+                            </div>
+                        </div>`;
+                        document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+                        // Auto Checkout API call
+                        await fetch('/api/v1/operator/checkout', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({machine_id: machineID})
+                        });
+                    }
+                }
+            } catch (e) {}
+        }, 5000);
+
+        async function resolveAutoDowntime(id) {
+            const actionTaken = document.getElementById('auto-downtime-category').value;
+            try {
+                await fetch('/api/v1/operator/downtime/' + id + '/resolve', {
+                    method: 'PUT',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({action_taken: actionTaken})
+                });
+                window.location.reload();
+            } catch (e) {
+                alert("Gagal memproses data");
+            }
+        }
+        {{end}}
+    </script>
+</body>
+</html>

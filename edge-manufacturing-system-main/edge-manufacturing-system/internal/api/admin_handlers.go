@@ -6,12 +6,12 @@ import (
 	"net/http"
 	"path/filepath"
 	"strconv"
+	"strings"
+	"html/template"
 
 	"github.com/gin-gonic/gin"
 	"github.com/yourorg/cnc-edge/internal/collector/protocol"
 	"github.com/yourorg/cnc-edge/internal/models"
-	"strings"
-	"html/template"
 )
 
 // registerAdminRoutes wires HTML admin UI + JSON CRUD for machine_configs.
@@ -32,18 +32,16 @@ func (s *Server) registerAdminRoutes(r *gin.Engine) {
 	r.GET("/machines/:id/edit", s.adminMachineEditHTML)
 	r.POST("/machines/save", s.adminMachineSaveHTML)
 	r.POST("/machines/:id/delete", s.adminMachineDeleteHTML)
+	r.GET("/connection-logs", s.adminConnectionLogsHTML)
 	r.GET("/work-orders", s.adminWorkOrdersHTML)
+	r.GET("/production-history", s.adminProductionHistoryHTML)
+	r.GET("/downtime-history", s.adminDowntimeHistoryHTML)
+	r.GET("/operator-history", s.adminCheckinHistoryHTML)
+	r.GET("/scrap-history", s.adminScrapHistoryHTML)
 	r.POST("/work-orders/sync", s.adminSyncWorkOrdersHTML)
 	r.POST("/master-data/sync", s.adminSyncMasterDataHTML)
-	r.GET("/connection-logs", s.adminConnectionLogsHTML)
 
-	// Hierarchical Department & Machine Routes
-	r.GET("/manufacturing-department", s.adminDashboardHTML) // Reuse or create specific
-	r.GET("/manufacturing-department/cnc-dmg-mori-ntx-1000", s.adminMachineDetailHTML)
-	r.GET("/manufacturing-department/cnc-makino", s.adminMachineDetailHTML)
-	r.GET("/foundry-department", s.adminDashboardHTML)
-	r.GET("/design-department", s.adminDashboardHTML)
-
+	// Admin API JSON (dipakai AJAX atau system)
 	a := r.Group("/api/v1/admin")
 	{
 		a.GET("/machine-configs", s.adminListMachineConfigsJSON)
@@ -58,10 +56,116 @@ func (s *Server) adminDashboardHTML(c *gin.Context) {
 	c.HTML(http.StatusOK, "index.html", gin.H{})
 }
 
-func (s *Server) adminMachineDetailHTML(c *gin.Context) {
-	// For now, reuse machines template or create a new machine_detail.html
-	// Mock: Redirect to Grafana
-	c.Redirect(http.StatusFound, "http://localhost:3000/d/cnc-detail")
+func (s *Server) adminProductionHistoryHTML(c *gin.Context) {
+	pageStr := c.DefaultQuery("page", "1")
+	page, _ := strconv.Atoi(pageStr)
+	if page < 1 {
+		page = 1
+	}
+	limit := 50
+	offset := (page - 1) * limit
+
+	logs, total, err := s.postgres.ListOperatorCheckins(c.Request.Context(), limit, offset)
+	if err != nil {
+		c.String(http.StatusInternalServerError, "Gagal mengambil riwayat produksi: "+err.Error())
+		return
+	}
+
+	totalPages := total / limit
+	if total%limit != 0 {
+		totalPages++
+	}
+
+	c.HTML(http.StatusOK, "production_history.html", gin.H{
+		"Title":      "Riwayat Produksi & Work Order",
+		"Logs":       logs,
+		"Page":       page,
+		"TotalPages": totalPages,
+	})
+}
+
+func (s *Server) adminDowntimeHistoryHTML(c *gin.Context) {
+	pageStr := c.DefaultQuery("page", "1")
+	page, _ := strconv.Atoi(pageStr)
+	if page < 1 {
+		page = 1
+	}
+	limit := 50
+	offset := (page - 1) * limit
+
+	logs, total, err := s.postgres.ListDowntimeLogs(c.Request.Context(), limit, offset)
+	if err != nil {
+		c.String(http.StatusInternalServerError, "Gagal mengambil riwayat downtime: "+err.Error())
+		return
+	}
+
+	totalPages := total / limit
+	if total%limit != 0 {
+		totalPages++
+	}
+
+	c.HTML(http.StatusOK, "downtime_history.html", gin.H{
+		"Title":      "Riwayat Kerusakan Mesin",
+		"Logs":       logs,
+		"Page":       page,
+		"TotalPages": totalPages,
+	})
+}
+
+func (s *Server) adminCheckinHistoryHTML(c *gin.Context) {
+	pageStr := c.DefaultQuery("page", "1")
+	page, _ := strconv.Atoi(pageStr)
+	if page < 1 {
+		page = 1
+	}
+	limit := 50
+	offset := (page - 1) * limit
+
+	checkins, total, err := s.postgres.ListOperatorCheckins(c.Request.Context(), limit, offset)
+	if err != nil {
+		c.String(http.StatusInternalServerError, "Gagal mengambil riwayat checkin: "+err.Error())
+		return
+	}
+
+	totalPages := total / limit
+	if total%limit != 0 {
+		totalPages++
+	}
+
+	c.HTML(http.StatusOK, "checkin_history.html", gin.H{
+		"Title":      "Riwayat Eksekusi Work Order",
+		"Checkins":   checkins,
+		"Page":       page,
+		"TotalPages": totalPages,
+	})
+}
+
+func (s *Server) adminScrapHistoryHTML(c *gin.Context) {
+	pageStr := c.DefaultQuery("page", "1")
+	page, _ := strconv.Atoi(pageStr)
+	if page < 1 {
+		page = 1
+	}
+	limit := 50
+	offset := (page - 1) * limit
+
+	logs, total, err := s.postgres.ListScrapLogs(c.Request.Context(), limit, offset)
+	if err != nil {
+		c.String(http.StatusInternalServerError, "Gagal mengambil riwayat reject: "+err.Error())
+		return
+	}
+
+	totalPages := total / limit
+	if total%limit != 0 {
+		totalPages++
+	}
+
+	c.HTML(http.StatusOK, "scrap_history.html", gin.H{
+		"Title":      "Riwayat Reject Produksi",
+		"Logs":       logs,
+		"Page":       page,
+		"TotalPages": totalPages,
+	})
 }
 
 func (s *Server) adminWorkOrdersHTML(c *gin.Context) {

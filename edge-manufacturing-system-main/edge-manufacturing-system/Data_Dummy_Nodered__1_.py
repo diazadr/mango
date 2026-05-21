@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
 """
+[DEPRECATED] Gunakan simulator_cnc_mori_ntx1000.py untuk versi terbaru.
+
 CNC Machine Data Simulator — MANGO Edge Manufacturing System
-Simulates Fanuc CNC machine data and publishes to MQTT broker.
+Merk     : DMG Mori
+Model    : NTX 1000 (5-Axis CNC Turning & Milling)
+Protokol : MQTT / TCP (paho-mqtt)
 
 Topics published:
-  fanuc/cnc/data                              → handleSimulator (raw Fanuc data)
-  polman/edge/{SITE_ID}/{MACHINE_ID}/status   → handleStatus
-  polman/edge/{SITE_ID}/{MACHINE_ID}/timer    → handleTimer
-  polman/edge/{SITE_ID}/{MACHINE_ID}/axis     → handleAxis
-  polman/edge/{SITE_ID}/{MACHINE_ID}/alarm    → handleAlarm (occasional)
+  fanuc/cnc/data                              -> handleSimulator (raw Fanuc data)
+  polman/edge/{SITE_ID}/{MACHINE_ID}/status   -> handleStatus
+  polman/edge/{SITE_ID}/{MACHINE_ID}/timer    -> handleTimer
+  polman/edge/{SITE_ID}/{MACHINE_ID}/axis     -> handleAxis
+  polman/edge/{SITE_ID}/{MACHINE_ID}/alarm    -> handleAlarm (occasional)
 """
 
 import json
@@ -20,7 +24,7 @@ import os
 import paho.mqtt.client as mqtt
 
 # ── MQTT Configuration (override dengan environment variables) ─────────────────
-MQTT_BROKER   = os.getenv("MQTT_BROKER",   "emqx")
+MQTT_BROKER   = os.getenv("MQTT_BROKER",   "localhost")
 MQTT_PORT     = int(os.getenv("MQTT_PORT", "1883"))
 MQTT_USERNAME = os.getenv("MQTT_USERNAME", "edge_service")
 MQTT_PASSWORD = os.getenv("MQTT_PASSWORD", "edge_secret_2026")
@@ -28,7 +32,7 @@ MQTT_CLIENT_ID = "cnc_simulator_python"
 
 # ── Site / Machine Configuration ───────────────────────────────────────────────
 SITE_ID    = os.getenv("SITE_ID",    "POLMAN_BANDUNG_EDGE")
-MACHINE_ID = os.getenv("MACHINE_ID", "dmg_mori_ntx1000")
+MACHINE_ID = os.getenv("MACHINE_ID", "MCH-01")
 
 # ── Topic helpers ──────────────────────────────────────────────────────────────
 BASE_TOPIC     = f"polman/edge/{SITE_ID}/{MACHINE_ID}"
@@ -128,25 +132,28 @@ def generate_alarm(step: int) -> dict:
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
-        print(f"[SIMULATOR] ✅ Connected to MQTT broker {MQTT_BROKER}:{MQTT_PORT}")
-        print(f"[SIMULATOR]    Site    : {SITE_ID}")
-        print(f"[SIMULATOR]    Machine : {MACHINE_ID}")
-        print(f"[SIMULATOR]    Base    : {BASE_TOPIC}")
+        print(f"[SIMULATOR] Connected to MQTT broker {MQTT_BROKER}:{MQTT_PORT}")
+        print(f"[SIMULATOR]   Site    : {SITE_ID}")
+        print(f"[SIMULATOR]   Machine : {MACHINE_ID} (DMG Mori NTX 1000)")
+        print(f"[SIMULATOR]   Base    : {BASE_TOPIC}")
     else:
-        print(f"[SIMULATOR] ❌ Connection failed (rc={rc})")
+        print(f"[SIMULATOR] Connection failed (rc={rc})")
 
 
 def on_disconnect(client, userdata, rc):
-    print(f"[SIMULATOR] 🔌 Disconnected (rc={rc}) — auto reconnect...")
+    print(f"[SIMULATOR] Disconnected (rc={rc}) — waiting for auto-reconnect...")
 
 
 def main():
     print("=" * 65)
     print("  MANGO Edge CNC Machine Simulator")
-    print(f"  Broker  : {MQTT_BROKER}:{MQTT_PORT}")
-    print(f"  Site    : {SITE_ID}")
-    print(f"  Machine : {MACHINE_ID}")
-    print(f"  Interval: {PUBLISH_INTERVAL}s")
+    print("  Merk / Brand : DMG Mori")
+    print("  Model        : NTX 1000 (5-Axis CNC Turning & Milling)")
+    print("  Protokol     : MQTT / TCP")
+    print(f"  Broker       : {MQTT_BROKER}:{MQTT_PORT}")
+    print(f"  Site ID      : {SITE_ID}")
+    print(f"  Machine ID   : {MACHINE_ID}")
+    print(f"  Interval     : {PUBLISH_INTERVAL}s / step")
     print("=" * 65)
 
     client = mqtt.Client(client_id=MQTT_CLIENT_ID)
@@ -161,7 +168,7 @@ def main():
             client.loop_start()
             break
         except Exception as exc:
-            print(f"[SIMULATOR] ⏳ Waiting for MQTT broker... ({exc})")
+            print(f"[SIMULATOR] Waiting for MQTT broker... ({exc})")
             time.sleep(3)
 
     step = 0
@@ -182,11 +189,11 @@ def main():
             # 4. Axis (→ handleAxis)      — topic: polman/edge/{site}/{machine}/axis
             client.publish(f"{BASE_TOPIC}/axis", json.dumps(generate_axis(step)), **ctx)
 
-            # 5. Alarm (→ handleAlarm)    — sesekali setiap 60 step
+            # 5. Alarm (-> handleAlarm)   — sesekali setiap 60 step
             if step % 60 == 59:
                 alarm = generate_alarm(step)
                 client.publish(f"{BASE_TOPIC}/alarm", json.dumps(alarm), **ctx)
-                print(f"[SIMULATOR] 🚨 Alarm published: {alarm['message']}")
+                print(f"[SIMULATOR] ALARM | {alarm['message']}")
 
             print(
                 f"[SIMULATOR] Step {step:5d} | "
@@ -200,7 +207,7 @@ def main():
             time.sleep(PUBLISH_INTERVAL)
 
     except KeyboardInterrupt:
-        print("\n[SIMULATOR] 🛑 Shutting down...")
+        print("\n[SIMULATOR] Shutting down by user request.")
     finally:
         client.loop_stop()
         client.disconnect()

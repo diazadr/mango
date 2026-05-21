@@ -3,97 +3,202 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>MANGO Edge — Work Orders</title>
+  <title>MANGO Edge — Work Orders & OEE</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --bg:#0a0a0f; --surface:#12121a; --surface2:#1a1a26; --border:rgba(255,255,255,0.07);
-      --primary:#7c3aed; --primary-l:#8b5cf6; --accent:#06b6d4;
+      --bg:#ffffff; --surface:#f8fafc; --surface2:#f1f5f9; --border:rgba(0,0,0,0.08);
+      --primary:#1e477e; --primary-d:#153460; --primary-l:#e8f0fb;
+      --accent:#f97316;
       --success:#10b981; --warning:#f59e0b; --danger:#ef4444;
-      --text:#e8e8f0; --muted:#6b7280; --radius:12px;
+      --text:#0f172a; --muted:#64748b; --radius:16px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-    a { color: var(--primary-l); text-decoration: none; }
+    a { color: var(--primary); text-decoration: none; }
     a:hover { text-decoration: underline; }
-    code { font-family: ui-monospace, monospace; font-size: 0.82em; background: rgba(124,58,237,0.12); padding: 0.15em 0.45em; border-radius: 4px; }
-    .topbar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; gap: 1rem; padding: 0 1.5rem; height: 56px; background: rgba(18,18,26,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
-    .topbar-brand { display: flex; align-items: center; gap: 0.6rem; font-weight: 900; font-size: 1rem; letter-spacing: -0.02em; }
-    .topbar-brand .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary-l); box-shadow: 0 0 8px var(--primary-l); }
+    code { font-family: ui-monospace, monospace; font-size: 0.82em; background: rgba(30,71,126,0.08); padding: 0.15em 0.45em; border-radius: 4px; color: var(--primary-d); }
+
+    /* ── Topbar ──────────────────────────────────────────────────────────── */
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0 2rem; height: 60px;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+    }
+    .topbar-brand { display: flex; align-items: center; gap: 0.6rem; font-weight: 900; font-size: 1.05rem; letter-spacing: -0.02em; color: var(--primary); }
+    .topbar-brand .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); animation: pls 2s infinite; }
+    @keyframes pls { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.7;transform:scale(1.3)} }
     .topbar nav { display: flex; align-items: center; gap: 0.25rem; margin-left: auto; }
-    .topbar nav a { padding: 0.4rem 0.85rem; border-radius: 8px; font-size: 0.8rem; font-weight: 600; color: var(--muted); transition: all 0.15s; display: flex; align-items: center; gap: 0.4rem; }
-    .topbar nav a:hover { color: var(--text); background: rgba(255,255,255,0.05); text-decoration: none; }
-    .topbar nav a.active { color: var(--primary-l); background: rgba(124,58,237,0.12); }
-    .page { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; }
-    .page-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
-    .page-title { display: flex; align-items: center; gap: 0.75rem; }
-    .page-title .icon-wrap { width: 40px; height: 40px; border-radius: 10px; background: rgba(124,58,237,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
-    .page-title h1 { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.02em; }
-    .page-title p { font-size: 0.78rem; color: var(--muted); font-weight: 500; margin-top: 0.2rem; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-    .card-header { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02); display: flex; align-items: center; justify-content: space-between; }
-    .card-header h2 { font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
-    table { width: 100%; border-collapse: collapse; }
-    thead th { padding: 0.65rem 1rem; text-align: left; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); background: rgba(255,255,255,0.025); border-bottom: 1px solid var(--border); }
-    tbody td { padding: 0.85rem 1rem; border-bottom: 1px solid var(--border); font-size: 0.85rem; vertical-align: middle; }
-    tbody tr:last-child td { border-bottom: none; }
-    tbody tr:hover td { background: rgba(255,255,255,0.02); }
-    .badge { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.2rem 0.65rem; border-radius: 6px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
-    .badge-success { background: rgba(16,185,129,0.12); color: var(--success); border: 1px solid rgba(16,185,129,0.2); }
-    .badge-warning { background: rgba(245,158,11,0.12); color: var(--warning); border: 1px solid rgba(245,158,11,0.2); }
-    .badge-muted   { background: rgba(107,114,128,0.12); color: var(--muted); border: 1px solid rgba(107,114,128,0.2); }
-    .badge-accent  { background: rgba(6,182,212,0.12); color: var(--accent); border: 1px solid rgba(6,182,212,0.2); }
-    .badge .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
-    .btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.55rem 1.1rem; border-radius: 10px; font-size: 0.82rem; font-weight: 700; border: none; cursor: pointer; transition: all 0.15s; text-decoration: none; }
-    .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 0 20px rgba(124,58,237,0.25); }
-    .btn-primary:hover { background: var(--primary-l); box-shadow: 0 0 28px rgba(139,92,246,0.4); text-decoration: none; }
-    .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
-    .btn-ghost:hover { color: var(--text); background: rgba(255,255,255,0.05); text-decoration: none; }
-    .empty { padding: 3rem; text-align: center; color: var(--muted); }
-    .empty .icon { font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.3; }
-    .empty p { font-size: 0.85rem; font-weight: 500; }
-    .sync-info { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: var(--muted); padding: 0.6rem 1.25rem; background: rgba(255,255,255,0.02); border-bottom: 1px solid var(--border); }
-    .sync-dot { width: 6px; height: 6px; border-radius: 50%; }
-    .sync-dot.ok { background: var(--success); box-shadow: 0 0 6px var(--success); animation: pulse 2s infinite; }
+    .topbar nav a { padding: 0.45rem 0.9rem; border-radius: 10px; font-size: 0.82rem; font-weight: 700; color: var(--muted); transition: all 0.2s; }
+    .topbar nav a:hover { color: var(--primary); background: var(--primary-l); text-decoration: none; }
+    .topbar nav a.active { color: var(--primary); background: var(--primary-l); }
+
+    /* ── Page ────────────────────────────────────────────────────────────── */
+    .page { max-width: 1200px; margin: 0 auto; padding: 2.5rem 2rem; }
+    .page-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+    .page-title h1 { font-size: 1.75rem; font-weight: 900; letter-spacing: -0.03em; color: var(--primary); }
+    .page-title p { font-size: 0.88rem; color: var(--muted); font-weight: 500; margin-top: 0.3rem; }
+
+    /* ── Buttons ─────────────────────────────────────────────────────────── */
+    .btn { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.75rem 1.5rem; border-radius: 12px; font-size: 0.85rem; font-weight: 800; border: none; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+    .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 16px rgba(30,71,126,0.2); }
+    .btn-primary:hover { background: var(--primary-d); transform: translateY(-1px); text-decoration: none; color: #fff; }
+    .btn-ghost { background: transparent; color: var(--muted); border: 1.5px solid var(--border); }
+    .btn-ghost:hover { color: var(--primary); background: var(--primary-l); text-decoration: none; border-color: var(--primary); }
+
+    /* ── OEE Summary Strip ───────────────────────────────────────────────── */
+    .oee-strip {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem; margin-bottom: 2rem;
+    }
+    .oee-card {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: var(--radius); padding: 1.25rem 1.5rem;
+      position: relative; overflow: hidden; transition: box-shadow 0.2s;
+    }
+    .oee-card::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    }
+    .oee-card.c-blue::before { background: linear-gradient(90deg, var(--primary), #2563a8); }
+    .oee-card.c-green::before { background: linear-gradient(90deg, var(--success), #059669); }
+    .oee-card.c-red::before { background: linear-gradient(90deg, var(--danger), #b91c1c); }
+    .oee-card.c-amber::before { background: linear-gradient(90deg, var(--warning), #d97706); }
+    .oee-lbl { font-size: 0.63rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.4rem; }
+    .oee-val { font-size: 2rem; font-weight: 900; line-height: 1; }
+    .oee-val.blue { color: var(--primary); }
+    .oee-val.green { color: var(--success); }
+    .oee-val.red { color: var(--danger); }
+    .oee-val.amber { color: var(--warning); }
+    .oee-sub { font-size: 0.7rem; color: var(--muted); font-weight: 500; margin-top: 0.35rem; }
+
+    /* ── Card / Table ────────────────────────────────────────────────────── */
+    .card { background: var(--bg); border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.04); }
+    .card-header {
+      padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border);
+      background: var(--surface); display: flex; align-items: center;
+      justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    }
+    .card-header h2 { font-size: 0.72rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); }
+
+    .sync-info { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: var(--muted); font-weight: 600; }
+    .sync-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .sync-dot.ok { background: var(--success); box-shadow: 0 0 6px var(--success); animation: pulse-g 2s infinite; }
     .sync-dot.none { background: var(--muted); }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-    @media (max-width: 768px) { .page { padding: 1.25rem 1rem; } .page-header { flex-direction: column; } }
+    @keyframes pulse-g { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      padding: 0.9rem 1rem; text-align: left;
+      font-size: 0.63rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--muted); background: var(--surface2); border-bottom: 1px solid var(--border);
+    }
+    tbody td { padding: 1.1rem 1rem; border-bottom: 1px solid var(--border); font-size: 0.88rem; font-weight: 600; vertical-align: middle; }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: var(--surface); }
+    tbody tr { transition: background 0.15s; }
+
+    /* ── Badges ──────────────────────────────────────────────────────────── */
+    .badge { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.25rem 0.7rem; border-radius: 8px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; }
+    .badge-success { background: rgba(16,185,129,0.1); color: var(--success); border: 1.5px solid rgba(16,185,129,0.2); }
+    .badge-warning { background: rgba(245,158,11,0.1); color: var(--warning); border: 1.5px solid rgba(245,158,11,0.2); }
+    .badge-primary { background: var(--primary-l); color: var(--primary); border: 1.5px solid rgba(30,71,126,0.15); }
+    .badge-muted { background: var(--surface2); color: var(--muted); border: 1.5px solid var(--border); }
+    .badge .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+    /* ── OEE per row ─────────────────────────────────────────────────────── */
+    .oee-pill {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.3rem 0.75rem; border-radius: 100px; font-size: 0.75rem; font-weight: 900;
+    }
+    .oee-pill .bar { width: 32px; height: 4px; border-radius: 2px; background: var(--border); overflow: hidden; }
+    .oee-pill .bar-fill { height: 100%; border-radius: 2px; transition: width 0.5s; }
+    .oee-pill.good { background: rgba(16,185,129,0.1); color: var(--success); }
+    .oee-pill.warn { background: rgba(245,158,11,0.1); color: var(--warning); }
+    .oee-pill.bad  { background: rgba(239,68,68,0.1);  color: var(--danger); }
+    .oee-pill.na   { background: var(--surface2); color: var(--muted); }
+
+    /* ── Progress bar ────────────────────────────────────────────────────── */
+    .qty-bar { display: flex; align-items: center; gap: 0.6rem; }
+    .qty-bar .track { flex: 1; height: 5px; border-radius: 3px; background: var(--border); overflow: hidden; min-width: 60px; }
+    .qty-bar .fill { height: 100%; border-radius: 3px; background: var(--primary); transition: width 0.5s; }
+
+    /* ── Empty State ─────────────────────────────────────────────────────── */
+    .empty { padding: 3.5rem; text-align: center; color: var(--muted); }
+    .empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.35; }
+    .empty p { font-size: 0.88rem; font-weight: 600; }
+
+    @media (max-width: 768px) {
+      .page { padding: 1.5rem 1rem; }
+      .oee-strip { grid-template-columns: 1fr 1fr; }
+      .page-header { flex-direction: column; }
+    }
   </style>
 </head>
 <body>
-  <div class="topbar">
+
+  <!-- Topbar -->
+  <nav class="topbar">
     <div class="topbar-brand">
-      <div class="dot"></div>
-      MANGO <span style="color:var(--muted);font-weight:500">Edge</span>
+      <div class="pulse"></div>
+      MANGO EDGE
     </div>
     <nav>
-      <a href="/machines">⚙️ Mesin</a>
-      <a href="/work-orders" class="active">📋 Work Order</a>
-      <a href="/connection-logs">🔌 Log Koneksi</a>
+      <a href="/">Dashboard</a>
+      <a href="/machines">Mesin</a>
+      <a href="/work-orders" class="active">Work Orders</a>
+      <a href="/connection-logs">Log Koneksi</a>
     </nav>
-  </div>
+  </nav>
 
   <div class="page">
     <div class="page-header">
       <div class="page-title">
-        <div class="icon-wrap">📋</div>
-        <div>
-          <h1>Work Orders dari MANGO ERP</h1>
-          <p>Cache sinkronisasi terakhir dari ERP pusat. Data diperbarui otomatis setiap beberapa menit.</p>
-        </div>
+        <h1>Work Orders & OEE</h1>
+        <p>Data Work Order aktif dari MANGO MES, terintegrasi dengan metrik OEE per mesin secara real-time.</p>
       </div>
       <form method="post" action="/work-orders/sync">
-        <button type="submit" class="btn btn-primary">🔄 Tarik Data Sekarang</button>
+        <button type="submit" class="btn btn-primary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21v-5h5"/></svg>
+          Tarik Data Sekarang
+        </button>
       </form>
     </div>
 
+    <!-- OEE Summary Strip -->
+    <div class="oee-strip" id="oee-strip">
+      <div class="oee-card c-blue">
+        <div class="oee-lbl">OEE Rata-rata</div>
+        <div class="oee-val blue" id="oee-avg">—</div>
+        <div class="oee-sub">Semua mesin aktif</div>
+      </div>
+      <div class="oee-card c-green">
+        <div class="oee-lbl">Qty OK Total</div>
+        <div class="oee-val green" id="oee-qty-ok">—</div>
+        <div class="oee-sub">Unit produk lolos QC</div>
+      </div>
+      <div class="oee-card c-red">
+        <div class="oee-lbl">Qty NG Total</div>
+        <div class="oee-val red" id="oee-qty-ng">—</div>
+        <div class="oee-sub">Unit produk reject</div>
+      </div>
+      <div class="oee-card c-amber">
+        <div class="oee-lbl">Uptime Total</div>
+        <div class="oee-val amber" id="oee-uptime">—</div>
+        <div class="oee-sub">Menit operasional</div>
+      </div>
+    </div>
+
+    <!-- Work Orders Table -->
     <div class="card">
       <div class="card-header">
-        <h2>Daftar Work Order</h2>
+        <h2>Daftar Work Order dari MANGO MES</h2>
         <div class="sync-info">
           <div class="sync-dot {{ if .HasData }}ok{{ else }}none{{ end }}"></div>
-          {{ if .HasData }}Data tersedia dari cache terakhir{{ else }}Belum ada data — klik "Tarik Data"{{ end }}
+          {{ if .HasData }}Sinkronisasi berhasil — data aktif{{ else }}Belum ada data — klik "Tarik Data"{{ end }}
         </div>
       </div>
 
@@ -104,50 +209,153 @@
             <tr>
               <th>Work Order</th>
               <th>Part Number</th>
-              <th>Mesin Target</th>
+              <th>Mesin (Resource)</th>
               <th>Qty Target</th>
+              <th>Progress OEE</th>
+              <th>OEE%</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody>
             {{ range .WorkOrders }}
             <tr>
-              <td><strong>{{ .work_order }}</strong></td>
+              <td>
+                <span style="font-weight:900;font-size:0.9rem;color:var(--primary)">{{ .work_order }}</span>
+              </td>
               <td><code>{{ .part_number }}</code></td>
               <td>
-                <span style="display:inline-flex;align-items:center;gap:0.4rem;color:var(--primary-l);font-weight:700;font-size:0.82rem">
-                  ⚙️ {{ .resource_code }}
+                <span style="display:inline-flex;align-items:center;gap:0.5rem;color:var(--primary);font-weight:800;font-size:0.85rem">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  {{ .resource_code }}
                 </span>
               </td>
-              <td style="font-weight:700">{{ .planned_quantity }} <span style="color:var(--muted);font-weight:500">pcs</span></td>
+              <td>
+                <span style="font-weight:800">{{ .planned_quantity }}</span>
+                <span style="color:var(--muted);font-weight:500;font-size:0.8rem"> pcs</span>
+              </td>
+              <td>
+                <!-- OEE Progress bar populated via JS -->
+                <div class="qty-bar" id="qtybar-{{ .resource_code }}">
+                  <div class="track"><div class="fill" style="width:0%"></div></div>
+                  <span style="font-size:0.72rem;color:var(--muted);min-width:28px" class="qty-label">—</span>
+                </div>
+              </td>
+              <td>
+                <span class="oee-pill na" id="woee-{{ .resource_code }}">—</span>
+              </td>
               <td>
                 {{ $s := .status }}
                 {{ if eq $s "released" }}<span class="badge badge-success"><span class="dot"></span>Released</span>
-                {{ else if eq $s "in_progress" }}<span class="badge badge-accent"><span class="dot"></span>In Progress</span>
+                {{ else if eq $s "in_progress" }}<span class="badge badge-primary"><span class="dot"></span>In Progress</span>
                 {{ else if eq $s "pending" }}<span class="badge badge-warning"><span class="dot"></span>Pending</span>
                 {{ else }}<span class="badge badge-muted"><span class="dot"></span>{{ $s }}</span>
                 {{ end }}
               </td>
             </tr>
             {{ else }}
-            <tr><td colspan="5"><div class="empty"><p>Data berhasil ditarik namun tidak ada Work Order aktif saat ini.</p></div></td></tr>
+            <tr>
+              <td colspan="7">
+                <div class="empty">
+                  <div class="empty-icon" style="font-size:2.5rem;color:var(--muted);opacity:0.4">—</div>
+                  <p>Data berhasil ditarik namun tidak ada Work Order aktif saat ini.</p>
+                </div>
+              </td>
+            </tr>
             {{ end }}
           </tbody>
         </table>
         {{ else }}
         <div class="empty">
-          <div class="icon">📋</div>
-          <p>Tidak ada Work Order aktif di ERP MANGO saat ini.</p>
+          <div class="empty-icon" style="font-size:2.5rem;color:var(--muted);opacity:0.4">—</div>
+          <p>Tidak ada Work Order aktif di MANGO MES saat ini.</p>
         </div>
         {{ end }}
       {{ else }}
       <div class="empty">
-        <div class="icon">🔄</div>
-        <p>Belum ada data Work Order yang ditarik dari MANGO ERP.</p>
-        <p style="margin-top:0.5rem;font-size:0.78rem">Sistem mencoba menarik data otomatis jika koneksi tersedia.</p>
+        <div class="empty-icon" style="font-size:2.5rem;color:var(--muted);opacity:0.4">—</div>
+        <p>Belum ada data Work Order yang ditarik dari MANGO MES.</p>
+        <p style="margin-top:0.5rem;font-size:0.78rem;color:var(--muted)">Sistem mencoba menarik data otomatis jika koneksi tersedia.</p>
       </div>
       {{ end }}
     </div>
   </div>
+
+  <script>
+    // ── OEE Summary from active machines ─────────────────────────────────
+    async function loadOEESummary() {
+      try {
+        const mRes = await fetch('/api/v1/machines');
+        const mData = mRes.ok ? await mRes.json() : {};
+        const machines = mData.data || mData || [];
+        const active = machines.filter(m => m.enabled || m.Enabled);
+        const ids = active.map(m => m.id || m.ID).slice(0, 10);
+
+        let totalOee = 0, totalQtyOk = 0, totalQtyNg = 0, totalUptime = 0, count = 0;
+
+        await Promise.all(ids.map(async id => {
+          try {
+            const r = await fetch('/api/v1/machines/' + id + '/oee');
+            if (!r.ok) return;
+            const d = await r.json();
+            const oee = d.data || {};
+            if (typeof oee.avg_oee !== 'undefined') {
+              totalOee   += parseFloat(oee.avg_oee   || 0);
+              totalQtyOk += parseInt(oee.qty_ok      || 0);
+              totalQtyNg += parseInt(oee.qty_ng      || 0);
+              totalUptime+= parseFloat(oee.operating_time_min || 0);
+              count++;
+
+              // Update per-WO OEE cells by resource_code === machine ID
+              updateWOeRow(id, oee);
+            }
+          } catch(e) {}
+        }));
+
+        if (count > 0) {
+          const avg = (totalOee / count).toFixed(1);
+          document.getElementById('oee-avg').textContent = avg + '%';
+          document.getElementById('oee-avg').className = 'oee-val ' + (avg >= 85 ? 'green' : avg >= 60 ? 'amber' : 'red');
+          document.getElementById('oee-qty-ok').textContent = totalQtyOk.toLocaleString('id-ID');
+          document.getElementById('oee-qty-ng').textContent = totalQtyNg.toLocaleString('id-ID');
+          document.getElementById('oee-uptime').textContent = Math.round(totalUptime) + ' min';
+        } else {
+          ['oee-avg','oee-qty-ok','oee-qty-ng','oee-uptime'].forEach(id => {
+            document.getElementById(id).textContent = 'N/A';
+          });
+        }
+      } catch(e) {
+        console.error('OEE summary error:', e);
+      }
+    }
+
+    function updateWOeRow(resourceCode, oee) {
+      const v = parseFloat(oee.avg_oee || 0);
+      const qtyOk = parseInt(oee.qty_ok || 0);
+      const qtyTarget = parseInt(oee.qty_target || 0);
+
+      // OEE pill
+      const pill = document.getElementById('woee-' + resourceCode);
+      if (pill) {
+        pill.textContent = v.toFixed(1) + '%';
+        pill.className = 'oee-pill ' + (v >= 85 ? 'good' : v >= 60 ? 'warn' : 'bad');
+      }
+
+      // Progress bar: qty_ok / planned_quantity
+      const qtyBar = document.getElementById('qtybar-' + resourceCode);
+      if (qtyBar && qtyTarget > 0) {
+        const pct = Math.min((qtyOk / qtyTarget) * 100, 100).toFixed(0);
+        const fill = qtyBar.querySelector('.fill');
+        const label = qtyBar.querySelector('.qty-label');
+        if (fill) {
+          fill.style.width = pct + '%';
+          fill.style.background = v >= 85 ? 'var(--success)' : v >= 60 ? 'var(--warning)' : 'var(--danger)';
+        }
+        if (label) label.textContent = pct + '%';
+      }
+    }
+
+    loadOEESummary();
+    setInterval(loadOEESummary, 30000);
+  </script>
 </body>
 </html>

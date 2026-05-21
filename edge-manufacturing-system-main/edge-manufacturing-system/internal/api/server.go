@@ -103,8 +103,27 @@ func (s *Server) setupRoutes() {
 			downtime.POST("/logs", s.createDowntimeLog)
 		}
 
+		op := v1.Group("/operator")
+		{
+			op.GET("/list", s.operatorList)
+			op.GET("/current/:machine_id", s.operatorCurrent)
+			op.GET("/work-orders", s.operatorAvailableWorkOrders)
+			op.POST("/checkin", s.operatorCheckin)
+			op.POST("/checkout", s.operatorCheckout)
+			op.GET("/downtime/open", s.operatorDowntimeOpen)
+			op.POST("/downtime", s.operatorDowntime)
+			op.PUT("/downtime/:id/resolve", s.operatorDowntimeResolve)
+			op.POST("/scrap", s.operatorScrap)
+			op.POST("/production-log", s.operatorProductionLog)
+			op.GET("/production/summary", s.operatorProductionSummary)
+			op.GET("/master-reasons", s.operatorMasterReasons)
+		}
+
 		v1.POST("/webhooks/mango", s.webhookMango)
 	}
+
+	// Operator Terminal HTML Route
+	r.GET("/operator/:id", s.operatorTerminalHTML)
 
 	s.registerAdminRoutes(r)
 
@@ -173,26 +192,25 @@ func (s *Server) connectionStatus(c *gin.Context) {
 }
 
 func (s *Server) listMachines(c *gin.Context) {
+	rows, err := s.postgres.ListMachineConfigs(c.Request.Context())
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 	c.JSON(http.StatusOK, gin.H{
-		"data":  s.cfg.Machines,
-		"total": len(s.cfg.Machines),
+		"data":  rows,
+		"total": len(rows),
 	})
 }
 
 func (s *Server) getMachine(c *gin.Context) {
 	machineID := c.Param("id")
-	var found interface{}
-	for _, m := range s.cfg.Machines {
-		if m.ID == machineID {
-			found = m
-			break
-		}
-	}
-	if found == nil {
+	row, err := s.postgres.GetMachineConfig(c.Request.Context(), machineID)
+	if err != nil || row == nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "mesin tidak ditemukan"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": found})
+	c.JSON(http.StatusOK, gin.H{"data": row})
 }
 
 func (s *Server) resolveAlarm(c *gin.Context) {
@@ -215,13 +233,14 @@ func (s *Server) factorySummary(c *gin.Context) {
 	ctx := c.Request.Context()
 
 	activeAlarms, _ := s.postgres.ListActiveAlarms(ctx)
+	rows, _ := s.postgres.ListMachineConfigs(ctx)
 
 	c.JSON(http.StatusOK, gin.H{
 		"summary": gin.H{
-			"total_machines":  len(s.cfg.Machines),
+			"total_machines":  len(rows),
 			"active_alarms":   len(activeAlarms),
 		},
-		"machines": s.cfg.Machines,
+		"machines": rows,
 	})
 }
 

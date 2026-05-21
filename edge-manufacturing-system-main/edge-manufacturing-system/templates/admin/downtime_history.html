@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Kerusakan Mesin - MANGO Edge</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .sidebar-link { transition: all 0.2s; }
+        .sidebar-link:hover, .sidebar-link.active { background-color: rgba(255,255,255,0.1); border-left: 4px solid #fff; }
+    </style>
+</head>
+<body class="bg-gray-50 flex h-screen overflow-hidden">
+    
+    <!-- Sidebar -->
+    <aside class="w-64 bg-slate-900 text-white flex flex-col h-full shadow-2xl flex-shrink-0 z-20 relative">
+        <div class="p-6 border-b border-slate-700">
+            <h1 class="text-2xl font-bold tracking-wider text-orange-400"><i class="fa-solid fa-industry mr-2"></i>MANGO</h1>
+            <p class="text-xs text-slate-400 mt-1 uppercase tracking-widest">Edge System</p>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-4">
+            <a href="/" class="sidebar-link flex items-center px-6 py-3 text-sm font-medium">
+                <i class="fa-solid fa-chart-line w-6 text-slate-400"></i>
+                Dashboard
+            </a>
+            <a href="/machines" class="sidebar-link flex items-center px-6 py-3 text-sm font-medium">
+                <i class="fa-solid fa-server w-6 text-slate-400"></i>
+                Master Mesin
+            </a>
+            <a href="/work-orders" class="sidebar-link flex items-center px-6 py-3 text-sm font-medium">
+                <i class="fa-solid fa-clipboard-list w-6 text-slate-400"></i>
+                Work Orders
+            </a>
+            <a href="/production-history" class="sidebar-link flex items-center px-6 py-3 text-sm font-medium">
+                <i class="fa-solid fa-history w-6 text-slate-400"></i>
+                Riwayat Produksi
+            </a>
+            <a href="/downtime-history" class="sidebar-link active flex items-center px-6 py-3 text-sm font-medium">
+                <i class="fa-solid fa-wrench w-6 text-slate-400"></i>
+                Riwayat Downtime
+            </a>
+            <a href="/connection-logs" class="sidebar-link flex items-center px-6 py-3 text-sm font-medium">
+                <i class="fa-solid fa-network-wired w-6 text-slate-400"></i>
+                Connection Logs
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-full relative overflow-hidden">
+        <!-- Topbar -->
+        <header class="bg-white shadow-sm border-b z-10 px-8 py-4 flex justify-between items-center">
+            <div>
+                <h2 class="text-xl font-bold text-slate-800">Riwayat Kerusakan Mesin</h2>
+                <p class="text-sm text-slate-500">Log historis berhentinya mesin dan tindakan perbaikannya</p>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div class="flex-1 overflow-auto p-8 bg-slate-50">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-600 text-xs uppercase tracking-wider border-b">
+                                <th class="p-4 font-semibold">Waktu Mulai</th>
+                                <th class="p-4 font-semibold">Waktu Selesai</th>
+                                <th class="p-4 font-semibold">Mesin</th>
+                                <th class="p-4 font-semibold">Work Order</th>
+                                <th class="p-4 font-semibold">Kategori</th>
+                                <th class="p-4 font-semibold">Alasan</th>
+                                <th class="p-4 font-semibold text-right">Durasi (Mnt)</th>
+                                <th class="p-4 font-semibold">Tindakan (Action)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm divide-y divide-slate-100">
+                            {{range .Logs}}
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-4 text-slate-700 whitespace-nowrap">{{.StartedAt.Format "02 Jan 2006 15:04:05"}}</td>
+                                <td class="p-4 text-slate-700 whitespace-nowrap">
+                                    {{if .ResolvedAt}}
+                                        {{.ResolvedAt.Format "02 Jan 2006 15:04:05"}}
+                                    {{else}}
+                                        <span class="text-red-600 font-bold"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Sedang Rusak</span>
+                                    {{end}}
+                                </td>
+                                <td class="p-4 font-medium text-slate-800">{{.MachineID}}</td>
+                                <td class="p-4 font-medium text-blue-600">{{if .WorkOrder}}{{.WorkOrder}}{{else}}-{{end}}</td>
+                                <td class="p-4 text-slate-600 font-semibold">{{.Category}}</td>
+                                <td class="p-4 text-slate-600">{{.Reason}}</td>
+                                <td class="p-4 text-right font-bold text-orange-600">{{.DurationMin}}</td>
+                                <td class="p-4 text-slate-600 italic">{{if .ActionTaken}}{{.ActionTaken}}{{else}}-{{end}}</td>
+                            </tr>
+                            {{else}}
+                            <tr>
+                                <td colspan="8" class="p-8 text-center text-slate-400">
+                                    <i class="fa-solid fa-check-circle text-4xl mb-3 block text-green-500"></i>
+                                    Tidak ada riwayat kerusakan mesin yang tercatat. Mesin berjalan optimal.
+                                </td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            {{if gt .TotalPages 1}}
+            <div class="mt-6 flex justify-between items-center">
+                <div class="text-sm text-slate-500">
+                    Menampilkan Halaman {{.Page}} dari {{.TotalPages}}
+                </div>
+                <div class="flex gap-2">
+                    {{if gt .Page 1}}
+                    <a href="?page={{sub .Page 1}}" class="px-4 py-2 border border-slate-200 rounded text-sm hover:bg-slate-50">Sebelumnya</a>
+                    {{end}}
+                    {{if lt .Page .TotalPages}}
+                    <a href="?page={{add .Page 1}}" class="px-4 py-2 bg-blue-600 text-white rounded text-sm hover:bg-blue-700">Selanjutnya</a>
+                    {{end}}
+                </div>
+            </div>
+            {{end}}
+        </div>
+    </main>
+</body>
+</html>

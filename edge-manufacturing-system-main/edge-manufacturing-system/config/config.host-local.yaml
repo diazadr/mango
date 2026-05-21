@@ -1,8 +1,8 @@
 mqtt:
-  broker: "tls://j1618cec.ala.asia-southeast1.emqxsl.com:8883"
+  broker: "tcp://localhost:1883"
   client_id: "edge_core_subscriber_host"
-  username: "imaschinelab"
-  password: "imaschinelab2026"
+  username: ""
+  password: ""
   clean_session: false
   auto_reconnect: true
   qos_status: 1

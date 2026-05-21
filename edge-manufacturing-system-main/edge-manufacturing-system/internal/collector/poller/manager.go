@@ -147,24 +147,76 @@ func (m *Manager) pollMachine(ctx context.Context, cfg models.MachineConfigRow) 
 		})
 	}()
 
-	// TODO: parse poll interval from production_config or use default 5s
-	ticker := time.NewTicker(5 * time.Second)
+	// Parse poll interval from production_config or use default 5s
+	intervalSec := 5
+	if cfg.ProductionConfigJSON != "" && cfg.ProductionConfigJSON != "{}" {
+		var pConfig map[string]interface{}
+		if err := json.Unmarshal([]byte(cfg.ProductionConfigJSON), &pConfig); err == nil {
+			if v, ok := pConfig["poll_interval_sec"].(float64); ok && v > 0 {
+				intervalSec = int(v)
+			}
+		}
+	}
+
+	ticker := time.NewTicker(time.Duration(intervalSec) * time.Second)
 	defer ticker.Stop()
 
 	pollCount := 0
+	pollsPerMin := 60.0 / float64(intervalSec)
+	if pollsPerMin <= 0 {
+		pollsPerMin = 1.0 // safety fallback
+	}
+
+	var stopStartTime time.Time
+	var unhandledDowntimeLogged bool
+
 	for {
 		select {
 		case <-ctx.Done():
 			return
 		case <-ticker.C:
-			pollCount++
+			// Cek apakah ada checkin aktif (Work Order sedang jalan)
+			checkin, _ := m.postgres.GetCurrentCheckin(context.Background(), cfg.ID)
+			hasActiveWO := checkin != nil
+
+			// Hanya tambah waktu operasi/potong jika WO sedang aktif
+			if hasActiveWO {
+				pollCount++
+			}
 
 			// 1. Read Status
+			var isStopped bool
 			if status, err := connector.ReadStatus(ctx); err == nil && status != nil {
 				status.MachineID = cfg.ID
 				m.publishToEMQX(broker.TopicStatus("cnc", cfg.MachineType, cfg.ID), status)
+				
+				if status.RunStatus == 0 || status.Alarm == 1 {
+					isStopped = true
+				}
 			} else if err != nil {
 				logger.Warn("Failed to read status", zap.String("machine", cfg.ID), zap.Error(err))
+			}
+
+			if isStopped && hasActiveWO {
+				if stopStartTime.IsZero() {
+					stopStartTime = time.Now()
+				} else if time.Since(stopStartTime) > 5*time.Minute && !unhandledDowntimeLogged {
+					// Otomatis catat downtime
+					dl := &models.DowntimeLog{
+						MachineID: cfg.ID,
+						Category:  "Uncategorized",
+						Reason:    "Auto-detected Stoppage > 5 mins",
+						StartedAt: time.Now().Add(-5 * time.Minute),
+					}
+					dlId, _ := m.postgres.InsertDowntimeLog(context.Background(), dl)
+					if dlId > 0 {
+						unhandledDowntimeLogged = true
+						_ = m.postgres.EnqueueSync(context.Background(), "downtime", "/production/downtime", cfg.ID, []byte(fmt.Sprintf(`{"id":%d}`, dlId)))
+					}
+				}
+			} else {
+				stopStartTime = time.Time{}
+				unhandledDowntimeLogged = false
 			}
 
 			// 2. Read Axis
@@ -195,10 +247,10 @@ func (m *Manager) pollMachine(ctx context.Context, cfg models.MachineConfigRow) 
 			timerData := &models.TimerData{
 				MachineID:         cfg.ID,
 				Timestamp:         time.Now(),
-				OperatingTimeMin:  float64(pollCount) / 12.0,        // ~1 min per 12 polls (5s interval)
-				OperatingTimeMsec: float64(pollCount%12) * 5000.0,
-				CuttingTimeMin:    float64(pollCount*4) / float64(12*5), // ~80% of operating
-				CuttingTimeMsec:   float64((pollCount*4)%(12*5)) * 1000.0,
+				OperatingTimeMin:  float64(pollCount) / pollsPerMin,
+				OperatingTimeMsec: float64(pollCount%int(pollsPerMin)) * float64(intervalSec*1000),
+				CuttingTimeMin:    (float64(pollCount) / pollsPerMin) * 0.8, // ~80% of operating
+				CuttingTimeMsec:   0, // simplified for simulator
 				CycleTimeMin:      5.0,
 				CycleTimeMsec:     0,
 			}

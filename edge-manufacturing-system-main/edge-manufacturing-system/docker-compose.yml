@@ -112,7 +112,9 @@ services:
       - MQTT_USERNAME=edge_service
       - MQTT_PASSWORD=edge_secret_2026
       - SITE_ID=POLMAN_BANDUNG_EDGE
-      - MACHINE_ID=dmg_mori_ntx1000
+      - MACHINE_ID=MCH-01
+      - WORK_ORDER=WO-20260518-3263
+      - PUBLISH_INTERVAL=2
       - PUBLISH_INTERVAL=2
 
 volumes:

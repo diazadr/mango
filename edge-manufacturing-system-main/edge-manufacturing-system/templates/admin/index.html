@@ -3,115 +3,147 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>MANGO Edge — Dashboard Polman Bandung</title>
+  <title>MANGO Edge — Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <style>
     :root {
       --bg:        #ffffff;
       --surface:   #f8fafc;
+      --surface2:  #f1f5f9;
       --border:    rgba(0,0,0,0.08);
       --primary:   #1e477e;
+      --primary-d: #153460;
       --primary-l: #e8f0fb;
       --accent:    #f97316;
       --text:      #0f172a;
       --muted:     #64748b;
-      --success:   #16a34a;
-      --danger:    #dc2626;
-      --warning:   #d97706;
-      --radius:    20px;
+      --success:   #10b981;
+      --danger:    #ef4444;
+      --warning:   #f59e0b;
+      --radius:    16px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
 
-    /* ── Header ───────────────────────────────────────────────────────── */
-    .header {
-      padding: 3rem 2rem 2rem;
-      background: linear-gradient(135deg, #1e3a6e 0%, #1e477e 50%, #2563a8 100%);
+    /* ── Topbar ─────────────────────────────────────────────────────────── */
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0 2rem; height: 60px;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+    }
+    .topbar-brand {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-weight: 900; font-size: 1.05rem; letter-spacing: -0.02em; color: var(--primary);
+    }
+    .topbar-brand .pulse {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); box-shadow: 0 0 8px var(--accent);
+      animation: pls 2s infinite;
+    }
+    @keyframes pls { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.7;transform:scale(1.3)} }
+    .topbar nav { display: flex; align-items: center; gap: 0.25rem; margin-left: auto; }
+    .topbar nav a {
+      padding: 0.45rem 0.9rem; border-radius: 10px;
+      font-size: 0.82rem; font-weight: 700; color: var(--muted);
+      transition: all 0.2s;
+    }
+    .topbar nav a:hover { color: var(--primary); background: var(--primary-l); }
+    .topbar nav a.active { color: var(--primary); background: var(--primary-l); }
+
+    /* ── Hero Header ─────────────────────────────────────────────────────── */
+    .hero {
+      padding: 3.5rem 2rem 3rem;
+      background: linear-gradient(135deg, #1a3460 0%, #1e477e 55%, #2563a8 100%);
       color: #fff;
       text-align: center;
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
     }
-    .header::after {
+    .hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero::after {
       content: "";
       position: absolute;
-      bottom: -1px; left: 0; right: 0; height: 32px;
+      bottom: -1px; left: 0; right: 0; height: 40px;
       background: var(--bg);
       clip-path: ellipse(55% 100% at 50% 100%);
     }
-    .header-badge {
+    .hero-badge {
       display: inline-flex; align-items: center; gap: 0.5rem;
       background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 100px; padding: 0.35rem 0.9rem; font-size: 0.7rem;
-      font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
-      margin-bottom: 1.2rem; color: rgba(255,255,255,0.9);
+      border-radius: 100px; padding: 0.35rem 1rem;
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 1.25rem; color: rgba(255,255,255,0.9);
+      position: relative;
     }
-    .header h1 { font-size: 2.25rem; font-weight: 900; letter-spacing: -0.04em; margin-bottom: 0.4rem; }
-    .header p { font-size: 0.95rem; color: rgba(255,255,255,0.7); font-weight: 500; }
+    .hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 6px #4ade80; }
+    .hero h1 { font-size: 2.5rem; font-weight: 900; letter-spacing: -0.04em; margin-bottom: 0.5rem; position: relative; }
+    .hero p { font-size: 0.95rem; color: rgba(255,255,255,0.72); font-weight: 500; position: relative; }
 
-    /* ── Protocol Status Bar ──────────────────────────────────────────── */
-    .status-bar {
+    /* ── Status Bar ──────────────────────────────────────────────────────── */
+    .status-section {
       max-width: 1100px; margin: 0 auto;
-      padding: 1.5rem 2rem 0;
+      padding: 1.75rem 2rem 0;
     }
-    .status-bar-title {
-      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
+    .section-label {
+      font-size: 0.65rem; font-weight: 900; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.9rem;
     }
-    .status-grid {
-      display: flex; flex-wrap: wrap; gap: 0.75rem;
-    }
+    .status-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; }
     .status-chip {
       display: flex; align-items: center; gap: 0.6rem;
-      padding: 0.6rem 1rem; border-radius: 100px;
+      padding: 0.55rem 1rem; border-radius: 100px;
       border: 1.5px solid var(--border); background: var(--surface);
       font-size: 0.8rem; font-weight: 700; transition: all 0.3s;
+      color: var(--muted);
     }
     .status-chip .dot {
       width: 8px; height: 8px; border-radius: 50%;
-      background: #cbd5e1; /* muted default */
+      background: #cbd5e1; flex-shrink: 0;
       transition: background 0.3s;
-      flex-shrink: 0;
-      box-shadow: 0 0 0 0 rgba(0,0,0,0);
     }
-    .status-chip.connected { border-color: rgba(22,163,74,0.3); background: rgba(22,163,74,0.05); }
-    .status-chip.connected .dot {
-      background: var(--success);
-      animation: pulse-green 2s infinite;
-    }
-    .status-chip.disconnected { border-color: rgba(220,38,38,0.3); background: rgba(220,38,38,0.05); }
+    .status-chip.connected { border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.06); color: var(--text); }
+    .status-chip.connected .dot { background: var(--success); animation: pulse-g 2s infinite; }
+    .status-chip.disconnected { border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.05); }
     .status-chip.disconnected .dot { background: var(--danger); }
     .status-chip.unknown .dot { background: var(--warning); }
 
-    @keyframes pulse-green {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(22,163,74,0.4); }
-      50% { box-shadow: 0 0 0 5px rgba(22,163,74,0); }
+    @keyframes pulse-g {
+      0%,100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.5); }
+      50% { box-shadow: 0 0 0 5px rgba(16,185,129,0); }
     }
 
-    /* ── Main Grid ────────────────────────────────────────────────────── */
+    /* ── Main Container ──────────────────────────────────────────────────── */
     .container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
-    .section-title {
-      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--muted);
-      margin-bottom: 1.25rem; margin-top: 2rem;
-    }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
 
+    /* ── Cards Grid ──────────────────────────────────────────────────────── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.25rem;
+    }
     .card {
       background: var(--surface);
       border: 1.5px solid var(--border);
-      border-radius: var(--radius);
-      padding: 2rem 1.5rem;
-      display: flex; flex-direction: column; align-items: flex-start; gap: 1rem;
+      border-radius: 20px;
+      padding: 1.75rem 1.5rem;
+      display: flex; flex-direction: column; gap: 1rem;
       text-decoration: none; color: inherit;
       position: relative; overflow: hidden;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
     }
     .card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 16px 32px rgba(30, 71, 126, 0.1);
+      box-shadow: 0 20px 40px rgba(30,71,126,0.12);
       border-color: var(--primary);
+      background: #fff;
     }
     .card::before {
       content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
@@ -119,67 +151,121 @@
       opacity: 0; transition: opacity 0.25s;
     }
     .card:hover::before { opacity: 1; }
-
-    .icon-box {
+    .card-icon {
       width: 52px; height: 52px; border-radius: 14px;
       display: flex; align-items: center; justify-content: center;
       background: var(--primary-l); color: var(--primary);
-      transition: all 0.25s;
-      flex-shrink: 0;
+      transition: all 0.25s; flex-shrink: 0;
     }
-    .card:hover .icon-box { background: var(--primary); color: #fff; transform: scale(1.05); }
-
+    .card:hover .card-icon { background: var(--primary); color: #fff; transform: scale(1.08) rotate(-3deg); }
     .card h3 { font-size: 1rem; font-weight: 800; letter-spacing: -0.02em; }
-    .card p { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
-
-    .btn-action {
-      font-size: 0.75rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.04em; color: var(--primary);
-      display: flex; align-items: center; gap: 0.4rem;
+    .card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; flex: 1; }
+    .card-cta {
+      font-size: 0.72rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--primary);
+      display: flex; align-items: center; gap: 0.35rem;
+      transition: gap 0.2s;
     }
-    .card:hover .btn-action { color: var(--primary); }
+    .card:hover .card-cta { gap: 0.6rem; }
 
-    /* ── Quick Links Footer ───────────────────────────────────────────── */
+    /* OEE Card special */
+    .card.oee-card {
+      border-color: rgba(16,185,129,0.25);
+      background: linear-gradient(135deg, rgba(16,185,129,0.04), var(--surface));
+    }
+    .card.oee-card:hover { border-color: var(--success); box-shadow: 0 20px 40px rgba(16,185,129,0.12); }
+    .card.oee-card::before { background: linear-gradient(90deg, var(--success), #059669); }
+    .card.oee-card .card-icon { background: rgba(16,185,129,0.1); color: var(--success); }
+    .card.oee-card:hover .card-icon { background: var(--success); color: #fff; }
+    .card.oee-card .card-cta { color: var(--success); }
+
+    /* ── OEE Live Panel ──────────────────────────────────────────────────── */
+    .oee-panel {
+      background: var(--surface);
+      border: 1.5px solid rgba(16,185,129,0.2);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-top: 1.25rem;
+    }
+    .oee-panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;
+    }
+    .oee-panel-title {
+      font-size: 0.65rem; font-weight: 900; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--success);
+    }
+    .oee-metrics-row { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .oee-metric {
+      flex: 1; min-width: 130px;
+      background: #fff; border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.25rem;
+    }
+    .oee-metric .lbl { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.4rem; }
+    .oee-metric .val { font-size: 1.8rem; font-weight: 900; line-height: 1; }
+    .oee-metric .val.good { color: var(--success); }
+    .oee-metric .val.warn { color: var(--warning); }
+    .oee-metric .val.bad { color: var(--danger); }
+    .oee-metric .val.blue { color: var(--primary); }
+    .oee-metric .sub { font-size: 0.72rem; color: var(--muted); font-weight: 500; margin-top: 0.35rem; }
+
+    /* ── Footer Quick Links ──────────────────────────────────────────────── */
     .quick-links {
       margin-top: 3rem; padding-top: 2rem;
       border-top: 1px solid var(--border);
       display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem 3rem;
     }
     .ql-item {
-      display: flex; align-items: center; gap: 0.6rem;
+      display: flex; align-items: center; gap: 0.55rem;
       text-decoration: none; color: var(--muted);
-      font-weight: 700; font-size: 0.82rem; transition: color 0.2s;
+      font-weight: 700; font-size: 0.8rem; transition: color 0.2s;
     }
     .ql-item:hover { color: var(--primary); }
-    .ql-item .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--border); }
-    .ql-item:hover .dot { background: var(--primary); }
+    .ql-item .dot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; transition: transform 0.2s; }
+    .ql-item:hover .dot { transform: scale(1.5); }
 
     @media (max-width: 640px) {
-      .header { padding: 2.5rem 1.5rem 2rem; }
-      .header h1 { font-size: 1.6rem; }
-      .grid { grid-template-columns: 1fr 1fr; }
-      .status-bar { padding: 1.25rem 1.25rem 0; }
+      .hero { padding: 2.5rem 1.5rem 2.5rem; }
+      .hero h1 { font-size: 1.8rem; }
+      .cards-grid { grid-template-columns: 1fr 1fr; }
+      .container { padding: 1.5rem 1rem; }
+      .topbar { padding: 0 1rem; }
     }
     @media (max-width: 420px) {
-      .grid { grid-template-columns: 1fr; }
+      .cards-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <header class="header">
-    <div class="header-badge">
-      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+  <!-- Topbar Navigation -->
+  <nav class="topbar">
+    <div class="topbar-brand">
+      <div class="pulse"></div>
+      MANGO EDGE
+    </div>
+    <nav>
+      <a href="/" class="active">Dashboard</a>
+      <a href="/machines">Mesin</a>
+      <a href="/work-orders">Work Orders</a>
+      <a href="/connection-logs">Log Koneksi</a>
+    </nav>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-badge">
+      <div class="dot"></div>
       Edge Computing Dashboard
     </div>
-    <h1>Selamat Datang di MANGO Edge</h1>
+    <h1>MANGO Edge Gateway</h1>
     <p>Pusat kendali data dan monitoring mesin produksi — Politeknik Manufaktur Bandung</p>
   </header>
 
-  <!-- Protocol Connection Status Bar -->
-  <section class="status-bar">
-    <p class="status-bar-title">Status Koneksi Protokol</p>
-    <div class="status-grid" id="status-grid">
+  <!-- Protocol Status Bar -->
+  <section class="status-section">
+    <p class="section-label">Status Koneksi Protokol</p>
+    <div class="status-grid">
       <div class="status-chip unknown" id="chip-mqtt-local">
         <div class="dot"></div>
         <span>EMQX Lokal (MQTT)</span>
@@ -196,78 +282,125 @@
         <div class="dot"></div>
         <span>InfluxDB</span>
       </div>
+      <div class="status-chip unknown" id="chip-mango-mes">
+        <div class="dot"></div>
+        <span>MANGO MES</span>
+      </div>
     </div>
   </section>
 
   <main class="container">
-    <p class="section-title">Layanan & Monitoring</p>
-    <div class="grid">
+
+    <!-- OEE Live Panel -->
+    <p class="section-label" style="margin-top:2rem;">OEE Live — Produksi Hari Ini</p>
+    <div class="oee-panel">
+      <div class="oee-panel-header">
+        <span class="oee-panel-title">Overall Equipment Effectiveness (Live)</span>
+        <span style="font-size:0.72rem;color:var(--muted);font-weight:600;" id="oee-updated">Memuat data...</span>
+      </div>
+      <div class="oee-metrics-row" id="oee-metrics-row">
+        <div class="oee-metric">
+          <div class="lbl">OEE Rata-rata</div>
+          <div class="val blue" id="oee-avg">—</div>
+          <div class="sub">Semua mesin aktif</div>
+        </div>
+        <div class="oee-metric">
+          <div class="lbl">Qty OK</div>
+          <div class="val good" id="oee-qty-ok">—</div>
+          <div class="sub">Unit produk lolos</div>
+        </div>
+        <div class="oee-metric">
+          <div class="lbl">Qty NG</div>
+          <div class="val bad" id="oee-qty-ng">—</div>
+          <div class="sub">Unit produk reject</div>
+        </div>
+        <div class="oee-metric">
+          <div class="lbl">Uptime</div>
+          <div class="val warn" id="oee-uptime">—</div>
+          <div class="sub">Menit operasional</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Service Cards -->
+    <p class="section-label" style="margin-top:2.5rem;">Layanan & Monitoring</p>
+    <div class="cards-grid">
 
       <a href="/machines" class="card">
-        <div class="icon-box">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
+        <div class="card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
         </div>
         <div>
           <h3>Daftar Mesin</h3>
-          <p>Konfigurasi koneksi dan pantau status mesin produksi.</p>
+          <p>Konfigurasi koneksi dan pantau status mesin produksi secara real-time.</p>
         </div>
-        <div class="btn-action">Buka Pengaturan &#8594;</div>
+        <div class="card-cta">Buka Pengaturan <span>→</span></div>
       </a>
 
-      <!-- Grafana dengan kiosk mode untuk readonly -->
+      <a href="/work-orders" class="card oee-card">
+        <div class="card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <div>
+          <h3>Work Orders + OEE</h3>
+          <p>Work Order aktif dari MANGO ERP dengan data OEE per mesin terintegrasi.</p>
+        </div>
+        <div class="card-cta">Lihat WO & OEE <span>→</span></div>
+      </a>
+
       <a href="http://localhost:3000?kiosk=1" target="_blank" class="card">
-        <div class="icon-box">
+        <div class="card-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
         </div>
         <div>
           <h3>Grafana</h3>
           <p>Visualisasi real-time OEE, Work Order, Operator, dan Shift.</p>
         </div>
-        <div class="btn-action">Lihat Grafik &#8594;</div>
+        <div class="card-cta">Lihat Grafik <span>→</span></div>
       </a>
 
       <a href="http://localhost:8086" target="_blank" class="card">
-        <div class="icon-box">
+        <div class="card-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
         </div>
         <div>
           <h3>InfluxDB</h3>
-          <p>Eksplorasi data time-series dan monitoring bucket.</p>
+          <p>Eksplorasi data time-series dan monitoring bucket OEE metrics.</p>
         </div>
-        <div class="btn-action">Query Data &#8594;</div>
+        <div class="card-cta">Query Data <span>→</span></div>
       </a>
 
       <a href="http://localhost:18083" target="_blank" class="card">
-        <div class="icon-box">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M2 12h20"/><path d="m4.93 4.93 14.14 14.14"/><path d="m4.93 19.07 14.14-14.14"/></svg>
+        <div class="card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg>
         </div>
         <div>
           <h3>EMQX Lokal</h3>
           <p>Manajemen Broker MQTT Lokal dan monitoring topic mesin.</p>
         </div>
-        <div class="btn-action">Cek Broker &#8594;</div>
+        <div class="card-cta">Cek Broker <span>→</span></div>
       </a>
 
       <a href="https://cloud.emqx.com" target="_blank" class="card">
-        <div class="icon-box">
+        <div class="card-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
         </div>
         <div>
           <h3>EMQX Cloud</h3>
-          <p>Broker cloud untuk sinkronisasi data ke platform MANGO ERP.</p>
+          <p>Broker cloud untuk sinkronisasi data ke platform MANGO ERP pusat.</p>
         </div>
-        <div class="btn-action">Buka Cloud &#8594;</div>
+        <div class="card-cta">Buka Cloud <span>→</span></div>
       </a>
 
-      <a href="/work-orders" class="card">
-        <div class="icon-box">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      <a href="/connection-logs" class="card">
+        <div class="card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </div>
         <div>
-          <h3>Work Orders</h3>
-          <p>Daftar Work Order aktif yang disinkronisasi dari MANGO ERP.</p>
+          <h3>Log Koneksi</h3>
+          <p>Riwayat kejadian koneksi dan status tiap node mesin produksi.</p>
         </div>
-        <div class="btn-action">Lihat WO &#8594;</div>
+        <div class="card-cta">Lihat Log <span>→</span></div>
       </a>
 
     </div>
@@ -277,25 +410,32 @@
       <a href="/api/v1/health" class="ql-item"><div class="dot"></div> API Health</a>
       <a href="/api/v1/status/connections" class="ql-item"><div class="dot"></div> Status JSON</a>
       <a href="/api/v1/mango/status" class="ql-item"><div class="dot"></div> MANGO Sync Status</a>
+      <a href="/api/v1/oee/summary" class="ql-item"><div class="dot"></div> OEE Summary</a>
     </footer>
   </main>
 
   <script>
-    // Polling status koneksi setiap 10 detik
+    // ── Connection Status Polling ─────────────────────────────────────────
     async function refreshStatus() {
       try {
         const res = await fetch('/api/v1/status/connections');
         if (!res.ok) return;
         const data = await res.json();
         const conns = data.connections || {};
-
         updateChip('chip-mqtt-local',  conns.mqtt_local?.connected);
         updateChip('chip-mqtt-cloud',  conns.mqtt_cloud?.connected);
         updateChip('chip-postgresql',  conns.postgresql?.connected);
         updateChip('chip-influxdb',    conns.influxdb?.connected);
-      } catch (e) {
-        // Silently ignore — server mungkin belum ready
-      }
+
+        // Cek MANGO MES via mango status
+        try {
+          const msRes = await fetch('/api/v1/mango/status');
+          const msData = msRes.ok ? await msRes.json() : {};
+          updateChip('chip-mango-mes', msData.connected ?? (msRes.ok ? true : false));
+        } catch(e) {
+          updateChip('chip-mango-mes', false);
+        }
+      } catch (e) { /* silent */ }
     }
 
     function updateChip(id, connected) {
@@ -307,8 +447,56 @@
       else                          chip.classList.add('unknown');
     }
 
+    // ── OEE Summary Polling ───────────────────────────────────────────────
+    async function refreshOEE() {
+      try {
+        // Fetch semua machines lalu ambil rata-rata OEE
+        const mRes = await fetch('/api/v1/machines');
+        const machines = mRes.ok ? await mRes.json() : [];
+        const ids = (machines.data || machines || []).filter(m => m.enabled || m.Enabled).map(m => m.id || m.ID).slice(0, 8);
+
+        let totalOee = 0, totalQtyOk = 0, totalQtyNg = 0, totalUptime = 0, count = 0;
+        await Promise.all(ids.map(async (id) => {
+          try {
+            const r = await fetch('/api/v1/machines/' + id + '/oee');
+            if (!r.ok) return;
+            const d = await r.json();
+            const oee = d.data || {};
+            if (typeof oee.avg_oee !== 'undefined') {
+              totalOee   += parseFloat(oee.avg_oee || 0);
+              totalQtyOk += parseInt(oee.qty_ok || 0);
+              totalQtyNg += parseInt(oee.qty_ng || 0);
+              totalUptime+= parseFloat(oee.operating_time_min || 0);
+              count++;
+            }
+          } catch(e) {}
+        }));
+
+        const avgOee = count > 0 ? (totalOee / count).toFixed(1) : null;
+        const el = (id) => document.getElementById(id);
+
+        if (avgOee !== null) {
+          el('oee-avg').textContent = avgOee + '%';
+          el('oee-avg').className = 'val ' + (avgOee >= 85 ? 'good' : avgOee >= 60 ? 'warn' : 'bad');
+          el('oee-qty-ok').textContent = totalQtyOk.toLocaleString();
+          el('oee-qty-ng').textContent = totalQtyNg.toLocaleString();
+          el('oee-uptime').textContent = Math.round(totalUptime) + ' min';
+        } else {
+          el('oee-avg').textContent = 'N/A';
+          el('oee-qty-ok').textContent = '—';
+          el('oee-qty-ng').textContent = '—';
+          el('oee-uptime').textContent = '—';
+        }
+        el('oee-updated').textContent = 'Diperbarui: ' + new Date().toLocaleTimeString('id-ID');
+      } catch(e) {
+        document.getElementById('oee-updated').textContent = 'Gagal memuat data OEE';
+      }
+    }
+
     refreshStatus();
+    refreshOEE();
     setInterval(refreshStatus, 10000);
+    setInterval(refreshOEE, 30000);
   </script>
 
 </body>

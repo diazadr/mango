@@ -116,6 +116,16 @@ func (p *PostgresStore) migrate(ctx context.Context) error {
 	);
 	CREATE INDEX IF NOT EXISTS idx_downtime_machine_started ON downtime_logs(machine_id, started_at DESC);
 
+	CREATE TABLE IF NOT EXISTS scrap_logs (
+		id BIGSERIAL PRIMARY KEY,
+		machine_id VARCHAR(50) NOT NULL,
+		work_order VARCHAR(50),
+		reason VARCHAR(100),
+		qty INTEGER NOT NULL DEFAULT 0,
+		timestamp TIMESTAMPTZ NOT NULL DEFAULT NOW()
+	);
+	CREATE INDEX IF NOT EXISTS idx_scrap_machine ON scrap_logs(machine_id, timestamp DESC);
+
 	CREATE TABLE IF NOT EXISTS machine_configs (
 		id VARCHAR(50) PRIMARY KEY,
 		name VARCHAR(100) NOT NULL,
@@ -187,7 +197,55 @@ func (p *PostgresStore) migrate(ctx context.Context) error {
 	CREATE INDEX IF NOT EXISTS idx_connection_logs_machine ON connection_logs(machine_id, occurred_at DESC);
 	`
 	_, err := p.db.ExecContext(ctx, schema)
-	return err
+	if err != nil {
+		return err
+	}
+
+	// Master Reasons Table (Phase 5)
+	_, _ = p.db.ExecContext(ctx, `
+		CREATE TABLE IF NOT EXISTS master_reasons (
+			id BIGSERIAL PRIMARY KEY,
+			type VARCHAR(20) NOT NULL,
+			category VARCHAR(50),
+			code VARCHAR(20),
+			description VARCHAR(100),
+			is_active BOOLEAN DEFAULT true
+		);
+	`)
+
+	// Traceability & Phase 5 additions
+	alters := []string{
+		`ALTER TABLE operator_checkins ADD COLUMN IF NOT EXISTS actual_qty_ok INTEGER DEFAULT 0;`,
+		`ALTER TABLE operator_checkins ADD COLUMN IF NOT EXISTS actual_qty_ng INTEGER DEFAULT 0;`,
+		`ALTER TABLE operator_checkins ADD COLUMN IF NOT EXISTS ideal_cycle_time_sec NUMERIC(10,2) DEFAULT 0;`,
+		`ALTER TABLE downtime_logs ADD COLUMN IF NOT EXISTS work_order VARCHAR(50);`,
+		`ALTER TABLE downtime_logs ADD COLUMN IF NOT EXISTS operator_id VARCHAR(50);`,
+		`ALTER TABLE production_logs ADD COLUMN IF NOT EXISTS ideal_cycle_time_sec NUMERIC(10,2) DEFAULT 0;`,
+	}
+	for _, alt := range alters {
+		_, _ = p.db.ExecContext(ctx, alt)
+	}
+
+	// Seed Default Master Reasons if empty
+	var count int
+	_ = p.db.QueryRowContext(ctx, "SELECT COUNT(*) FROM master_reasons").Scan(&count)
+	if count == 0 {
+		seeds := []string{
+			`INSERT INTO master_reasons (type, category, code, description) VALUES ('downtime', 'Breakdown', 'D01', 'Kerusakan Mesin (Breakdown)')`,
+			`INSERT INTO master_reasons (type, category, code, description) VALUES ('downtime', 'Setup', 'D02', 'Setup & Penyesuaian')`,
+			`INSERT INTO master_reasons (type, category, code, description) VALUES ('downtime', 'Material', 'D03', 'Kekurangan Material')`,
+			`INSERT INTO master_reasons (type, category, code, description) VALUES ('downtime', 'Break', 'D04', 'Istirahat / Ganti Shift')`,
+			`INSERT INTO master_reasons (type, category, code, description) VALUES ('scrap', 'Dimensi', 'S01', 'Dimensi Out of Spec')`,
+			`INSERT INTO master_reasons (type, category, code, description) VALUES ('scrap', 'Visual', 'S02', 'Baret / Cacat Visual')`,
+			`INSERT INTO master_reasons (type, category, code, description) VALUES ('scrap', 'Material', 'S03', 'Cacat Material (Berpori)')`,
+			`INSERT INTO master_reasons (type, category, code, description) VALUES ('scrap', 'Lainnya', 'S99', 'Lainnya')`,
+		}
+		for _, s := range seeds {
+			_, _ = p.db.ExecContext(ctx, s)
+		}
+	}
+
+	return nil
 }
 
 // InsertAlarm menyimpan alarm baru
@@ -301,15 +359,15 @@ func (p *PostgresStore) InsertProductionLog(ctx context.Context, log *models.Pro
 	query := `
 		INSERT INTO production_logs
 			(machine_id, machine_name, work_order, part_number, shift, operator_id, qty_ok, qty_ng,
-			 cycle_time_actual, operating_time_min, downtime_min, downtime_category,
+			 cycle_time_actual, ideal_cycle_time_sec, operating_time_min, downtime_min, downtime_category,
 			 oee, availability, performance, quality, timestamp)
-		VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)
+		VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)
 		RETURNING id
 	`
 	var id int64
 	err := p.db.QueryRowContext(ctx, query,
 		log.MachineID, log.MachineName, log.WorkOrder, log.PartNumber, log.Shift, log.OperatorID,
-		log.QtyOK, log.QtyNG, log.CycleTimeActual, log.OperatingTimeMin, log.DowntimeMin,
+		log.QtyOK, log.QtyNG, log.CycleTimeActual, log.IdealCycleTimeSec, log.OperatingTimeMin, log.DowntimeMin,
 		log.DowntimeCategory, log.OEE, log.Availability, log.Performance, log.Quality, log.Timestamp,
 	).Scan(&id)
 	if err != nil {
@@ -320,13 +378,13 @@ func (p *PostgresStore) InsertProductionLog(ctx context.Context, log *models.Pro
 
 func (p *PostgresStore) InsertDowntimeLog(ctx context.Context, log *models.DowntimeLog) (int64, error) {
 	query := `
-		INSERT INTO downtime_logs (machine_id, category, reason, started_at, resolved_at, action_taken)
-		VALUES ($1,$2,$3,$4,$5,$6)
+		INSERT INTO downtime_logs (machine_id, work_order, operator_id, category, reason, started_at, resolved_at, action_taken)
+		VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
 		RETURNING id
 	`
 	var id int64
 	err := p.db.QueryRowContext(ctx, query,
-		log.MachineID, log.Category, log.Reason, log.StartedAt, log.ResolvedAt, log.ActionTaken,
+		log.MachineID, nullStr(log.WorkOrder), nullStr(log.OperatorID), log.Category, log.Reason, log.StartedAt, log.ResolvedAt, log.ActionTaken,
 	).Scan(&id)
 	if err != nil {
 		return 0, fmt.Errorf("insert downtime log gagal: %w", err)
@@ -337,21 +395,38 @@ func (p *PostgresStore) InsertDowntimeLog(ctx context.Context, log *models.Downt
 func (p *PostgresStore) GetProductionSummary(ctx context.Context, machineID string, day time.Time, shift int) (map[string]interface{}, error) {
 	query := `
 		SELECT
-			COALESCE(SUM(qty_ok), 0),
-			COALESCE(SUM(qty_ng), 0),
-			COALESCE(AVG(cycle_time_actual), 0),
-			COALESCE(SUM(operating_time_min), 0),
-			COALESCE(SUM(downtime_min), 0),
-			COALESCE(AVG(oee), 0)
+			COALESCE(qty_ok, 0),
+			COALESCE(qty_ng, 0),
+			COALESCE(cycle_time_actual, 0),
+			COALESCE(operating_time_min, 0),
+			COALESCE(downtime_min, 0),
+			COALESCE(oee, 0)
 		FROM production_logs
 		WHERE ($1 = '' OR machine_id = $1)
 		  AND DATE(timestamp AT TIME ZONE 'Asia/Jakarta') = $2
 		  AND ($3 = 0 OR shift = $3)
+		ORDER BY timestamp DESC
+		LIMIT 1
 	`
 	var qtyOK, qtyNG int
 	var cycleAvg, operating, downtime, oee float64
-	if err := p.db.QueryRowContext(ctx, query, machineID, day.Format("2006-01-02"), shift).
-		Scan(&qtyOK, &qtyNG, &cycleAvg, &operating, &downtime, &oee); err != nil {
+	err := p.db.QueryRowContext(ctx, query, machineID, day.Format("2006-01-02"), shift).
+		Scan(&qtyOK, &qtyNG, &cycleAvg, &operating, &downtime, &oee)
+		
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return map[string]interface{}{
+				"machine_id":         machineID,
+				"date":               day.Format("2006-01-02"),
+				"shift":              shift,
+				"qty_ok":             0,
+				"qty_ng":             0,
+				"avg_cycle_time":     0.0,
+				"operating_time_min": 0.0,
+				"downtime_min":       0.0,
+				"avg_oee":            0.0,
+			}, nil
+		}
 		return nil, err
 	}
 
@@ -491,10 +566,10 @@ func (p *PostgresStore) ListOperators(ctx context.Context) ([]models.Operator, e
 func (p *PostgresStore) InsertOperatorCheckin(ctx context.Context, c *models.OperatorCheckin) (int64, error) {
 	var id int64
 	err := p.db.QueryRowContext(ctx, `
-		INSERT INTO operator_checkins (machine_id, operator_id, shift, work_order, part_number, target_qty)
-		VALUES ($1, $2, $3, $4, $5, $6)
+		INSERT INTO operator_checkins (machine_id, operator_id, shift, work_order, part_number, target_qty, ideal_cycle_time_sec)
+		VALUES ($1, $2, $3, $4, $5, $6, $7)
 		RETURNING id
-	`, c.MachineID, nullStr(c.OperatorID), c.Shift, nullStr(c.WorkOrder), nullStr(c.PartNumber), c.TargetQty).
+	`, c.MachineID, nullStr(c.OperatorID), c.Shift, nullStr(c.WorkOrder), nullStr(c.PartNumber), c.TargetQty, c.IdealCycleTimeSec).
 		Scan(&id)
 	return id, err
 }
@@ -503,7 +578,7 @@ func (p *PostgresStore) GetCurrentCheckin(ctx context.Context, machineID string)
 	row := p.db.QueryRowContext(ctx, `
 		SELECT id, machine_id, COALESCE(operator_id,''), shift,
 		       COALESCE(work_order,''), COALESCE(part_number,''), COALESCE(target_qty, 0),
-		       checked_in_at, checked_out_at
+		       COALESCE(ideal_cycle_time_sec, 0.0), checked_in_at, checked_out_at
 		FROM operator_checkins
 		WHERE machine_id = $1 AND checked_out_at IS NULL
 		ORDER BY checked_in_at DESC LIMIT 1
@@ -511,7 +586,7 @@ func (p *PostgresStore) GetCurrentCheckin(ctx context.Context, machineID string)
 
 	var c models.OperatorCheckin
 	var outAt sql.NullTime
-	if err := row.Scan(&c.ID, &c.MachineID, &c.OperatorID, &c.Shift, &c.WorkOrder, &c.PartNumber, &c.TargetQty, &c.CheckedInAt, &outAt); err != nil {
+	if err := row.Scan(&c.ID, &c.MachineID, &c.OperatorID, &c.Shift, &c.WorkOrder, &c.PartNumber, &c.TargetQty, &c.IdealCycleTimeSec, &c.CheckedInAt, &outAt); err != nil {
 		if err == sql.ErrNoRows {
 			return nil, nil
 		}
@@ -524,10 +599,41 @@ func (p *PostgresStore) GetCurrentCheckin(ctx context.Context, machineID string)
 }
 
 func (p *PostgresStore) CheckoutOperator(ctx context.Context, checkinID int64) error {
-	_, err := p.db.ExecContext(ctx, `
-		UPDATE operator_checkins SET checked_out_at = NOW() WHERE id = $1 AND checked_out_at IS NULL
-	`, checkinID)
+	// First, fetch the checkin info
+	var machineID string
+	var checkedInAt time.Time
+	err := p.db.QueryRowContext(ctx, "SELECT machine_id, checked_in_at FROM operator_checkins WHERE id = $1", checkinID).Scan(&machineID, &checkedInAt)
+	if err != nil {
+		return err
+	}
+
+	// Fetch final quantities from production logs for this session
+	var finalOK, finalNG int
+	_ = p.db.QueryRowContext(ctx, `
+		SELECT COALESCE(qty_ok, 0), COALESCE(qty_ng, 0)
+		FROM production_logs
+		WHERE machine_id = $1 AND timestamp >= $2
+		ORDER BY timestamp DESC
+		LIMIT 1
+	`, machineID, checkedInAt).Scan(&finalOK, &finalNG)
+
+	_, err = p.db.ExecContext(ctx, `
+		UPDATE operator_checkins 
+		SET checked_out_at = NOW(), actual_qty_ok = $2, actual_qty_ng = $3
+		WHERE id = $1 AND checked_out_at IS NULL
+	`, checkinID, finalOK, finalNG)
 	return err
+}
+
+func (p *PostgresStore) InsertScrapLog(ctx context.Context, log *models.ScrapLog) (int64, error) {
+	query := `
+		INSERT INTO scrap_logs (machine_id, work_order, reason, qty, timestamp)
+		VALUES ($1, $2, $3, $4, COALESCE($5, NOW()))
+		RETURNING id
+	`
+	var id int64
+	err := p.db.QueryRowContext(ctx, query, log.MachineID, nullStr(log.WorkOrder), log.Reason, log.Qty, log.Timestamp).Scan(&id)
+	return id, err
 }
 
 func (p *PostgresStore) ResolveDowntimeLog(ctx context.Context, id int64, actionTaken string) error {
@@ -729,4 +835,181 @@ func (p *PostgresStore) ListConnectionLogs(ctx context.Context, machineID, event
 	}
 
 	return logs, total, nil
+}
+
+// GetOpenDowntime returns an unresolved downtime log for a machine, if any
+func (p *PostgresStore) GetOpenDowntime(ctx context.Context, machineID string) (*models.DowntimeLog, error) {
+	query := `
+		SELECT id, machine_id, category, reason, started_at
+		FROM downtime_logs
+		WHERE machine_id = $1 AND resolved_at IS NULL
+		ORDER BY started_at DESC
+		LIMIT 1
+	`
+	var log models.DowntimeLog
+	err := p.db.QueryRowContext(ctx, query, machineID).Scan(
+		&log.ID, &log.MachineID, &log.Category, &log.Reason, &log.StartedAt,
+	)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, nil
+		}
+		return nil, err
+	}
+	return &log, nil
+}
+
+// ListOperatorCheckins returns the history of completed operator checkins
+func (p *PostgresStore) ListOperatorCheckins(ctx context.Context, limit, offset int) ([]*models.OperatorCheckin, int, error) {
+	// Query Count
+	var total int
+	if err := p.db.QueryRowContext(ctx, "SELECT COUNT(*) FROM operator_checkins WHERE checked_out_at IS NOT NULL").Scan(&total); err != nil {
+		return nil, 0, err
+	}
+
+	query := `
+		SELECT id, machine_id, operator_id, shift, work_order, part_number, target_qty, 
+		       COALESCE(actual_qty_ok, 0), COALESCE(actual_qty_ng, 0), checked_in_at, checked_out_at
+		FROM operator_checkins
+		WHERE checked_out_at IS NOT NULL
+		ORDER BY checked_out_at DESC
+		LIMIT $1 OFFSET $2
+	`
+	rows, err := p.db.QueryContext(ctx, query, limit, offset)
+	if err != nil {
+		return nil, 0, err
+	}
+	defer rows.Close()
+
+	var logs []*models.OperatorCheckin
+	for rows.Next() {
+		c := &models.OperatorCheckin{}
+		var outAt sql.NullTime
+		if err := rows.Scan(
+			&c.ID, &c.MachineID, &c.OperatorID, &c.Shift, &c.WorkOrder, &c.PartNumber, &c.TargetQty,
+			&c.ActualQtyOK, &c.ActualQtyNG, &c.CheckedInAt, &outAt,
+		); err != nil {
+			continue
+		}
+		if outAt.Valid {
+			c.CheckedOutAt = &outAt.Time
+		}
+		logs = append(logs, c)
+	}
+	return logs, total, nil
+}
+
+// ListMasterReasons returns predefined downtime or scrap reasons
+func (p *PostgresStore) ListMasterReasons(ctx context.Context, reasonType string) ([]models.MasterReason, error) {
+	query := `
+		SELECT id, type, category, code, description, is_active
+		FROM master_reasons
+		WHERE type = $1 AND is_active = true
+		ORDER BY id
+	`
+	rows, err := p.db.QueryContext(ctx, query, reasonType)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var reasons []models.MasterReason
+	for rows.Next() {
+		var r models.MasterReason
+		if err := rows.Scan(&r.ID, &r.Type, &r.Category, &r.Code, &r.Description, &r.IsActive); err != nil {
+			return nil, err
+		}
+		reasons = append(reasons, r)
+	}
+	return reasons, nil
+}
+
+// ListDowntimeLogs retrieves downtime history for admin dashboard
+func (p *PostgresStore) ListDowntimeLogs(ctx context.Context, limit, offset int) ([]models.DowntimeLog, int, error) {
+	var total int
+	if err := p.db.QueryRowContext(ctx, "SELECT COUNT(*) FROM downtime_logs").Scan(&total); err != nil {
+		return nil, 0, err
+	}
+
+	query := `
+		SELECT id, machine_id, category, reason, duration_min, start_time, end_time,
+		       COALESCE(action_taken,''), COALESCE(work_order,''), COALESCE(operator_id,'')
+		FROM downtime_logs
+		ORDER BY start_time DESC
+		LIMIT $1 OFFSET $2
+	`
+	rows, err := p.db.QueryContext(ctx, query, limit, offset)
+	if err != nil {
+		return nil, 0, err
+	}
+	defer rows.Close()
+
+	var logs []models.DowntimeLog
+	for rows.Next() {
+		var l models.DowntimeLog
+		var endAt sql.NullTime
+		if err := rows.Scan(&l.ID, &l.MachineID, &l.Category, &l.Reason, &l.DurationMin, &l.StartedAt, &endAt, &l.ActionTaken, &l.WorkOrder, &l.OperatorID); err != nil {
+			return nil, 0, err
+		}
+		if endAt.Valid {
+			l.ResolvedAt = &endAt.Time
+		}
+		logs = append(logs, l)
+	}
+	return logs, total, nil
+}
+
+// ListScrapLogs retrieves scrap/reject history for admin dashboard
+func (p *PostgresStore) ListScrapLogs(ctx context.Context, limit, offset int) ([]models.ScrapLog, int, error) {
+	var total int
+	if err := p.db.QueryRowContext(ctx, "SELECT COUNT(*) FROM scrap_logs").Scan(&total); err != nil {
+		return nil, 0, err
+	}
+
+	query := `
+		SELECT id, machine_id, COALESCE(work_order,''), reason, qty, timestamp
+		FROM scrap_logs
+		ORDER BY timestamp DESC
+		LIMIT $1 OFFSET $2
+	`
+	rows, err := p.db.QueryContext(ctx, query, limit, offset)
+	if err != nil {
+		return nil, 0, err
+	}
+	defer rows.Close()
+
+	var logs []models.ScrapLog
+	for rows.Next() {
+		var l models.ScrapLog
+		if err := rows.Scan(&l.ID, &l.MachineID, &l.WorkOrder, &l.Reason, &l.Qty, &l.Timestamp); err != nil {
+			return nil, 0, err
+		}
+		logs = append(logs, l)
+	}
+	return logs, total, nil
+}
+
+// GetCompletedWorkOrders returns a map of work orders that have met or exceeded their target qty
+func (p *PostgresStore) GetCompletedWorkOrders(ctx context.Context) (map[string]bool, error) {
+	query := `
+		SELECT work_order 
+		FROM operator_checkins 
+		WHERE work_order != '' 
+		GROUP BY work_order, target_qty 
+		HAVING SUM(actual_qty_ok) >= target_qty AND target_qty > 0
+	`
+	rows, err := p.db.QueryContext(ctx, query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	completed := make(map[string]bool)
+	for rows.Next() {
+		var wo string
+		if err := rows.Scan(&wo); err == nil {
+			completed[wo] = true
+		}
+	}
+	return completed, nil
 }

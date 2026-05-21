@@ -1,8 +1,10 @@
 package api
 
 import (
+	"encoding/json"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/yourorg/cnc-edge/internal/models"
@@ -63,6 +65,39 @@ func (s *Server) operatorCurrent(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": ch})
 }
 
+// GET /api/v1/operator/work-orders
+func (s *Server) operatorAvailableWorkOrders(c *gin.Context) {
+	payload, err := s.postgres.GetLatestWorkOrderPullSnapshot(c.Request.Context())
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal mengambil Work Order"})
+		return
+	}
+
+	if payload == nil {
+		c.JSON(http.StatusOK, gin.H{"data": []interface{}{}})
+		return
+	}
+
+	// Filter completed work orders
+	completed, _ := s.postgres.GetCompletedWorkOrders(c.Request.Context())
+	if len(completed) > 0 {
+		var woList []map[string]interface{}
+		if err := json.Unmarshal(payload, &woList); err == nil {
+			var filtered []map[string]interface{}
+			for _, wo := range woList {
+				woID, _ := wo["work_order"].(string)
+				if !completed[woID] {
+					filtered = append(filtered, wo)
+				}
+			}
+			c.JSON(http.StatusOK, filtered)
+			return
+		}
+	}
+
+	c.Data(http.StatusOK, "application/json", payload)
+}
+
 // POST /api/v1/operator/production-log — same payload as /api/v1/production/logs
 func (s *Server) operatorProductionLog(c *gin.Context) {
 	s.createProductionLog(c)
@@ -79,32 +114,19 @@ func (s *Server) operatorDowntime(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "machine_id, category, started_at required"})
 		return
 	}
+	checkin, _ := s.postgres.GetCurrentCheckin(c.Request.Context(), req.MachineID)
+	if checkin != nil {
+		req.WorkOrder = checkin.WorkOrder
+		req.OperatorID = checkin.OperatorID
+	}
 	id, err := s.postgres.InsertDowntimeLog(c.Request.Context(), &req)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 	req.ID = id
+	_ = s.postgres.EnqueueSync(c.Request.Context(), "downtime", "/production/downtime", req.MachineID, []byte(`{"id":`+strconv.FormatInt(id, 10)+`}`))
 	c.JSON(http.StatusCreated, gin.H{"message": "downtime stored", "data": req})
-}
-
-// PUT /api/v1/operator/downtime/:id/resolve
-func (s *Server) operatorDowntimeResolve(c *gin.Context) {
-	idStr := c.Param("id")
-	id, err := strconv.ParseInt(idStr, 10, 64)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid id"})
-		return
-	}
-	var body struct {
-		ActionTaken string `json:"action_taken"`
-	}
-	_ = c.ShouldBindJSON(&body)
-	if err := s.postgres.ResolveDowntimeLog(c.Request.Context(), id, body.ActionTaken); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"message": "downtime resolved", "id": id})
 }
 
 // GET /api/v1/operator/production/summary — proxy to same logic as production/summary
@@ -128,6 +150,7 @@ func (s *Server) operatorCheckout(c *gin.Context) {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
+		_ = s.postgres.EnqueueSync(ctx, "work_order", "/work-orders/complete", req.MachineID, []byte(`{"checkin_id":`+strconv.FormatInt(req.CheckinID, 10)+`}`))
 		c.JSON(http.StatusOK, gin.H{"message": "checked out"})
 		return
 	}
@@ -141,6 +164,7 @@ func (s *Server) operatorCheckout(c *gin.Context) {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
+		_ = s.postgres.EnqueueSync(ctx, "work_order", "/work-orders/complete", req.MachineID, []byte(`{"checkin_id":`+strconv.FormatInt(ch.ID, 10)+`}`))
 		c.JSON(http.StatusOK, gin.H{"message": "checked out", "checkin_id": ch.ID})
 		return
 	}
@@ -155,4 +179,103 @@ func (s *Server) operatorList(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": ops})
+}
+
+// GET /api/v1/operator/downtime/open
+func (s *Server) operatorDowntimeOpen(c *gin.Context) {
+	machineID := c.Query("machine_id")
+	if machineID == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "machine_id required"})
+		return
+	}
+	dl, err := s.postgres.GetOpenDowntime(c.Request.Context(), machineID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": dl})
+}
+
+// PUT /api/v1/operator/downtime/:id/resolve
+func (s *Server) operatorDowntimeResolve(c *gin.Context) {
+	idStr := c.Param("id")
+	id, err := strconv.ParseInt(idStr, 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid id"})
+		return
+	}
+	var body struct {
+		ActionTaken string `json:"action_taken"`
+	}
+	_ = c.ShouldBindJSON(&body)
+	if err := s.postgres.ResolveDowntimeLog(c.Request.Context(), id, body.ActionTaken); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "downtime resolved"})
+}
+
+// POST /api/v1/operator/scrap
+func (s *Server) operatorScrap(c *gin.Context) {
+	var req struct {
+		MachineID string `json:"machine_id" binding:"required"`
+		Reason    string `json:"reason" binding:"required"`
+		Qty       int    `json:"qty" binding:"required"`
+	}
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	checkin, _ := s.postgres.GetCurrentCheckin(c.Request.Context(), req.MachineID)
+	workOrder := ""
+	if checkin != nil {
+		workOrder = checkin.WorkOrder
+	}
+
+	scrap := &models.ScrapLog{
+		MachineID: req.MachineID,
+		WorkOrder: workOrder,
+		Reason:    req.Reason,
+		Qty:       req.Qty,
+		Timestamp: time.Now(),
+	}
+
+	id, err := s.postgres.InsertScrapLog(c.Request.Context(), scrap)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal menyimpan log reject: " + err.Error()})
+		return
+	}
+
+	_ = s.postgres.EnqueueSync(c.Request.Context(), "scrap", "/production/scrap", req.MachineID, []byte(`{"scrap_id":`+strconv.FormatInt(id, 10)+`}`))
+
+	c.JSON(http.StatusOK, gin.H{"message": "Produk Reject berhasil dicatat"})
+}
+
+// GET /api/v1/operator/master-reasons
+func (s *Server) operatorMasterReasons(c *gin.Context) {
+	category := c.Query("category")
+	reasons, err := s.postgres.ListMasterReasons(c.Request.Context(), category)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": reasons})
+}
+
+// GET /operator/:id
+func (s *Server) operatorTerminalHTML(c *gin.Context) {
+	machineID := c.Param("id")
+
+	cfg, err := s.postgres.GetMachineConfig(c.Request.Context(), machineID)
+	if err != nil || cfg == nil {
+		c.String(http.StatusNotFound, "Mesin tidak ditemukan")
+		return
+	}
+
+	c.HTML(http.StatusOK, "terminal.html", gin.H{
+		"MachineID":   cfg.ID,
+		"MachineName": cfg.Name,
+		"Status":      cfg.Enabled,
+	})
 }

@@ -68,6 +68,7 @@ func (c *Collector) Start() error {
 		t.Base + "/+/+/" + t.ToolSuffix:    {c.cfg.MQTT.QoSTool, c.handleTool},
 		t.Base + "/+/+/" + t.TimerSuffix:   {c.cfg.MQTT.QoSStatus, c.handleTimer},
 		t.Base + "/+/+/" + t.SpindleSuffix: {c.cfg.MQTT.QoSAxis, c.handleSpindle},
+		t.Base + "/+/+/production":         {c.cfg.MQTT.QoSStatus, c.handleProduction},
 	}
 
 	for topic, sub := range topics {
@@ -235,6 +236,42 @@ func (c *Collector) processAlarm(ctx context.Context, alarm *models.AlarmEvent) 
 		zap.String("message", alarm.Message),
 		zap.Int("code", alarm.Code),
 	)
+}
+
+// ─── Handler: Production Data ─────────────────────────────────────────────────
+
+func (c *Collector) handleProduction(client mqtt.Client, msg mqtt.Message) {
+	var record models.ProductionLog
+	if err := json.Unmarshal(msg.Payload(), &record); err != nil {
+		logger.Error("Parse production payload gagal", zap.Error(err))
+		return
+	}
+	record.Timestamp = time.Now()
+
+	// Hitung Shift berdasarkan jam (WIB / Local)
+	hour := record.Timestamp.Hour()
+	if hour >= 7 && hour < 15 {
+		record.Shift = 1
+	} else if hour >= 15 && hour < 23 {
+		record.Shift = 2
+	} else {
+		record.Shift = 3
+	}
+
+	ctx := context.Background()
+
+	// Simpan ke database Edge lokal untuk ditampilkan di Dashboard Edge
+	if _, err := c.postgres.InsertProductionLog(ctx, &record); err != nil {
+		logger.Error("Simpan production log ke Edge DB gagal", zap.Error(err))
+	}
+
+	if c.mango != nil {
+		if err := c.mango.EnqueueProductionRecord(ctx, &record); err != nil {
+			logger.Warn("Enqueue production log ke MANGO gagal", zap.Error(err))
+		} else {
+			logger.Debug("Production log disinkronkan ke MANGO", zap.String("machine", record.MachineID), zap.Float64("oee", record.OEE))
+		}
+	}
 }
 
 // ─── Handler: Tool Data ───────────────────────────────────────────────────────

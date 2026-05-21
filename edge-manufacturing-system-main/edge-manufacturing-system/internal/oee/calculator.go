@@ -124,13 +124,14 @@ func (c *Calculator) calculateAll() {
 			}
 			oeeVal = clamp((avail/100)*(perf/100)*(qual/100)*100, 0, 100)
 		} else {
-			// Jika sedang simulasi atau tidak ada data, kirim nilai simulasi agar dashboard MANGO tidak kosong
-			avail = 88.5
-			perf = 92.0
-			qual = 98.5
-			oeeVal = 80.2
-			qtyOk = 150
-			operating = 480 // 8 hours
+			// Jika mesin dalam status nyala (Enabled) tapi belum beroperasi (operating == 0),
+			// kirim metrik 0 sesuai standar (bukan nilai dummy).
+			avail = 0.0
+			perf = 0.0
+			qual = 0.0
+			oeeVal = 0.0
+			qtyOk = 0
+			operating = 0.0
 		}
 
 		if c.mango != nil {
@@ -181,9 +182,28 @@ func (c *Calculator) calculate(ctx context.Context, state *models.MachineState) 
 	shiftStart := time.Now().Truncate(time.Duration(c.cfg.OEE.ShiftHours) * time.Hour)
 	alarmCount, _ := c.postgres.CountAlarmsSince(ctx, state.MachineID, shiftStart)
 
+	// Cek apakah ada checkin aktif untuk mendapatkan Ideal Cycle Time
+	checkin, _ := c.postgres.GetCurrentCheckin(ctx, state.MachineID)
+	
 	availability := clamp(operatingMin/shiftMinutes*100, 0, 100)
-	performance := clamp(cuttingMin/operatingMin*100, 0, 100)
-	quality := 100.0 // default 100% — update jika ada scrap/reject data dari MES
+	
+	// Phase 5: OEE Performance sesuai standar ISA-95 jika data IdealCycleTime tersedia
+	performance := clamp(cuttingMin/operatingMin*100, 0, 100) // Fallback Default
+	quality := 100.0
+	
+	if checkin != nil {
+		if checkin.IdealCycleTimeSec > 0 {
+			totalQty := checkin.ActualQtyOK + checkin.ActualQtyNG
+			idealMin := checkin.IdealCycleTimeSec / 60.0
+			perfVal := (idealMin * float64(totalQty)) / operatingMin * 100
+			performance = clamp(perfVal, 0, 100)
+		}
+		
+		if (checkin.ActualQtyOK + checkin.ActualQtyNG) > 0 {
+			quality = float64(checkin.ActualQtyOK) / float64(checkin.ActualQtyOK + checkin.ActualQtyNG) * 100
+		}
+	}
+
 	oeeValue := (availability / 100) * (performance / 100) * (quality / 100) * 100
 
 	return &models.OEEMetrics{

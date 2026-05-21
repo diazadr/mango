@@ -154,35 +154,47 @@ type MachineState struct {
 }
 
 type ProductionLog struct {
-	ID               int64     `json:"id"`
-	MachineID        string    `json:"machine_id"`
-	MachineName      string    `json:"machine_name"`
-	WorkOrder        string    `json:"work_order"`
-	PartNumber       string    `json:"part_number"`
-	Shift            int       `json:"shift"`
-	OperatorID       string    `json:"operator_id"`
-	QtyOK            int       `json:"qty_ok"`
-	QtyNG            int       `json:"qty_ng"`
-	CycleTimeActual  float64   `json:"cycle_time_actual"`
-	OperatingTimeMin float64   `json:"operating_time_min"`
-	DowntimeMin      float64   `json:"downtime_min"`
-	DowntimeCategory string    `json:"downtime_category"`
-	OEE              float64   `json:"oee"`
-	Availability     float64   `json:"availability"`
-	Performance      float64   `json:"performance"`
-	Quality          float64   `json:"quality"`
-	Timestamp        time.Time `json:"timestamp"`
+	ID                int64     `json:"id"`
+	MachineID         string    `json:"machine_id"`
+	MachineName       string    `json:"machine_name"`
+	WorkOrder         string    `json:"work_order"`
+	PartNumber        string    `json:"part_number"`
+	Shift             int       `json:"shift"`
+	OperatorID        string    `json:"operator_id"`
+	QtyOK             int       `json:"qty_ok"`
+	QtyNG             int       `json:"qty_ng"`
+	CycleTimeActual   float64   `json:"cycle_time_actual"`
+	IdealCycleTimeSec float64   `json:"ideal_cycle_time_sec"`
+	OperatingTimeMin  float64   `json:"operating_time_min"`
+	DowntimeMin       float64   `json:"downtime_min"`
+	DowntimeCategory  string    `json:"downtime_category"`
+	OEE               float64   `json:"oee"`
+	Availability      float64   `json:"availability"`
+	Performance       float64   `json:"performance"`
+	Quality           float64   `json:"quality"`
+	Timestamp         time.Time `json:"timestamp"`
 }
 
 type DowntimeLog struct {
 	ID          int64      `json:"id"`
 	MachineID   string     `json:"machine_id"`
+	WorkOrder   string     `json:"work_order,omitempty"`
+	OperatorID  string     `json:"operator_id,omitempty"`
 	Category    string     `json:"category"`
 	Reason      string     `json:"reason"`
 	StartedAt   time.Time  `json:"started_at"`
 	ResolvedAt  *time.Time `json:"resolved_at,omitempty"`
 	ActionTaken string     `json:"action_taken"`
 	DurationMin float64    `json:"duration_min"`
+}
+
+type ScrapLog struct {
+	ID         int64     `json:"id"`
+	MachineID  string    `json:"machine_id"`
+	WorkOrder  string    `json:"work_order"`
+	Reason     string    `json:"reason"`
+	Qty        int       `json:"qty"`
+	Timestamp  time.Time `json:"timestamp"`
 }
 
 type SyncQueueItem struct {
@@ -211,15 +223,27 @@ type Operator struct {
 }
 
 type OperatorCheckin struct {
-	ID           int64      `json:"id"`
-	MachineID    string     `json:"machine_id"`
-	OperatorID   string     `json:"operator_id,omitempty"`
-	Shift        int        `json:"shift"`
-	WorkOrder    string     `json:"work_order,omitempty"`
-	PartNumber   string     `json:"part_number,omitempty"`
-	TargetQty    int        `json:"target_qty,omitempty"`
-	CheckedInAt  time.Time  `json:"checked_in_at"`
-	CheckedOutAt *time.Time `json:"checked_out_at,omitempty"`
+	ID                 int64      `json:"id"`
+	MachineID          string     `json:"machine_id"`
+	OperatorID         string     `json:"operator_id,omitempty"`
+	Shift              int        `json:"shift"`
+	WorkOrder          string     `json:"work_order,omitempty"`
+	PartNumber         string     `json:"part_number,omitempty"`
+	TargetQty          int        `json:"target_qty,omitempty"`
+	IdealCycleTimeSec  float64    `json:"ideal_cycle_time_sec,omitempty"`
+	ActualQtyOK        int        `json:"actual_qty_ok"`
+	ActualQtyNG        int        `json:"actual_qty_ng"`
+	CheckedInAt        time.Time  `json:"checked_in_at"`
+	CheckedOutAt       *time.Time `json:"checked_out_at,omitempty"`
+}
+
+type MasterReason struct {
+	ID          int64  `json:"id"`
+	Type        string `json:"type"`     // 'downtime' or 'scrap'
+	Category    string `json:"category"` // e.g. 'Setup', 'Breakdown', 'Material'
+	Code        string `json:"code"`     // e.g. 'D01', 'S01'
+	Description string `json:"description"`
+	IsActive    bool   `json:"is_active"`
 }
 
 // MachineConfigRow mirrors machine_configs table (JSON as raw strings for forms/API)

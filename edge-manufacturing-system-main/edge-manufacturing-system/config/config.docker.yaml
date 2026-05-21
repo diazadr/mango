@@ -1,8 +1,8 @@
 mqtt:
-  broker: "tls://j1618cec.ala.asia-southeast1.emqxsl.com:8883"
+  broker: "tcp://emqx:1883"
   client_id: "edge_core_subscriber_docker"
-  username: "imaschinelab"
-  password: "imaschinelab"
+  username: "admin"
+  password: "admin123"
   clean_session: false
   auto_reconnect: true
   qos_status: 1
@@ -12,7 +12,7 @@ mqtt:
 
 # Cloud MQTT
 cloud_mqtt:
-  enabled: true
+  enabled: false
   broker: "tls://j1618cec.ala.asia-southeast1.emqxsl.com:8883"
   client_id: "edge_core_cloud_forwarder"
   username: "imaschinelab"
@@ -45,7 +45,7 @@ mango:
   enabled: true
   # host.docker.internal / host.containers.internal mengarah ke IP host
   base_url: "http://host.docker.internal:8000/api/v1/integrations/edge"
-  api_key: "cnc-edge-secret-key-2024"
+  api_key: "edge_4ZzOdnFc91cfuny8mP0YlB1PAYwoRRoamET99yWw"
   site_id: "POLMAN_BANDUNG_EDGE"
   push_production_interval: 30
   push_oee_on_shift_end: true
@@ -63,7 +63,7 @@ mango:
     oee: "oee_percentage"
 
 machines:
-  - id: "dmg_mori_ntx1000"
+  - id: "MCH-01"
     name: "DMG Mori NTX 1000"
     type: "dmg_mori"
     enabled: true
